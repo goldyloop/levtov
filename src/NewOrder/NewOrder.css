@@ -1,0 +1,23 @@
+.new-order-form{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid blue;
+    border-radius: 10px;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px;
+}
+.div-inputs{
+    margin: 5px;
+    width: 90%;
+}
+.text-filds{
+    margin: 0px;
+    width: 90%;
+    /* background-color: cadetblue; */
+}
+#submit{
+    background-color: #820606;
+}
