@@ -1,0 +1,31 @@
+.allRooms {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.rooms {
+    border: 1px solid black;
+    width: 350px;
+    margin-bottom: 5px;
+}
+
+#full {
+    border: red solid 3px;
+}
+
+#empty-not-cleen {
+    border: 3px orange solid;
+}
+
+#empty-cleen-not-ready {
+    border: 3px yellow solid;
+}
+
+#ready {
+    border: 3px green solid;
+}
