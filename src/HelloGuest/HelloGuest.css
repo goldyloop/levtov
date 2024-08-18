@@ -1,0 +1,43 @@
+
+body{
+    font-size: 35px;
+    font-family:'CustomFont';
+    font-size-adjust: none;
+}
+h2{
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#name{
+    text-align: center;
+    margin: 1.5px;
+}
+#exit{
+    position: absolute;
+    top: 89%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 50px;
+    font-size: 35px;
+}
+#exitTxt{
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#greetingTxt{
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+@media only screen and (max-width: 800px){
+    
+
+}
+
