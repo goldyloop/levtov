@@ -1,23 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
+import NewOrder from './NewOrder/NewOrder';
+import RoomsMap from './RoomsMap/RoomsMap';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NewOrder arr={[1,2,3,4,5]}></NewOrder>
+      {/* <RoomsMap arr={[{id: 103, status: 1},{id: 105, status: 2},{id: 108, status: 2},{id: 115, status: 3}]}></RoomsMap> */}
     </div>
   );
 }
