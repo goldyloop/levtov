@@ -1,22 +1,30 @@
-
-#body{
-    font-size: 35px;
-    font-family:'CustomFont';
+body {
+    font-family: 'CustomFont';
     font-size-adjust: none;
-    
 }
-h2{
+
+
+#hello-Gust {
+    font-size: 35px;
+/*   font-family:'CustomFont';
+    font-size-adjust: none; */
+
+}
+
+h2 {
     position: absolute;
     top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: #b51c52; 
 }
-#name{
+
+#name {
     text-align: center;
     margin: 1.5px;
 }
-#exit{
+
+#exit {
     position: absolute;
     top: 89%;
     left: 50%;
@@ -26,7 +34,8 @@ h2{
     font-size: 35px;
     background-color: black;
 }
-#exitTxt{
+
+#exitTxt {
     position: absolute;
     top: 70%;
     left: 50%;
@@ -34,7 +43,8 @@ h2{
     color: black;
   
 }
-#greetingTxt{
+
+#greetingTxt {
     position: absolute;
     top: 45%;
     left: 50%;
@@ -53,3 +63,4 @@ h2{
 
 }
 
+@media only screen and (max-width: 800px) {}

@@ -9,8 +9,10 @@ import '../All.css';
 
 const HelloGuest = (props) => {
     return (
+        <div id='hello-Gust'>
         <div id='body'>
             <img id='logoLev' src={LogoLev} alt="Description of the image" />
+
 
             <logoLev />
             <IconButton id='hIcon' >
