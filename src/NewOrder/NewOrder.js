@@ -12,7 +12,6 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 
-import "../All.css"
 import "./NewOrder.css"
 import LogoLev from '../LogoLev.png';
 
