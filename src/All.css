@@ -2,13 +2,12 @@
     font-family: 'CustomFont';
     src: url('fonts/Rubik-Regular.ttf') format('truetype');
 }
-#hIcon{
-    
+
+#hIcon{   
     margin: 2%;
     position: absolute;
     left: 0;
-    color: #f89619;
-    
+    color: #f89619;    
 }
 #logoLev{
     margin: 2%;
