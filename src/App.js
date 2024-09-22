@@ -1,7 +1,3 @@
-
-import logo from './logo.svg';
-// import './App.css';
-
 import HelloGuest from './HelloGuest/HelloGuest';
 import Management from './Management/Management';
 import OneOrder from './AllOrders/OneOrder';
@@ -20,9 +16,9 @@ function App() {
 
       <div className="App">
         {/* <NewOrder arr={[1, 2, 3, 4, 5]}></NewOrder> */}
-        <RoomsMap arr={rooms}></RoomsMap>
+        {/* <RoomsMap arr={rooms}></RoomsMap> */}
         {/* <HelloGuest roomNumber={105} name={"מוטי"} /> */}
-        {/* <Management/> */}
+        <Management/>
         {/* <OneOrder/> */}
       </div>
     </div>
@@ -34,6 +30,6 @@ function App() {
       {/* <NewOrder arr={[1,2,3,4,5]}></NewOrder> */}
       {/* <RoomsMap arr={[{id: 103, status: 1},{id: 105, status: 2},{id: 108, status: 2},{id: 115, status: 3}]}></RoomsMap> */}
       {/* <CustomizedTables/> */}
-    </div>
-  )}
+  //   </div>
+  // )}
 export default App;

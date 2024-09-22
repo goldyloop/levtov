@@ -28,6 +28,7 @@ const HelloGuest = (props) => {
             <h3 id='exitTxt'>בעזיבתך את דירת הארוח - נא הקש על יציאה</h3>
             <Button id='exit' variant="contained">יציאה</Button>
         </div>
+        </div>
     );
 }
 
