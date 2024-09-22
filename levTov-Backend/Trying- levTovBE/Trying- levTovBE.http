@@ -1,0 +1,6 @@
+@Trying__levTovBE_HostAddress = http://localhost:5039
+
+GET {{Trying__levTovBE_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,15 @@
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\BL\bin\Debug\net8.0\BL.deps.json
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\BL\bin\Debug\net8.0\BL.dll
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\BL\bin\Debug\net8.0\BL.pdb
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\BL\bin\Debug\net8.0\DAL.dll
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\BL\bin\Debug\net8.0\DAL.pdb
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\BL\obj\Debug\net8.0\BL.csproj.AssemblyReference.cache
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\BL\obj\Debug\net8.0\BL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\BL\obj\Debug\net8.0\BL.AssemblyInfoInputs.cache
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\BL\obj\Debug\net8.0\BL.AssemblyInfo.cs
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\BL\obj\Debug\net8.0\BL.csproj.CoreCompileInputs.cache
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\BL\obj\Debug\net8.0\BL.csproj.CopyComplete
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\BL\obj\Debug\net8.0\BL.dll
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\BL\obj\Debug\net8.0\refint\BL.dll
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\BL\obj\Debug\net8.0\BL.pdb
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\BL\obj\Debug\net8.0\ref\BL.dll

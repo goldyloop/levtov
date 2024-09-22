@@ -1,0 +1,36 @@
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\bin\Debug\net8.0\appsettings.json
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\bin\Debug\net8.0\Trying- levTovBE.exe
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\bin\Debug\net8.0\Trying- levTovBE.deps.json
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\bin\Debug\net8.0\Trying- levTovBE.runtimeconfig.json
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\bin\Debug\net8.0\Trying- levTovBE.dll
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\bin\Debug\net8.0\Trying- levTovBE.pdb
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\Trying- levTovBE.csproj.AssemblyReference.cache
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\Trying- levTovBE.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\Trying- levTovBE.AssemblyInfoInputs.cache
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\Trying- levTovBE.AssemblyInfo.cs
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\Trying- levTovBE.csproj.CoreCompileInputs.cache
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\Trying- levTovBE.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\Trying- levTovBE.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\staticwebassets\msbuild.Trying- levTovBE.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\staticwebassets\msbuild.build.Trying- levTovBE.props
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.Trying- levTovBE.props
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.Trying- levTovBE.props
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\scopedcss\bundle\Trying- levTovBE.styles.css
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\Trying- levTovBE.csproj.CopyComplete
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\Trying- levTovBE.dll
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\refint\Trying- levTovBE.dll
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\Trying- levTovBE.pdb
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\Trying- levTovBE.genruntimeconfig.cache
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\obj\Debug\net8.0\ref\Trying- levTovBE.dll
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\bin\Debug\net8.0\BL.dll
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\bin\Debug\net8.0\DAL.dll
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\bin\Debug\net8.0\BL.pdb
+C:\Users\חיה\OneDrive\שולחן העבודה\חיה\נתניה לב טוב\Trying- levTovBE\Trying- levTovBE\bin\Debug\net8.0\DAL.pdb
