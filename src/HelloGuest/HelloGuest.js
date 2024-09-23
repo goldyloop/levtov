@@ -4,12 +4,13 @@ import Button from '@mui/material/Button';
 import HomeIcon from '@mui/icons-material/Home';
 import IconButton from '@mui/material/IconButton';
 import LogoLev from '../LogoLev.png';
-
 import '../All.css';
 
 const HelloGuest = (props) => {
     return (
         <div id='hello-Gust'>
+            <img id='logoLev' src={LogoLev} alt="Description of the image" />
+
 
             <logoLev />
             <IconButton id='hIcon' >

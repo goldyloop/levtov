@@ -2,8 +2,8 @@ body{
     direction: rtl;
 }
 .button{ 
-    width: 25%;
-    height: 35vh; 
+    width: 100%;
+    height: 100%; 
     top: 35vh;
 }
 #allButtons{
@@ -17,6 +17,12 @@ body{
    background-color: #b51c52;  
    border-radius: 35px;
    font-size: 110%; 
+}
+link{
+    border: blue 2px solid;
+    width: 25%;
+    height: 35vh; 
+    top: 35vh;
 }
  @media only screen and (max-width: 800px){
     .button{

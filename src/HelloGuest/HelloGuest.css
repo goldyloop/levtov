@@ -8,8 +8,12 @@ body {
     
 }
 
+
 #hello-Gust {
     font-size: 35px;
+/*   font-family:'CustomFont';
+    font-size-adjust: none; */
+
 }
 
 h2 {
@@ -51,10 +55,5 @@ h2 {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    color: #b51c52;
-}
-@media only screen and (max-width: 800px){
-    
-
 }
 

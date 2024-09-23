@@ -3,23 +3,26 @@
     src: url('fonts/Rubik-Regular.ttf') format('truetype');
 }
 
-#hIcon{   
+#hIcon {
     margin: 2%;
     position: absolute;
     left: 0;
-    color: #f89619;    
+    color: #f89619;
 }
-#logoLev{
+
+#logoLev {
     margin: 2%;
     width: 240px;
     height: 180px;
     position: absolute;
     right: 0;
 }
-@media only screen and (max-width: 800px){
-   #logoLev{
-    width: 180px;
-    height: 140px;
-   }
+
+@media only screen and (max-width: 900px) {
+    #logoLev {
+        width: 180px;
+        height: 140px;
+        position: initial;
+    }
 
 }

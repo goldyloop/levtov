@@ -1,8 +1,10 @@
-#new-order-body{
+#new-order-body {
     display: grid;
-    grid-template-rows: 1fr 4fr;
+    /* grid-template-columns: 1fr 4fr; */
+    grid-auto-columns: minmax(70px, auto);
 }
-#new-order-form{
+
+#new-order-form {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -12,29 +14,61 @@
     width: 400px;
     margin-left: auto;
     margin-right: auto;
-    padding: 15px;
     margin-bottom: 100px;
-
+    margin-top: 10vh;
 }
 
-#new-order-form h1{
+#new-order-form h1 {
     color: #b51c52;
+    margin-bottom: 10px;
+    margin-top: 15px;
 }
 
-.div-inputs{
-    margin: 5px;
+.div-inputs {
+    margin-bottom: 9px;
     width: 90%;
 }
-.text-filds{
+
+
+.text-filds {
     margin: 0px;
     width: 90%;
     /* background-color: cadetblue; */
+    /* padding-bottom: 10px; */
+    /* margin: 0px; */
+
 }
-#submit{
-    margin-top: 10px;
+
+p{
+    font-size: 16px;
+    margin-top: 6px;
+    margin-bottom: 8px;
+    color: red;
+}
+
+#submit {
+    margin-bottom: 10px;
     background-color: #f99519;
 }
+
 /* #filds{
     color: aqua;
     border-color: aqua;
 } */
+@media only screen and (max-width: 1000px) {
+    #logoLev {
+        width: 180px;
+        height: 140px;
+        position: initial;
+    }
+    #new-order-form {
+        margin-top: 5px;
+    }
+
+}
+
+@media only screen and (max-width: 700px) {
+    #new-order-form {
+        width: 80%;
+    }
+}
