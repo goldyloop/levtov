@@ -1,0 +1,31 @@
+#div-img {
+    display: inline;
+
+}
+
+#logoLev {
+    margin: 2%;
+    width: 200px;
+    height: auto;
+    max-width: 100%;
+    position: absolute;
+    display: inline;
+}
+
+
+
+@media only screen and (max-width: 900px) {
+    #div-img {
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+
+    #logoLev {
+        margin-top: 7px;
+        width: 140px;
+        height: auto;
+        position: static;
+    }
+
+}
