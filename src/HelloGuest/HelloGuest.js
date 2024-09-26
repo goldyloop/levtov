@@ -1,21 +1,26 @@
-import './HelloGuest.css';
+
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import HomeIcon from '@mui/icons-material/Home';
 import IconButton from '@mui/material/IconButton';
+import { Link } from "react-router-dom";
 import LogoLev from '../LogoLev.png';
+import Logo from '../Logo/Logo';
 import '../All.css';
+import './HelloGuest.css';
 
 const HelloGuest = (props) => {
     return (
-        <div id='hello-Gust'>
-            <img id='logoLev' src={LogoLev} alt="Description of the image" />
+        <div id='hello-gust-body'>
+            {/* <img id='logoLev' src={LogoLev} alt="Description of the image" /> */}
 
-
-            <logoLev />
-            <IconButton id='hIcon' >
-                <HomeIcon sx={{ fontSize: 60 }} />
-            </IconButton>
+            <Logo></Logo>
+            {/* <logoLev /> */}
+            <Link to="/" style={{ textDecoration: 'none' }}>
+                <IconButton id='hIcon' >
+                    <HomeIcon sx={{ fontSize: 60 }} />
+                </IconButton>
+            </Link>
 
             <h2 >
                 <div id='name'>  שלום {props.name},

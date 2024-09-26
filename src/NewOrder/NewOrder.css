@@ -1,37 +1,48 @@
 #new-order-body {
+    
     display: grid;
-    /* grid-template-columns: 1fr 4fr; */
-    grid-auto-columns: minmax(70px, auto);
+    grid-template-rows: auto;
+  
 }
+
 
 #new-order-form {
     align-items: center;
     display: flex;
     flex-direction: column;
-    border: 4px solid #f99519;
+    border: 2px solid #f99519;
     box-shadow: 0px 0px 8px 8px #dec9b2;
     border-radius: 10px;
-    width: 400px;
+    width: 385px;
+    margin-bottom: 10px;
+    margin-top: 10vh;
+    max-height: 100%;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 100px;
-    margin-top: 10vh;
+
+}
+#form{
+
 }
 
 #new-order-form h1 {
     color: #b51c52;
     margin-bottom: 10px;
     margin-top: 15px;
+    align-items: center;
 }
 
 .div-inputs {
     margin-bottom: 9px;
     width: 90%;
+    align-items: center;
 }
 
 
 .text-filds {
     margin: 0px;
+    margin-left: auto;
+    margin-right: auto;
     width: 90%;
     /* background-color: cadetblue; */
     /* padding-bottom: 10px; */
@@ -39,7 +50,7 @@
 
 }
 
-p{
+p {
     font-size: 16px;
     margin-top: 6px;
     margin-bottom: 8px;
@@ -56,19 +67,28 @@ p{
     border-color: aqua;
 } */
 @media only screen and (max-width: 1000px) {
-    #logoLev {
+
+    /* #logoLev {
         width: 180px;
         height: 140px;
         position: initial;
-    }
+    } */
     #new-order-form {
-        margin-top: 5px;
+        /* margin-top: 5px; */
     }
 
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 900px) {
+    #new-order-form {
+        /* width: 80%; */
+        margin-top: 15px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
     #new-order-form {
         width: 80%;
+        /* margin-top: 5px; */
     }
 }

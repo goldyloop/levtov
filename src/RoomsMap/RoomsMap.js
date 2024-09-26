@@ -1,6 +1,8 @@
 import OneRoom from "./OneRoom";
-
-import LogoLev from '../LogoLev.png';
+import HomeIcon from '@mui/icons-material/Home';
+import IconButton from '@mui/material/IconButton';
+import { Link } from "react-router-dom";
+import Logo from "../Logo/Logo";
 import "../All.css"
 import "./RoomsMap.css"
 
@@ -11,10 +13,16 @@ const RoomsMap = (props) => {
     return (
         <div id="rooms-maps-body">
             <div id="top">
-                <div id="div-img">
+                <Logo></Logo>
+                {/* <div id="div-img">
                     <img id='logoLev' src={LogoLev} alt="Description of the image" />
-                </div>
-                <h1>מפת חדרים</h1>
+                </div> */}
+                <Link to="/" style={{ textDecoration: 'none' }}>
+                    <IconButton id='hIcon'>
+                        <HomeIcon sx={{ fontSize: 60 }} />
+                    </IconButton>
+                </Link>
+                <h1>מפת חדרים</h1>                
             </div>
 
             <div id="daily-task">

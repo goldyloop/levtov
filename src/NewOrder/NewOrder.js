@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
+import { Link } from "react-router-dom";
+import IconButton from '@mui/material/IconButton';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -12,10 +15,9 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import LogoLev from '../LogoLev.png';
-import "../All.css"
+import Logo from '../Logo/Logo';
+// import "../All.css"
 import "./NewOrder.css"
-
-
 
 const schema = yup.object({
     guestName: yup.string().required('שם המזמין הוא שדה חובה'),
@@ -28,39 +30,44 @@ const schema = yup.object({
         .email('מייל לא תקין')
     // .required('מייל הוא שדה חובה')
     ,
-    checkInDate: yup.date().typeError("הכנס תאריך תקין").required('יש לבחור תאריך'),
+    checkInDate: yup.date()
+        .typeError("הכנס תאריך תקין")
+        .required('יש לבחור תאריך')
+        .min(new Date(), 'התאריך שבחרת כבר עבר'), // תאריך לא יכול להיות בעבר,
     numOfNights: yup
         .number().typeError("הכנס מספר לילות")
         .min(1, 'מספר הלילות חייב להיות לפחות 1')
-    // .required('מספר הלילות הוא שדה חובה')
+        .required('מספר הלילות הוא שדה חובה')
     ,
     room: yup.string().required('יש לבחור חדר'),
 });
 
-
-
 const NewOrder = (props) => {
 
-    let { register, handleSubmit, formState: { errors } } = useForm({
-        mode: "onSubmit", resolver: yupResolver(schema)
+    let { register, handleSubmit, control, formState: { errors } } = useForm({
+        mode: "onBlur", resolver: yupResolver(schema)
     })
 
     const send = (data) => {
-        alert("הפרטים נשמרו")
+        alert("הפרטים נשמרו");
     }
+
+
 
     const [room, setRoom] = React.useState('');
 
-    const handleChange = (event) => {
-        setRoom(event.target.value);
-    };
-
+    // const handleChange = (event) => {
+    //     setRoom(event.target.value);
+    // };
 
     return (
         <div id='new-order-body'>
-            <div>
-                <img id='logoLev' src={LogoLev} alt="Description of the image" />
-            </div>
+            <Logo></Logo>
+            <Link to="/manager" style={{ textDecoration: 'none' }}>
+                <IconButton id='hIcon'>
+                    <ArrowBackIosIcon sx={{ fontSize: 60 }} />
+                </IconButton>
+            </Link>
             <form onSubmit={handleSubmit(send)} id='new-order-form'>
 
                 <h1>הזמנה חדשה</h1>
@@ -81,8 +88,18 @@ const NewOrder = (props) => {
                 </div>
 
                 <div className='div-inputs'>
-                    <LocalizationProvider dateAdapter={AdapterDayjs} >
-                        <DatePicker className='text-filds' variant="outlined" {...register("checkInDate")}/>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <Controller
+                            name="checkInDate"
+                            control={control}
+                            render={({ field }) => (
+                                <DatePicker
+                                    className='text-filds'
+                                    {...field}
+                                    renderInput={(params) => <TextField {...params} />}
+                                />
+                            )}
+                        />
                     </LocalizationProvider>
                     {errors.checkInDate && <p>{errors.checkInDate.message}</p>}
                 </div>
@@ -92,7 +109,7 @@ const NewOrder = (props) => {
                     {errors.numOfNights && <p>{errors.numOfNights.message}</p>}
                 </div>
 
-                <div className='div-inputs'>
+                {/* <div className='div-inputs'>
                     <FormControl className='text-filds' >
                         <InputLabel id="demo-simple-select-helper-label">חדר </InputLabel>
                         <Select
@@ -101,13 +118,35 @@ const NewOrder = (props) => {
                             value={room}
                             label="חדר "
                             onChange={handleChange}
-                            variant="outlined"
-                            {...register("room")}
+                        // required
+                        // variant="outlined"
                         >
                             {props.arr && props.arr != [] ? props.arr.map((item) => (
-                                <MenuItem value={item}> {item.number}</MenuItem>
+                                <MenuItem value={item}> {item}</MenuItem>
                             )) : 'אין חדרים פנויים ביום זה...'}
                         </Select>
+                        {errors.room && <p>{errors.room.message}</p>}
+                    </FormControl>
+                </div> */}
+                <div className='div-inputs'>
+                    <FormControl className='text-filds'>
+                        <InputLabel id="room-select-label">חדר</InputLabel>
+                        <Controller
+                            name="room"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    labelId="room-select-label"
+                                    value={field.value || ''}
+                                    label="חדר"
+                                    onChange={field.onChange}
+                                >
+                                    {props.arr && props.arr.length > 0 ? props.arr.map((item) => (
+                                        <MenuItem key={item} value={item}>{item}</MenuItem>
+                                    )) : <MenuItem value="">אין חדרים פנויים ביום זה...</MenuItem>}
+                                </Select>
+                            )}
+                        />
                         {errors.room && <p>{errors.room.message}</p>}
                     </FormControl>
                 </div>

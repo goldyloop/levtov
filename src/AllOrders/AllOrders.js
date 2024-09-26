@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
+import { Link } from "react-router-dom";
+import IconButton from '@mui/material/IconButton';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
@@ -8,11 +11,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { width } from '@mui/system';
+import { type } from '@testing-library/user-event/dist/type';
 import LogoLev from '../LogoLev.png';
+import Logo from '../Logo/Logo';
 
 import '../All.css';
 import AllOrders from './AllOrders.css';
-import { type } from '@testing-library/user-event/dist/type';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -51,32 +55,38 @@ const rows = [
 export default function CustomizedTables() {
     return (
         <div id='all'>
-            <img id='logoLev' src={LogoLev} alt="Description of the image" />
+            {/* <img id='logoLev' src={LogoLev} alt="Description of the image" /> */}
+            <Logo></Logo>
+            <Link to="/manager" style={{ textDecoration: 'none' }}>
+                <IconButton id='hIcon'>
+                    <ArrowBackIosIcon sx={{ fontSize: 60 }} />
+                </IconButton>
+            </Link>
             <h1 id='h1'>טבלת הזמנות</h1>
             <div id='allTable' >
                 <TableContainer>
                     <Table>
                         <TableHead>
                             <TableRow >
-                                <StyledTableCell align="right">שם המזמין</StyledTableCell>
-                                <StyledTableCell align="right">טלפון</StyledTableCell>
-                                <StyledTableCell align="right">מייל</StyledTableCell>
-                                <StyledTableCell align="right">מספר לילות</StyledTableCell>
-                                <StyledTableCell align="right">חדר</StyledTableCell>
-                                <StyledTableCell align="right">תאריך</StyledTableCell>
+                                <StyledTableCell className='td' align="right">שם המזמין</StyledTableCell>
+                                <StyledTableCell className='td' align="right">טלפון</StyledTableCell>
+                                <StyledTableCell className='td' align="right">מייל</StyledTableCell>
+                                <StyledTableCell className='td' align="right">מספר לילות</StyledTableCell>
+                                <StyledTableCell className='td' align="right">חדר</StyledTableCell>
+                                <StyledTableCell className='td' align="right">תאריך</StyledTableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {rows.map((row) => (
                                 <StyledTableRow key={row.name}>
-                                    <StyledTableCell component="th" scope="row">
+                                    <StyledTableCell className='td' component="th" scope="row">
                                         {row.name}
                                     </StyledTableCell>
-                                    <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                                    <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                                    <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-                                    <StyledTableCell align="right">{row.protein}</StyledTableCell>
-                                    <StyledTableCell align="right">{row.date_}</StyledTableCell>
+                                    <StyledTableCell className='td' align="right">{row.calories}</StyledTableCell>
+                                    <StyledTableCell className='td' align="right">{row.fat}</StyledTableCell>
+                                    <StyledTableCell className='td' align="right">{row.carbs}</StyledTableCell>
+                                    <StyledTableCell className='td' align="right">{row.protein}</StyledTableCell>
+                                    <StyledTableCell className='td' align="right">{row.date_}</StyledTableCell>
 
                                 </StyledTableRow>
                             ))}

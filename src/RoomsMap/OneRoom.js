@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+import "./OneRoom.css"
+
 
 const OneRoom = (props) => {
 
@@ -16,32 +19,34 @@ const OneRoom = (props) => {
         <div className="rooms" id={id}>
             <h3 id="room-title">{`חדר ${room.id}`}</h3>
             <h4 id="room-remark">{remark}</h4>
-            
+
+            {/* <div id='room-condition'> */}
             <FormControl sx={{
-                m: 1, minWidth: 120, '& .MuiSelect-icon': {color: 'white', // שנה כאן לצבע הרצוי
+                m: 1, minWidth: 15, '& .MuiSelect-icon': {
+                    color: 'white', // שנה כאן לצבע הרצוי
                 },
             }}>
+
                 <Select
-                    
-                    id="demo-simple-select"
+                    id="edit-buttom"
                     value=""
                     onChange={handleChange}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}
                     sx={{
                         '& .MuiOutlinedInput-notchedOutline': {
-                            borderColor: 'black', // שנה כאן את הצבע
+                            borderColor: 'white', // שנה כאן את הצבע
                         },
                         '&:hover .MuiOutlinedInput-notchedOutline': {
-                            borderColor: 'black', // צבע בזמן ריחוף
+                            borderColor: 'white', // צבע בזמן ריחוף
                         },
                         '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                            borderColor: 'black', // צבע בזמן פוקוס
+                            borderColor: 'white', // צבע בזמן פוקוס
                         },
                     }}
                 >
                     <MenuItem value="">
-                        <em>עידכון מצב החדר</em>
+                        <ModeEditOutlineIcon></ModeEditOutlineIcon>
                     </MenuItem>
                     <MenuItem className='situations' id='if-full' value={10}>מלא</MenuItem>
                     <MenuItem className='situations' id='if-need-clean' value={20}>פנוי וזקוק לניקיון</MenuItem>
@@ -49,6 +54,8 @@ const OneRoom = (props) => {
                     <MenuItem className='situations' id='if-ready' value={40}>החדר מוכן</MenuItem>
                 </Select>
             </FormControl>
+
+            {/* </div> */}
         </div>
     );
 }
