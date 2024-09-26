@@ -1,14 +1,25 @@
-
+#all{
+    /* background-color: #b23636; */
+    display: grid;
+    grid-template-rows: auto;
+}
 #allTable{
-    width: 75%; 
+    width: 90%; 
     margin: auto;
 
 }
 #h1{
     text-align: center;
-    /* margin-top: 7%; */
+    margin-top: 121px;
 }
 /* #logoLev{
     width: 200px;
     height: 140px;
 } */
+
+@media only screen and (max-width: 900px) {
+    #h1{
+    text-align: center;
+    margin-top: 12px;
+}
+}

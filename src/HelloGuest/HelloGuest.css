@@ -1,14 +1,18 @@
 body {
     font-family: 'CustomFont';
-    font-size-adjust: none;
 }
 
+#body {}
 
-#hello-Gust {
+
+#hello-gust-body {
     font-size: 35px;
-/*   font-family:'CustomFont';
+    font-family: 'CustomFont';
+    font-size-adjust: none;
+    font-size: 35px;
+    /*   font-family:'CustomFont';
     font-size-adjust: none; */
-
+    /*  */
 }
 
 h2 {
@@ -16,7 +20,7 @@ h2 {
     top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #b51c52; 
+    color: #b51c52;
 }
 
 #name {
@@ -41,7 +45,7 @@ h2 {
     left: 50%;
     transform: translate(-50%, -50%);
     color: black;
-  
+
 }
 
 #greetingTxt {
@@ -50,17 +54,4 @@ h2 {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    color: #b51c52;
 }
-@media only screen and (max-width: 800px){
-    #body{
-        font-size: 25px;
-        text-align: center;
-    }
-    #greetingTxt{
-        top: 48%;
-    }
-
-}
-
-@media only screen and (max-width: 800px) {}
