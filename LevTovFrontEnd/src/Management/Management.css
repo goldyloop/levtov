@@ -1,5 +1,8 @@
 #managment-body{
     direction: rtl;
+    
+    display: grid;
+    grid-template-rows: auto;
 }
 .button{ 
     width: 100%;
