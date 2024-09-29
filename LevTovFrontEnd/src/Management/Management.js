@@ -5,6 +5,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import IconButton from '@mui/material/IconButton';
 import { Link } from "react-router-dom";
 import LogoLev from '../LogoLev.png';
+// import HomeButton from '../BackButtons/HomeButton.js';
 import Logo from '../Logo/Logo';
 import '../All.css';
 import './Management.css';
@@ -15,6 +16,7 @@ const Management = () => {
     return (
         <div id='managment-body'>
             <Logo></Logo>
+            {/* <HomeButton></HomeButton> */}
             {/* <img id='logoLev' src={LogoLev} alt="Description of the image" /> */}
             <Link to="/" style={{ textDecoration: 'none' }}>
                 <IconButton id='hIcon' >
