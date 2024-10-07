@@ -25,11 +25,11 @@ yarn-error.log*
 
 # Visual Studio
 .vs/
-*.sln
+# *.sln
 *.suo
 *.user
 *.userosscache
-*.sln.docstates
+# *.sln.docstates
 
 # Build results
 [Bb]in/
