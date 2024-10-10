@@ -31,6 +31,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 builder.Services.AddScoped<RoomService>();
 builder.Services.AddScoped<RoomRepository>();
 
+builder.Services.AddScoped<OrderService>();
+builder.Services.AddScoped<OrderRepository>();
+
+
+
 
 builder.Services.AddScoped<HelloWorldService>();
 builder.Services.AddScoped<HelloWorldRepository>();
