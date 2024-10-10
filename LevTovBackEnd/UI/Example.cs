@@ -1,7 +1,7 @@
 ﻿using BL;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Controllers
+namespace UI
 {
     [Route("api/[controller]")]
     [ApiController]
