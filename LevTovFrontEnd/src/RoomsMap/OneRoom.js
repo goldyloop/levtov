@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from 'axios';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import "./OneRoom.css"
@@ -7,17 +8,46 @@ import "./OneRoom.css"
 const OneRoom = (props) => {
 
     const [status, setStatus] = React.useState('');
+    let newRoom={}
 
-    const handleChange = (event) => {
+    const changeStatus = (event) => {
         setStatus(event.target.value);
+        newRoom={roomId:1, roomStatus:{status}}
+        axios.put('https://localhost:7279/api/Room/update/1',newRoom,
+        {headers: {
+            'Content-Type': 'application/json', // הגדרת סוג התוכן
+        },}
+    ).then(res => {
+            
+        })
+            .catch(err => {
+                alert(err)
+            })
     };
 
     let room = props.room
-    let id = room.status == 1 ? "full" : room.status == 2 ? "empty-not-cleen" : room.status == 3 ? "empty-cleen-not-ready" : "ready";
-    let remark = room.status == 1 ? "החדר מלא" : room.status == 2 ? "החדר פנוי וזקוק לניקיון" : room.status == 3 ? "החדר נקי ללא מצעים" : "החדר מוכן";;
+    let id = room.status == "f" ? "full" : room.status == "e" ? "empty-not-cleen" : room.status == "c" ? "empty-cleen-not-ready" : "ready";
+    let remark = room.status == "f" ? "החדר מלא" : room.status == "e" ? "החדר פנוי וזקוק לניקיון" : room.status == "c" ? "החדר נקי ללא מצעים" : "החדר מוכן";
+
+    
+
+    // const changeStatus = (event) => {
+    // let newRoom={roomId:1, roomStatus:"e"}
+    //     axios.put('https://localhost:7279/api/Room/update/1',newRoom,
+    //     {headers: {
+    //         'Content-Type': 'application/json', // הגדרת סוג התוכן
+    //     },}
+    // ).then(res => {
+            
+    //     })
+    //         .catch(err => {
+    //             alert(err)
+    //         })
+    // }
+
     return (
         <div className="rooms" id={id}>
-            <h3 id="room-title">{`חדר ${room.id}`}</h3>
+            <h3 id="room-title">{`חדר ${room.roomId}`}</h3>
             <h4 id="room-remark">{remark}</h4>
 
             {/* <div id='room-condition'> */}
@@ -30,7 +60,7 @@ const OneRoom = (props) => {
                 <Select
                     id="edit-buttom"
                     value=""
-                    onChange={handleChange}
+                    onChange={changeStatus}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}
                     sx={{
@@ -48,10 +78,10 @@ const OneRoom = (props) => {
                     <MenuItem value="">
                         <ModeEditOutlineIcon></ModeEditOutlineIcon>
                     </MenuItem>
-                    <MenuItem className='situations' id='if-full' value={10}>מלא</MenuItem>
-                    <MenuItem className='situations' id='if-need-clean' value={20}>פנוי וזקוק לניקיון</MenuItem>
-                    <MenuItem className='situations' id='if-clean' value={30}>החדר נקי ללא מצעים</MenuItem>
-                    <MenuItem className='situations' id='if-ready' value={40}>החדר מוכן</MenuItem>
+                    <MenuItem onClick={changeStatus} className='situations' id='if-full' value={"f"}>מלא</MenuItem>
+                    <MenuItem onClick={changeStatus} className='situations' id='if-need-clean' value={"e"}>פנוי וזקוק לניקיון</MenuItem>
+                    <MenuItem onClick={changeStatus} className='situations' id='if-clean' value={"c"}>החדר נקי ללא מצעים</MenuItem>
+                    <MenuItem onClick={changeStatus} className='situations' id='if-ready' value={"r"}>החדר מוכן</MenuItem>
                 </Select>
             </FormControl>
 

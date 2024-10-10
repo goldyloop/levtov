@@ -18,11 +18,32 @@ namespace BL
             roomRepository = roomRepository_;
         }
 
-        public Task<IEnumerable<Room>> GetRoom()
+        public Task<IEnumerable<Room>> GetAllRooms()
         {
             // כאן ניתן להוסיף לוגיקה נוספת לפי הצורך
             // קריאה לשכבת ה-DAL לקבלת הנתונים
             return roomRepository.ReadAllAsync();
         }
+
+        public Task<Room> GetRoom(int id)
+        {
+            return roomRepository.ReadAsync(id);
+        }
+
+        public Task<Room> CreateRoom(Room item)
+        {
+            return roomRepository.CreateAsync(item);
+        }
+
+        public Task<bool> DeleteRoom(int id)
+        {
+            return roomRepository.DeleteAsync(id);
+        }
+
+        public Task<Room> UpdateRoom(int id, Room item)
+        {
+            return roomRepository.UpdateAsync(id, item);
+        }
     }
 }
+

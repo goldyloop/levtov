@@ -5,6 +5,21 @@ using BL;
 using DAL.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// δερτϊ CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder => builder.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader());
+});
+
+//builder.Services.AddControllers();
+
+
+//λλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλλ
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -20,8 +35,16 @@ builder.Services.AddScoped<RoomRepository>();
 builder.Services.AddScoped<HelloWorldService>();
 builder.Services.AddScoped<HelloWorldRepository>();
 
+//var app = builder.Build();
 var app = builder.Build();
 
+app.UseCors("AllowAllOrigins");
+
+//app.UseAuthorization();
+
+//app.MapControllers();
+
+//app.Run();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
