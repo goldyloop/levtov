@@ -5,6 +5,7 @@ import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import "./OneRoom.css"
 
 
+
 const OneRoom = (props) => {
 
     const [status, setStatus] = React.useState('');
@@ -44,10 +45,11 @@ const OneRoom = (props) => {
     //             alert(err)
     //         })
     // }
-
+   
     return (
         <div className="rooms" id={id}>
-            <h3 id="room-title">{`חדר ${room.roomId}`}</h3>
+     
+            <h3 id="room-title">{`חדר ${room.id}`}</h3>
             <h4 id="room-remark">{remark}</h4>
 
             {/* <div id='room-condition'> */}

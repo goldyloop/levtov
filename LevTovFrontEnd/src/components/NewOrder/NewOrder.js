@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
-import LogoLev from '../LogoLev.png';
+//import LogoLev from '../LogoLev.png';
 import Logo from '../Logo/Logo';
 // import "../All.css"
 import "./NewOrder.css"

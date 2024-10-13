@@ -1,20 +1,27 @@
 import { Form, Route, Routes } from 'react-router-dom';
 import logo from './logo.svg';
-import HelloGuest from './HelloGuest/HelloGuest';
-import Management from './Management/Management';
-import Login from './Login/Login';
-import NewOrder from './NewOrder/NewOrder';
-import RoomsMap from './RoomsMap/RoomsMap';
+
+import HelloGuest from './components/HelloGuest/HelloGuest'
+import Management from './components/Management/Management';
+import Login from './components/Login/Login';
+import NewOrder from './components/NewOrder/NewOrder';
+import RoomsMap from './components/RoomsMap/RoomsMap';
 import { NavLink } from "react-router-dom";
-
+import {configureStore} from "@reduxjs/toolkit";
 import './App.css';
-import CustomizedTables from './AllOrders/AllOrders';
+import CustomizedTables from './components/AllOrders/AllOrders';
+import { Provider } from 'react-redux';
+import userSlice from './features/userSlice';
 
+const store=configureStore({
+  reducer:{userSlice}
+})
 
 function App() {
   let rooms= [{id: 103, status: 1},{id: 105, status: 2},{id: 108, status: 2},{id: 115, status: 3},{id: 116, status: 1},{id: 117, status: 2},{id: 118, status: 4},{id: 119, status: 4}]
   return (
-      <div className="App">
+    
+      <Provider store={store}>
       <Routes>
           <Route path='' element={<Login></Login>} />
           <Route path='manager' element={<Management></Management>} />
@@ -23,7 +30,7 @@ function App() {
           <Route path='newOrder' element={<NewOrder arr={[1, 2, 3, 4, 5]}></NewOrder> } />
           <Route path='allOrders' element={<CustomizedTables/> } />
         </Routes>
-    </div>
+    </Provider>
   )
 }
 

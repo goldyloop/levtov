@@ -1,4 +1,4 @@
-import LogoLev from '../LogoLev.png';
+import LogoLev from '../../LogoLev.png';
 import './Logo.css'
 const Logo = () => {
     return (
