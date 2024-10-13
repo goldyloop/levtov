@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import HomeIcon from '@mui/icons-material/Home';
 import IconButton from '@mui/material/IconButton';
 import { Link } from "react-router-dom";
-import LogoLev from '../LogoLev.png';
+//import LogoLev from '../../LogoLev.png';
 // import HomeButton from '../BackButtons/HomeButton.js';
 import Logo from '../Logo/Logo';
 import '../All.css';

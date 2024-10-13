@@ -44,7 +44,7 @@ const RoomsMap = (props) => {
             </div>
 
             <div id="allRooms">
-                {rooms.map((item) => {
+                {roomArr.map((item) => {
                     return <OneRoom room={item}></OneRoom>
                 })}
             </div>

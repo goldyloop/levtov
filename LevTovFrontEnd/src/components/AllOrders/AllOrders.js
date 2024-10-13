@@ -12,7 +12,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { width } from '@mui/system';
 import { type } from '@testing-library/user-event/dist/type';
-import LogoLev from '../LogoLev.png';
+//import LogoLev from '../LogoLev.png';
 import Logo from '../Logo/Logo';
 
 import '../All.css';
