@@ -15,7 +15,7 @@ namespace BL
 
         public UserService(UserRepository userRepository_)
         {
-            userRepository = userRepository_;  
+            userRepository = userRepository_;
         }
         public Task<IEnumerable<User>> GetAllUsers()
         {
@@ -43,5 +43,6 @@ namespace BL
         {
             return userRepository.UpdateAsync(id, item);
         }
+    }
 }
 
