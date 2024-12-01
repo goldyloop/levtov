@@ -1,6 +1,5 @@
 import { Form, Route, Routes } from 'react-router-dom';
 import logo from './logo.svg';
-
 import HelloGuest from './components/HelloGuest/HelloGuest'
 import Management from './components/Management/Management';
 import Login from './components/Login/Login';
@@ -20,6 +19,10 @@ const store=configureStore({
 function App() {
   let rooms= [{id: 103, status: 1},{id: 105, status: 2},{id: 108, status: 2},{id: 115, status: 3},{id: 116, status: 1},{id: 117, status: 2},{id: 118, status: 4},{id: 119, status: 4}]
   return (
+    // <Management/>
+      //  <Login/>
+    // <HelloGuest/>
+    // <NewOrder/>
     
       <Provider store={store}>
       <Routes>

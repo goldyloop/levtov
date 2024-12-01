@@ -13,7 +13,9 @@ public partial class User
 
     public string? PhoneNumber { get; set; }
 
-    public string? Position { get; set; }
+    public int? Position { get; set; }
 
     public DateTime? CreatedAt { get; set; }
+
+    public virtual UserPosition? PositionNavigation { get; set; }
 }

@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace DAL.Repositories
 {
+
     public class UserRepository : ICRUD<User>
     {
         private readonly ApplicationDbContext _context;
@@ -50,8 +50,4 @@ namespace DAL.Repositories
             await _context.SaveChangesAsync();
             return item;
         }
-
-
-
-    }
 }

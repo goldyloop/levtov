@@ -1,0 +1,18 @@
+#Login-body{
+    display: grid;
+    grid-template-rows: auto;
+   
+    /* text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; */
+}
+#phone-number-to-login{
+    direction: ltr;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+#hello{
+    text-align: center;
+}

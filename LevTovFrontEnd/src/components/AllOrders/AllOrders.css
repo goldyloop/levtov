@@ -1,4 +1,4 @@
-#all{
+#all-orders-body{
     /* background-color: #b23636; */
     display: grid;
     grid-template-rows: auto;
@@ -17,9 +17,36 @@
     height: 140px;
 } */
 
+  #all-orders-body {
+    padding: 20px;
+  }
 @media only screen and (max-width: 900px) {
     #h1{
     text-align: center;
     margin-top: 12px;
 }
 }
+@media (max-width: 600px) {
+    #allTable {
+      display: block; /* הפוך את הטבלה לחסרה */
+      overflow-x: auto; /* אפשר גלילה רוחבית */
+    }
+    table {
+      width: 100%; /* ודא שהטבלה תופסת 100% מהאורך */
+      display: block; /* הפוך את הטבלה לחסרה */
+    }
+    th, td {
+      display: block; /* הפוך את התאים לחסרים */
+      width: 100%; /* כל תא יתפוס את כל רוחב ההורה */
+    
+    }
+    /* הוסף סגנון להפרדת התוכן */
+    th {
+      background-color: #F1F1F1; /* רקע שונה להדגשה */
+      padding: 8px;
+    }
+    td {
+      border: 1px solid #ddd; /* גבולות לתאים */
+      padding: 8px;
+    }
+  }
