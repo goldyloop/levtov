@@ -17,11 +17,11 @@ namespace UI
             _context = context;
         }
         //Get: api/hellloworld
-        [HttpGet("get")]
-        public Task<User> Get(int id)
+        [HttpGet("get/{phone}")]
+        public Task<User> Get(string phone)
         {
            // קריאה לשכבת ה-BLL כדי לקבל את המחרוזת
-           return _userService.GetUser(id);
+           return _userService.GetUser(phone);
         }
 
         [HttpGet("getAll")]

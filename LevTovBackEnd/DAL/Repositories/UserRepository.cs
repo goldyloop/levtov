@@ -42,8 +42,12 @@ namespace DAL.Repositories;
         {
             return await _context.Users.FindAsync(id);
         }
+    public async Task<User> ReadPhoneAsync(string PhoneNumber)
+    {
+        return await _context.Users.FindAsync(PhoneNumber);
+    }
 
-        public async Task<User> UpdateAsync(int id, User item)
+    public async Task<User> UpdateAsync(int id, User item)
         {
             if (id != item.UserId) return null;
             _context.Entry(item).State = EntityState.Modified;

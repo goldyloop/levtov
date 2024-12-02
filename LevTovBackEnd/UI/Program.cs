@@ -34,7 +34,8 @@ builder.Services.AddScoped<RoomRepository>();
 builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<OrderRepository>();
 
-
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<UserRepository>();
 
 
 builder.Services.AddScoped<HelloWorldService>();

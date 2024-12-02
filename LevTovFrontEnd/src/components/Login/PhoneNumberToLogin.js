@@ -1,4 +1,4 @@
-import React, { Component ,useEffect} from 'react';
+import React, { Component, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Input as BaseInput } from '@mui/base/Input';
 import { Box, styled } from '@mui/system';
@@ -160,14 +160,25 @@ OTP.propTypes = {
 
 export default function OTPInput() {
   const [otp, setOtp] = React.useState('');
-  const checkNumber=()=>{
-    if(otp.length==10)
-    alert("10 numbers");
+  const checkNumber = () => {
+    if (otp.length == 10)
+    handleLogin();
   }
-  useEffect(()=>{
+  useEffect(() => {
     checkNumber()
-  },[otp])
+  }, [otp])
+ async function handleLogin() {
+    try {
+      const response =await fetch(`https://localhost:7279/api/User/get/${otp}`)
+      const data=await response.json();
+      console.log(data);
+    }
+    catch(error) {
+      console.error(error);
 
+    }
+
+  }
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -175,12 +186,9 @@ export default function OTPInput() {
       <span>Entered value: {otp}</span>
     </Box>
   );
+
 }
-function handleLogin(){
-    try{
-      const response = fetch("https://localhost:7279/api/Users",)
-    }
-}
+
 
 const blue = {
   100: '#DAECFF',
@@ -217,9 +225,8 @@ const InputElement = styled('input')(
   color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
   background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
-  box-shadow: 0px 2px 4px ${
-    theme.palette.mode === 'dark' ? 'rgba(0,0,0, 0.5)' : 'rgba(0,0,0, 0.05)'
-  };
+  box-shadow: 0px 2px 4px ${theme.palette.mode === 'dark' ? 'rgba(0,0,0, 0.5)' : 'rgba(0,0,0, 0.05)'
+    };
 
   &:hover {
     border-color: ${blue[400]};
