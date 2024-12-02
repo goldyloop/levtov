@@ -46,7 +46,7 @@
 @media only screen and (max-width: 900px) {
 
     #rooms-maps-body {
-        gap: 10px;
+        gap: 1px;
     }
 
     .rooms {
@@ -60,7 +60,7 @@
 
     #top {
         display: grid;
-        grid-auto-rows: minmax(50px, auto);
+        grid-auto-rows: minmax(2px, auto);
     }
 
     /* #div-img{
@@ -68,10 +68,13 @@
     } */
 
     #top h1 {
-        margin: 15px;
+        margin: 5px;
         margin-bottom: 5px;
     }
-
+    #daily-task {
+        margin: 10px;
+        margin-top: 1px;
+    }
 }
 
 @media only screen and (max-width: 800px) {

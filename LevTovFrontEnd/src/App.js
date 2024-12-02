@@ -28,7 +28,7 @@ function App() {
       <Routes>
           <Route path='' element={<Login></Login>} />
           <Route path='manager' element={<Management></Management>} />
-          <Route path='roomsMap' element={<RoomsMap arr={rooms}></RoomsMap>} />
+          <Route path='roomsMap' element={<RoomsMap></RoomsMap>} />
           <Route path='guest' element={<HelloGuest roomNumber={105} name={"מוטי"} />} />
           <Route path='newOrder' element={<NewOrder arr={[1, 2, 3, 4, 5]}></NewOrder> } />
           <Route path='allOrders' element={<CustomizedTables/> } />

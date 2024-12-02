@@ -8,29 +8,31 @@ import Logo from "../Logo/Logo";
 import "../All.css"
 import "./RoomsMap.css"
 
-const RoomsMap = (props) => {
+const RoomsMap = () => {
 
-    let roomArr = props.arr;
 
     const [rooms, setRooms] = useState([]);
+    // let rooms=[];
 
+    const getAllRooms= async()=>{
+        try{
+            let response=await fetch('https://localhost:7279/api/Room/getAll')
+            let arr=await response.json();
+            setRooms(arr)
+            console.log(rooms);
+        }catch(err){
+            console.error(err)
+        }
+    }
 
     useEffect(() => {
-        axios.get('https://localhost:7279/api/Room/getAll').then(res => {
-            setRooms(res.data);
-        })
-            .catch(err => {
-                alert( err)
-            })
-    }, [rooms])
+        getAllRooms()
+    }, [])
 
     return (
         <div id="rooms-maps-body">
             <div id="top">
                 <Logo></Logo>
-                {/* <div id="div-img">
-                    <img id='logoLev' src={LogoLev} alt="Description of the image" />
-                </div> */}
                 <Link to="/" style={{ textDecoration: 'none' }}>
                     <IconButton id='hIcon'>
                         <HomeIcon sx={{ fontSize: 60 }} />
@@ -44,19 +46,19 @@ const RoomsMap = (props) => {
             </div>
 
             <div id="allRooms">
-                {roomArr.map((item) => {
+                {rooms.map((item) => {
                     return <OneRoom room={item}></OneRoom>
                 })}
             </div>
 
-            <div>
+            {/* <div>
                 <h1>Room List</h1>
-                <ul>
+                <ol>
                     {rooms.map((room) => (
                          <li key={room.roomId}>{room.roomStatus}</li> // עדכני את השדות בהתאם
                     ))}
-                </ul>
-            </div>
+                </ol>
+            </div> */}
         </div>
     );
 }
