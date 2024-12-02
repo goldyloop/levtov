@@ -2,7 +2,8 @@ import React, { Component, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Input as BaseInput } from '@mui/base/Input';
 import { Box, styled } from '@mui/system';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserPosition } from '../../features/userSlice.js';
 function OTP({ separator, length, value, onChange }) {
   const inputRefs = React.useRef(new Array(length).fill(null));
 
@@ -160,26 +161,58 @@ OTP.propTypes = {
 
 export default function OTPInput() {
   const [otp, setOtp] = React.useState('');
-  const checkNumber = () => {
-    if (otp.length == 10)
-    handleLogin();
-  }
-  useEffect(() => {
+   useEffect(() => {
     checkNumber()
   }, [otp])
- async function handleLogin() {
-    try {
-      const response =await fetch(`https://localhost:7279/api/User/get/${otp}`)
-      const data=await response.json();
-      console.log(data);
-    }
-    catch(error) {
-      console.error(error);
-
-    }
-
+  
+  const checkNumber = () => {
+    if (otp.length == 10)
+      handleLogin(otp);
   }
-
+  function navigateToPage(url) {
+    window.location.href = url;
+}
+  const dispatch = useDispatch();
+  const userPosition = useSelector((state) => state.currentUser.userPosition);
+  console.log(userPosition);
+  let data;
+  async function handleLogin(otp) {
+    try {
+      const response = await fetch(`https://localhost:7279/api/User/get/${otp}`);
+      data = await response.json();
+      console.log(data);
+    console.log(data.position);  
+    } catch (error) {
+      // console.error(error);
+      // console.log("error");
+      alert("הכנס את המספר שאיתו נרשמתם ")
+    } 
+    if (data && Object.keys(data).length !== 0){
+    const changePosition = (newPosition) => {
+        dispatch(setUserPosition(newPosition)); // שינוי המיקום
+      };
+      console.log(data.position);
+      switch (data.position) {
+        case 1:
+          alert("מנהל");
+          changePosition("manager");
+          navigateToPage('http://localhost:3000/manager');
+          break;
+        case 2:
+          alert("אורח");
+          changePosition("guest");
+          navigateToPage('http://localhost:3000/guest');
+          break;
+        case 3:
+          alert("איש תחזוקה");
+          changePosition("worker");
+          navigateToPage('http://localhost:3000/roomsMap');
+          break;
+        default:
+          console.log("מצב לא ידוע.");
+      }
+    }
+  }
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       <OTP separator={<span>-</span>} value={otp} onChange={setOtp} length={10} />

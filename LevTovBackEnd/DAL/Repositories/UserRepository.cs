@@ -44,7 +44,7 @@ namespace DAL.Repositories;
         }
     public async Task<User> ReadPhoneAsync(string PhoneNumber)
     {
-        return await _context.Users.FindAsync(PhoneNumber);
+        return await _context.Users.FirstOrDefaultAsync(u=>u.PhoneNumber==PhoneNumber);
     }
 
     public async Task<User> UpdateAsync(int id, User item)
