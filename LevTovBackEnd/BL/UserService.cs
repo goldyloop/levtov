@@ -25,9 +25,9 @@ namespace BL
         }
 
 
-        public Task<User> GetUser(int id)
+        public Task<User> GetUser(string phone)
         {
-            return userRepository.ReadAsync(id);
+            return userRepository.ReadPhoneAsync(phone);
         }
 
         public Task<User> CreateUser(User item)
