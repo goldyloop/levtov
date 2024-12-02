@@ -9,28 +9,31 @@ import "./OneRoom.css"
 const OneRoom = (props) => {
 
     const [status, setStatus] = React.useState('');
-    let newRoom={}
+    let newRoom = {}
 
     const changeStatus = (event) => {
-        setStatus(event.target.value);
-        newRoom={roomId:1, roomStatus:{status}}
-        axios.put('https://localhost:7279/api/Room/update/1',newRoom,
-        {headers: {
-            'Content-Type': 'application/json', // הגדרת סוג התוכן
-        },}
-    ).then(res => {
-            
-        })
-            .catch(err => {
-                alert(err)
-            })
+       alert("שינוי")
+        // setStatus(event.target.value);
+        // newRoom = { roomId: 1, roomStatus: { status } }
+        // axios.put('https://localhost:7279/api/Room/update/1', newRoom,
+        //     {
+        //         headers: {
+        //             'Content-Type': 'application/json', // הגדרת סוג התוכן
+        //         },
+        //     }
+        // ).then(res => {
+
+        // })
+        //     .catch(err => {
+        //         alert(err)
+        //     })
     };
 
-    let room = props.room
-    let id = room.status == "f" ? "full" : room.status == "e" ? "empty-not-cleen" : room.status == "c" ? "empty-cleen-not-ready" : "ready";
-    let remark = room.status == "f" ? "החדר מלא" : room.status == "e" ? "החדר פנוי וזקוק לניקיון" : room.status == "c" ? "החדר נקי ללא מצעים" : "החדר מוכן";
-
+    let room = props.room;
+    let id = room.roomStatus == 1 ? "full" : room.roomStatus == 2? "empty-not-cleen" : room.roomStatus == 3 ? "empty-cleen-not-ready" : "ready";
+    let remark = room.roomStatus == 1 ? "החדר מלא" : room.roomStatus == 2 ? "החדר פנוי וזקוק לניקיון" : room.roomStatus == 3 ? "החדר נקי ללא מצעים" : "החדר מוכן";
     
+
 
     // const changeStatus = (event) => {
     // let newRoom={roomId:1, roomStatus:"e"}
@@ -39,17 +42,16 @@ const OneRoom = (props) => {
     //         'Content-Type': 'application/json', // הגדרת סוג התוכן
     //     },}
     // ).then(res => {
-            
+
     //     })
     //         .catch(err => {
     //             alert(err)
     //         })
     // }
-   
+
     return (
         <div className="rooms" id={id}>
-     
-            <h3 id="room-title">{`חדר ${room.id}`}</h3>
+            <h3 id="room-title">{`חדר ${room.roomId}`}</h3>
             <h4 id="room-remark">{remark}</h4>
 
             {/* <div id='room-condition'> */}
