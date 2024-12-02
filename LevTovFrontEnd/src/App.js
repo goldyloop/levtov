@@ -11,10 +11,19 @@ import './App.css';
 import CustomizedTables from './components/AllOrders/AllOrders';
 import { Provider } from 'react-redux';
 import userSlice from './features/userSlice';
+import userReducer from './features/userSlice';
 
-const store=configureStore({
-  reducer:{userSlice}
-})
+// const store=configureStore({
+//    reducer:{userSlice}
+//   reducer: {
+//     currentUser: userSlice.reducer // כאן אתה משתמש ב-reducer של ה-slice
+//   }
+// })
+const store = configureStore({
+  reducer: {
+      currentUser: userReducer,
+  },
+});
 
 function App() {
   let rooms= [{id: 103, status: 1},{id: 105, status: 2},{id: 108, status: 2},{id: 115, status: 3},{id: 116, status: 1},{id: 117, status: 2},{id: 118, status: 4},{id: 119, status: 4}]
