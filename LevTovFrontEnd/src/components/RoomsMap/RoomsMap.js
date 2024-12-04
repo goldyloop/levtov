@@ -10,17 +10,15 @@ import "./RoomsMap.css"
 
 const RoomsMap = () => {
 
-
     const [rooms, setRooms] = useState([]);
-    // let rooms=[];
 
-    const getAllRooms= async()=>{
-        try{
-            let response=await fetch('https://localhost:7279/api/Room/getAll')
-            let arr=await response.json();
+    const getAllRooms = async () => {
+        try {
+            let response = await fetch('https://localhost:7279/api/Room/getAll')
+            let arr = await response.json();
             setRooms(arr)
             console.log(rooms);
-        }catch(err){
+        } catch (err) {
             console.error(err)
         }
     }
@@ -28,6 +26,16 @@ const RoomsMap = () => {
     useEffect(() => {
         getAllRooms()
     }, [])
+
+    const updateRoomStatus = (updatedRoom) => {
+        // עדכון חדר במערך rooms
+        // console.log(updatedRoom)
+        setRooms((prevRooms) =>
+            prevRooms.map((room) =>
+                room.roomId === updatedRoom.roomId ? updatedRoom : room
+            )
+        );
+    };
 
     return (
         <div id="rooms-maps-body">
@@ -47,18 +55,18 @@ const RoomsMap = () => {
 
             <div id="allRooms">
                 {rooms.map((item) => {
-                    return <OneRoom room={item}></OneRoom>
+                    return <OneRoom room={item} updateRoomStatus={updateRoomStatus}></OneRoom>
                 })}
             </div>
 
-            {/* <div>
+            <div>
                 <h1>Room List</h1>
                 <ol>
                     {rooms.map((room) => (
                          <li key={room.roomId}>{room.roomStatus}</li> // עדכני את השדות בהתאם
                     ))}
                 </ol>
-            </div> */}
+            </div>
         </div>
     );
 }
