@@ -1,5 +1,6 @@
 ﻿using DAL.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,12 +45,38 @@ namespace DAL.Repositories
             return await _context.Rooms.FindAsync(id);
         }
 
+        ////public async Task<Room> UpdateAsync(int id, Room item)
+        ////{
+        ////    if (id != item.RoomId) return null;
+        ////    _context.Entry(item).State = EntityState.Modified;
+        ////    await _context.SaveChangesAsync();
+        ////    return item;
+        ////}
+        ///
+
         public async Task<Room> UpdateAsync(int id, Room item)
         {
             if (id != item.RoomId) return null;
-            _context.Entry(item).State = EntityState.Modified;
+
+            var room = await _context.Rooms.FindAsync(id);
+            if (room == null) return null;
+
+            // עדכון רק את השדה שמופיע בבקשה
+            if (item.RoomStatus!=null)
+            {
+                room.RoomStatus = item.RoomStatus;
+            }
+
+            // הוסף אם יש שדות נוספים:
+            // if (!string.IsNullOrEmpty(item.SomeOtherField)) {
+            //     room.SomeOtherField = item.SomeOtherField;
+            // }
+
+            // שמירה של השינויים
             await _context.SaveChangesAsync();
-            return item;
+
+            return room;
         }
+
     }
 }
