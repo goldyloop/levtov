@@ -1,5 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
+import { Controller } from 'react-hook-form';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import "./OneRoom.css"
@@ -74,15 +75,16 @@ const OneRoom = (props) => {
                         },
                     }}
                 >
-                    <MenuItem value="">
+                    <MenuItem value="" id='Select-situation'>
                         <ModeEditOutlineIcon></ModeEditOutlineIcon>
                     </MenuItem>
-                    <MenuItem onClick={()=>changeStatus(1)} className='situations' id='if-full' value={1}>מלא</MenuItem>
-                    <MenuItem onClick={()=>changeStatus(2)} className='situations' id='if-need-clean' value={2}>פנוי וזקוק לניקיון</MenuItem>
-                    <MenuItem onClick={()=>changeStatus(3)} className='situations' id='if-clean' value={3}>החדר נקי ללא מצעים</MenuItem>
-                    <MenuItem onClick={()=>changeStatus(4)} className='situations' id='if-ready' value={4}>החדר מוכן</MenuItem>
+                    <MenuItem onClick={() => changeStatus(1)} className='situations' id='if-full' value={1}>החדר מלא</MenuItem>
+                    <MenuItem onClick={() => changeStatus(2)} className='situations' id='if-need-clean' value={2}>החדר פנוי וזקוק לניקיון</MenuItem>
+                    <MenuItem onClick={() => changeStatus(3)} className='situations' id='if-clean' value={3}>החדר נקי ללא מצעים</MenuItem>
+                    <MenuItem onClick={() => changeStatus(4)} className='situations' id='if-ready' value={4}>החדר מוכן</MenuItem>
                 </Select>
             </FormControl>
+            
 
             {/* </div> */}
         </div>
