@@ -8,20 +8,24 @@
 }
 
 #full {
-    border: red solid 3px;
+    border: rgb(223, 1, 1) solid 2px;
 }
 
 #empty-not-cleen {
-    border: 3px orange solid;
+    border: 2px rgb(230, 150, 2) solid;
 }
 
 #empty-cleen-not-ready {
-    border: 3px yellow solid;
+    border: 2px rgb(255, 255, 0) solid;
 }
 
 #ready {
-    border: 3px green solid;
+    border: 2px green solid;
+    /* border: 2px rgb(0, 0, 0) solid; */
 }
+/* #ready #room-remark{
+    color:  green ;
+} */
 
 #room-title {
     font-size: 30px;
@@ -44,27 +48,32 @@
     padding: 0px;
 }
 
+#Select-situation{
+    background-color: #5454547a;
+    align-items: center;
+}
 
 #if-full {
-    border: 3px solid red;
-
-    background-color: #d0cfcf;
+    /* border: 3px solid red; */
+    color: red;
+    background-color: #5454547a;
 }
 
 #if-need-clean {
-    border: 3px solid orange;
+    /* border: 3px solid orange; */
+    color: rgb(255, 166, 0);
 
-    background-color: #d0cfcf;
+    background-color: #5454547a;
 }
 
 #if-clean {
-    border: 3px solid yellow;
-
-    background-color: #d0cfcf;
+    /* border: 3px solid yellow; */
+    color: yellow;
+    background-color: #5454547a;
 }
 
 #if-ready {
-    border: 3px solid green;
-
-    background-color: #d0cfcf;
+    /* border: 3px solid green; */
+    color: rgb(2, 166, 2);
+    background-color: #5454547a;
 }

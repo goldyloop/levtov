@@ -5,7 +5,7 @@
 
 #logoLev {
     margin: 2%;
-    width: 200px;
+    width: 140px;
     height: auto;
     max-width: 100%;
     position: absolute;
@@ -23,7 +23,7 @@
 
     #logoLev {
         margin-top: 7px;
-        width: 140px;
+        width: 110px;
         height: auto;
         position: static;
     }
