@@ -44,10 +44,10 @@ namespace DAL.Repositories;
         }
     public async Task<User> ReadPhoneAsync(string PhoneNumber)
     {
-        return await _context.Users.FirstOrDefaultAsync(u=>u.PhoneNumber==PhoneNumber);
+        return await _context.Users.FirstOrDefaultAsync(u => u.UserId == PhoneNumber);
     }
 
-    public async Task<User> UpdateAsync(int id, User item)
+    public async Task<User> UpdateAsync(object id, User item)
         {
             if (id != item.UserId) return null;
             _context.Entry(item).State = EntityState.Modified;

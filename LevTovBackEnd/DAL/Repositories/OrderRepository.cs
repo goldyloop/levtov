@@ -44,9 +44,9 @@ namespace DAL.Repositories
             return await _context.Orders.FindAsync(id);
         }
 
-        public async Task<Order> UpdateAsync(int id, Order item)
+        public async Task<Order> UpdateAsync(object id, Order item)
         {
-            if (id != item.OrderId) return null;
+            if ((int)id != item.OrderId) return null;
             _context.Entry(item).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return item;
