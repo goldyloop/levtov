@@ -54,9 +54,9 @@ namespace DAL.Repositories
         ////}
         ///
 
-        public async Task<Room> UpdateAsync(int id, Room item)
+        public async Task<Room> UpdateAsync(object id, Room item)
         {
-            if (id != item.RoomId) return null;
+            if ((int)id != item.RoomId) return null;
 
             var room = await _context.Rooms.FindAsync(id);
             if (room == null) return null;

@@ -19,6 +19,6 @@ public interface ICRUD<T>
     Task<T> CreateAsync(T item);
     Task<T> ReadAsync(int id);
     Task<IEnumerable<T>> ReadAllAsync();
-    Task<T> UpdateAsync(int id, T item);
+    Task<T> UpdateAsync(object id, T item);
     Task<bool> DeleteAsync(int id);
 }
