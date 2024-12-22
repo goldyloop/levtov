@@ -11,11 +11,11 @@ public partial class Order
 
     public int? RoomId { get; set; }
 
-    public string? GuestName { get; set; }
-
-    public string? GuestPhoneNumber { get; set; }
-
     public DateTime? CreatedAt { get; set; }
 
+    public string? UserId { get; set; }
+
     public virtual Room? Room { get; set; }
+
+    public virtual User? User { get; set; }
 }

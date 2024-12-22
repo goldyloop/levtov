@@ -224,7 +224,7 @@ const NewOrder = (props) => {
                     <TextField className='text-filds' id="guest-email" type="email" label="מייל" variant="outlined"  {...register("guestEmail")} />
                     {errors.guestEmail && <p>{errors.guestEmail.message}</p>}
                 </div> */}
-
+                
                 {step === 1 && step1}
                 {step === 2 && step2}
                 {step === 3 && step3}

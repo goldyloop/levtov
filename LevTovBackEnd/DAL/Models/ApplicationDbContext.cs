@@ -38,12 +38,15 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
-            entity.Property(e => e.GuestName).HasMaxLength(25);
-            entity.Property(e => e.GuestPhoneNumber).HasMaxLength(10);
+            entity.Property(e => e.UserId).HasMaxLength(10);
 
             entity.HasOne(d => d.Room).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.RoomId)
                 .HasConstraintName("FK__Orders__RoomId__2A4B4B5E");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__Orders__UserId__4BAC3F29");
         });
 
         modelBuilder.Entity<Room>(entity =>
@@ -54,6 +57,10 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+
+            entity.HasOne(d => d.RoomStatusNavigation).WithMany(p => p.Rooms)
+                .HasForeignKey(d => d.RoomStatus)
+                .HasConstraintName("FK__Rooms__RoomStatu__4CA06362");
         });
 
         modelBuilder.Entity<RoomStatus>(entity =>
@@ -70,18 +77,18 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CC4CA2CFD84A");
+            entity.HasKey(e => e.UserId).HasName("PK__User_New__1788CC4CD79E1CD6");
 
+            entity.Property(e => e.UserId).HasMaxLength(10);
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
             entity.Property(e => e.Email).HasMaxLength(25);
-            entity.Property(e => e.PhoneNumber).HasMaxLength(10);
-            entity.Property(e => e.UserName).HasMaxLength(10);
+            entity.Property(e => e.UserName).HasMaxLength(25);
 
             entity.HasOne(d => d.PositionNavigation).WithMany(p => p.Users)
                 .HasForeignKey(d => d.Position)
-                .HasConstraintName("FK__Users__Position__398D8EEE");
+                .HasConstraintName("FK__User_New__Positi__49C3F6B7");
         });
 
         modelBuilder.Entity<UserPosition>(entity =>
