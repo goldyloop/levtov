@@ -1,5 +1,6 @@
 
 import * as React from 'react';
+import { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import { Link } from "react-router-dom";
 import IconButton from '@mui/material/IconButton';
@@ -39,13 +40,38 @@ const ExpandedTableRow = styled(TableRow)(({ backgroundColor }) => ({
 function createData(name, phone, email, nights, room, date) {
     return { name, phone, email, nights, room, date };
 }
-const rows = [
-    createData('ידלה שטיגליץ', '0504108994', 'r0504108994@gmail.com', 2, 'חדר 1', '11/11/2024'),
-    createData('חנה לוי', '0522646251', 'ruchami77@gmail.com', 5, 'חדר 2', '12/11/2024'),
-    createData('יהודית שחור', '0548468527', 'yossi0522646251@gmail.com', 3, 'חדר 3', '11/11/2024'),
-    createData('חיים ישראלי', '0527646251', 'esti695000@gmail.com', 2, 'חדר 4', '13/11/2024'),
-    createData('דוד שלום', '0527695000', 'l0548468527@gmail.com', 4, 'חדר 5', '14/11/2024'),
-];
+/*
+// const rows = [
+//     createData('ידלה שטיגליץ', '0504108994', 'r0504108994@gmail.com', 2, 'חדר 1', '11/11/2024'),
+//     createData('חנה לוי', '0522646251', 'ruchami77@gmail.com', 5, 'חדר 2', '12/11/2024'),
+//     createData('יהודית שחור', '0548468527', 'yossi0522646251@gmail.com', 3, 'חדר 3', '11/11/2024'),
+//     createData('חיים ישראלי', '0527646251', 'esti695000@gmail.com', 2, 'חדר 4', '13/11/2024'),
+//     createData('דוד שלום', '0527695000', 'l0548468527@gmail.com', 4, 'חדר 5', '14/11/2024'),
+// ];
+*/
+
+async function getAllData(url) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            console.error("לא הצליח להביא את הנתונים");
+            return;
+        }
+        const rows = await response.json();
+        return rows; // מחזירה את כל הנתונים מהטבלה
+    } catch (error) {
+        console.error('לא הצליח להתחבר לשרת', error);
+    }
+}
+
+// שימוש בפונקציה
+useEffect(() => {
+    getAllData('https://localhost:7279/api/Order/getAll')
+}, []);
+
+
+
+
 export default function CustomizedTables() {
     const [expandedRows, setExpandedRows] = React.useState([]);
     const handleExpandRow = (index) => {
