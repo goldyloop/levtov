@@ -36,6 +36,8 @@ yarn-error.log*
 [Oo]bj/
 LevtovBackEnd/DAL/Models/ApplicationDbContext.cs
 
+LevtovBackEnd/DAL/Models/ApplicationDbContext.cs
+
 # Visual Studio Code
 .vscode/
 
