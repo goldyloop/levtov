@@ -50,29 +50,14 @@ function createData(name, phone, email, nights, room, date) {
 // ];
 */
 
-async function getAllData(url) {
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            console.error("לא הצליח להביא את הנתונים");
-            return;
-        }
-        const rows = await response.json();
-        return rows; // מחזירה את כל הנתונים מהטבלה
-    } catch (error) {
-        console.error('לא הצליח להתחבר לשרת', error);
-    }
-}
-
-// שימוש בפונקציה
-useEffect(() => {
-    getAllData('https://localhost:7279/api/Order/getAll')
-}, []);
 
 
 
 
-export default function CustomizedTables() {
+export default function AllOrders() {
+
+    const [rows, setRows] = React.useState([]);
+  
     const [expandedRows, setExpandedRows] = React.useState([]);
     const handleExpandRow = (index) => {
         setExpandedRows((prev) => {
@@ -82,7 +67,29 @@ export default function CustomizedTables() {
                 return [...prev, index];
             }
         });
+
     };
+
+    async function getAllData(url) {
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                console.error("לא הצליח להביא את הנתונים");
+                return;
+            }
+            setRows(await response.json()) ;
+            console.log(rows);
+            return rows; // מחזירה את כל הנתונים מהטבלה
+        } catch (error) {
+            console.error('לא הצליח להתחבר לשרת', error);
+        }
+    }
+
+    useEffect(() => {
+        getAllData('https://localhost:7279/api/Order/getAll')
+    }, []);
+
     return (
         <div id='all-orders-body'>
             <Logo />
