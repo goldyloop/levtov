@@ -71,7 +71,6 @@ export default function AllOrders() {
     };
 
     async function getAllData(url) {
-
         try {
             const response = await fetch(url);
             if (!response.ok) {

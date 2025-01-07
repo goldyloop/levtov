@@ -44,3 +44,6 @@ yarn-error.log*
 # NuGet Packages
 *.nupkg
 **/packages/*
+
+
+LevtovBackEnd/DAL/Models/ApplicationDbContext.cs
