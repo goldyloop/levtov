@@ -1,48 +1,77 @@
-#managment-body{
+#managment-body {
     direction: rtl;
-    
     display: grid;
     grid-template-rows: auto;
 }
-.button{ 
+
+.button {
     width: 100%;
-    height: 35vh; 
+    height: 35vh;
     top: 35vh;
 }
-#allButtons{
+
+#allButtons {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    align-items: center;  
-    font-size: 200%;  
-} 
-#bu{
-   background-color: #b51c52;  
-   border-radius: 35px;
-   font-size: 110%; 
+    align-items: center;
+    font-size: 200%;
 }
-#links{
+
+#bu {
+    background-color: #fafafa;
+    border-radius: 35px;
+    font-size: 110%;
+    color: black;
+    border: 2px #f89619 solid;
+}
+
+#links {
     /* border: blue 2px solid; */
     width: 25%;
-    height: 35vh; 
+    height: 35vh;
     top: 35vh;
 }
- @media only screen and (max-width: 800px){
-    .button{
-        width: 75%;
-        height: 15vh;   
-          
+
+@media only screen and (max-width: 800px) {
+    .button {
+        height: auto;
+        /* תן לגובה להיות אוטומטי */
+        font-size: 1em;
+        /* הקטן את גודל הכתב */
     }
-    #bu{
-        margin-bottom: 10px; 
-    }
-    #allButtons{
-        display: flex;
+
+    #allButtons {
         flex-direction: column;
+        /* שינוי לכיוון עמודה */
         align-items: center;
-        font-size: 200%;
-        margin-left: auto;
-        margin-right: auto;
-       
-    } 
- } 
+    }
+
+    #bu {
+        font-size: 0.9em;
+        /* הקטן את גודל הכתב בכפתור */
+        padding: 5px 10px;
+        /* הקטן את הריפוד */
+    }
+
+    #links {
+        width: 80%; /* הגדל את רוחב הלינקים */
+        height: 10vh;
+        margin: 20px;
+        top: 0vh;
+    }
+
+}
+
+/* מדיה קוורי עבור מסכים מאוד קטנים */
+@media only screen and (max-width: 500px) {
+    #allButtons {
+        font-size: 0.8em;
+        /* הקטן את גודל הטקסט */
+    }
+
+    #bu {
+        font-size: 0.8em;
+        /* הקטן את גודל הכתב בכפתור */
+    }
+}
