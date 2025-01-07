@@ -95,6 +95,32 @@ const NewOrder = (props) => {
     //חדרים זמניים
     let rooms = [{ id: 103, status: 1 }, { id: 105, status: 2 }, { id: 108, status: 2 }, { id: 115, status: 3 }, { id: 116, status: 1 }, { id: 117, status: 2 }, { id: 118, status: 4 }, { id: 119, status: 4 }]
 
+    
+    let [userName,setUserName]=React.useState('');
+    const searchUser = async () => {
+        let phone = document.getElementById("guest-phone").value;
+        let user;
+        try {
+            const response = await fetch(`https://localhost:7279/api/User/get/${phone}`);
+            // console.log("jjjjjjjjjjjj");
+
+            if (response.status === 200) {
+                user = await response.json()
+                setUserName(user.userName)
+                console.log(userName);
+                alert({userName})
+            }
+            else if (response.status === 204){
+                console.log("dddddddddddddddd");
+                setUserName('')
+            }
+        }
+        catch (err) {
+            console.log("לא התחבר");
+        }
+        console.log(phone);
+    }
+
     const step1 = (
         <div className='steps'>
             <div className='div-inputs'>
@@ -105,7 +131,7 @@ const NewOrder = (props) => {
             </div>
 
             <div id='buttons'>
-                <Button onClick={nextStep} variant="outlined" id='next'>הבא</Button>
+                <Button onClick={async() => {await searchUser(); nextStep(); }} variant="outlined" id='next'>הבא</Button>
             </div>
         </div>
     )
@@ -115,7 +141,7 @@ const NewOrder = (props) => {
             <div className='div-inputs'>
                 {/* <TextField className='text-filds' id="guest-name" label="שם המזמין" variant="outlined" {...register("guestName")} /> */}
                 <label>שם המזמין:</label><br />
-                <input type='phone' className='text-filds' {...register("guestName")}></input><br />
+                <input type='phone' className='text-filds' defaultValue={userName} {...register("guestName")}></input><br />
                 {errors.guestName && <p>{errors.guestName.message}</p>}
             </div>
             <div id='buttons'>
@@ -190,24 +216,6 @@ const NewOrder = (props) => {
         </div>
     )
 
-    // const searchUser = async () => {
-    //     let phone=document.getElementById("guest-phone").value;
-    //     try {
-    //         const response = await fetch(`https://localhost:7279/api/User/get/${phone}`);
-    //     }
-    //     catch (err) {
-
-    //         console.log("לא התחבר");
-            
-    //     }
-    //     console.log(phone);
-
-    
-    // קריאה ל2 ביחד...................
-    //onClick={()=>{searchUser();nextStep();}}
-        
-    // }
-
     return (
         <div id='new-order-body'>
             <Logo></Logo>
@@ -224,7 +232,7 @@ const NewOrder = (props) => {
                     <TextField className='text-filds' id="guest-email" type="email" label="מייל" variant="outlined"  {...register("guestEmail")} />
                     {errors.guestEmail && <p>{errors.guestEmail.message}</p>}
                 </div> */}
-                
+
                 {step === 1 && step1}
                 {step === 2 && step2}
                 {step === 3 && step3}
