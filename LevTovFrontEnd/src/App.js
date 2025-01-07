@@ -12,6 +12,7 @@ import CustomizedTables from './components/AllOrders/AllOrders';
 import { Provider } from 'react-redux';
 import userSlice from './features/userSlice';
 import userReducer from './features/userSlice';
+import phoneReducer from './features/phoneSlice';
 
 // const store=configureStore({
 //    reducer:{userSlice}
@@ -22,6 +23,7 @@ import userReducer from './features/userSlice';
 const store = configureStore({
   reducer: {
       currentUser: userReducer,
+      currentPhone: phoneReducer,
   },
 });
 

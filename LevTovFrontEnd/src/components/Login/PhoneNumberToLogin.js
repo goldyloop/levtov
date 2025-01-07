@@ -4,6 +4,8 @@ import { Input as BaseInput } from '@mui/base/Input';
 import { Box, styled } from '@mui/system';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserPosition } from '../../features/userSlice.js';
+import {setPhonePosition} from '../../features/phoneSlice.js'
+
 function OTP({ separator, length, value, onChange }) {
   const inputRefs = React.useRef(new Array(length).fill(null));
 
@@ -174,7 +176,15 @@ export default function OTPInput() {
 }
   const dispatch = useDispatch();
   const userPosition = useSelector((state) => state.currentUser.userPosition);
+  const phonePosition = useSelector((state)=> state.currentPhone.phonePosition);
   console.log(userPosition);
+  console.log(phonePosition);
+  useEffect(() => {
+    console.log('User Position:', userPosition);
+  }, [userPosition]);
+  useEffect(() => {
+    console.log('phone Position:', phonePosition);
+  }, [phonePosition]);
   let data;
   async function handleLogin(otp) {
     try {
@@ -182,30 +192,40 @@ export default function OTPInput() {
       data = await response.json();
       console.log(data);
     console.log(data.position);  
-    } catch (error) {
+    } 
+    catch (error) {
       // console.error(error);
       // console.log("error");
       alert("הכנס את המספר שאיתו נרשמתם ")
     } 
     if (data && Object.keys(data).length !== 0){
     const changePosition = (newPosition) => {
-        dispatch(setUserPosition(newPosition)); // שינוי המיקום
+        dispatch(setUserPosition(newPosition)); // שינוי סוג המשתמש
+      };
+      const changePhonePosition =(newPhonePosition)=>{
+        dispatch(setPhonePosition(newPhonePosition));
       };
       console.log(data.position);
       switch (data.position) {
         case 1:
-          alert("מנהל");
+          
           changePosition("manager");
+          changePhonePosition(otp);
           navigateToPage('http://localhost:3000/manager');
+          alert(userPosition);
           break;
         case 2:
           alert("אורח");
           changePosition("guest");
+          changePhonePosition(otp);
           navigateToPage('http://localhost:3000/guest');
           break;
         case 3:
-          alert("איש תחזוקה");
+         
           changePosition("worker");
+          changePhonePosition(otp);
+          console.log(phonePosition);
+          alert(userPosition);
           navigateToPage('http://localhost:3000/roomsMap');
           break;
         default:

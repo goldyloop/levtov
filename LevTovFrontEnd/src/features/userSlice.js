@@ -4,6 +4,7 @@ const initValue = {
     userPosition: "מנהל"
 };
 
+
 const userSlice = createSlice({
     name: "currentUser",
     initialState: initValue,

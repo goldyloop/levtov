@@ -47,3 +47,6 @@ LevtovBackEnd/DAL/Models/ApplicationDbContext.cs
 # NuGet Packages
 *.nupkg
 **/packages/*
+
+
+LevtovBackEnd/DAL/Models/ApplicationDbContext.cs
