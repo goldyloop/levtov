@@ -16,6 +16,7 @@
     justify-content: space-evenly;
     align-items: center;
     font-size: 200%;
+
 }
 
 #bu {
@@ -39,12 +40,14 @@
         /* תן לגובה להיות אוטומטי */
         font-size: 1em;
         /* הקטן את גודל הכתב */
+        top: 0px;
     }
 
     #allButtons {
         flex-direction: column;
         /* שינוי לכיוון עמודה */
         align-items: center;
+        margin-top: 120px;
     }
 
     #bu {
@@ -63,15 +66,3 @@
 
 }
 
-/* מדיה קוורי עבור מסכים מאוד קטנים */
-@media only screen and (max-width: 500px) {
-    #allButtons {
-        font-size: 0.8em;
-        /* הקטן את גודל הטקסט */
-    }
-
-    #bu {
-        font-size: 0.8em;
-        /* הקטן את גודל הכתב בכפתור */
-    }
-}
