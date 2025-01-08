@@ -177,8 +177,8 @@ export default function OTPInput() {
   const dispatch = useDispatch();
   const userPosition = useSelector((state) => state.currentUser.userPosition);
   const phonePosition = useSelector((state)=> state.currentPhone.phonePosition);
-  console.log(userPosition);
-  console.log(phonePosition);
+  // console.log(userPosition);
+  // console.log(phonePosition);
   useEffect(() => {
     console.log('User Position:', userPosition);
   }, [userPosition]);
@@ -225,7 +225,7 @@ export default function OTPInput() {
           changePosition("worker");
           changePhonePosition(otp);
           console.log(phonePosition);
-          alert(userPosition);
+          console.log(userPosition);
           navigateToPage('http://localhost:3000/roomsMap');
           break;
         default:

@@ -12,11 +12,12 @@ import { useSelector } from 'react-redux';
 
 const RoomsMap = () => {
     
-
+  
     const phonePosition = useSelector((state) => state.currentPhone.phonePosition);
     const userPosition = useSelector((state) => state.currentUser.userPosition);
-    console.log(phonePosition);
-    console.log(userPosition);
+    // console.log(phonePosition);
+    // console.log(userPosition); 
+
     const [rooms, setRooms] = useState([]);
 
     useEffect(() => {
@@ -30,7 +31,7 @@ const RoomsMap = () => {
         try {
             let response = await fetch('https://localhost:7279/api/Room/getAll')
             let arr = await response.json();
-            setRooms(arr)
+            setRooms(arr);
             console.log(rooms);
         } catch (err) {
             console.error(err)
