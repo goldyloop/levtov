@@ -187,18 +187,26 @@ export default function OTPInput() {
   }, [phonePosition]);
   let data;
   async function handleLogin(otp) {
+    let response;
+    let r;
     try {
-      const response = await fetch(`https://localhost:7279/api/User/get/${otp}`);
+      response = await fetch(`https://localhost:7279/api/User/get/${otp}`);
+      r =response.status;
+      if(response.status===204){
+      alert("הכנס את המספר שאתו נרשמתם");}
+      else{
       data = await response.json();
       console.log(data);
-    console.log(data.position);  
+    console.log(data.position);  }
     } 
     catch (error) {
       // console.error(error);
       // console.log("error");
-      alert("הכנס את המספר שאיתו נרשמתם ")
+      alert("בעיה בהתחברות לשרת");
     } 
-    if (data && Object.keys(data).length !== 0){
+    if (data && Object.keys(data).length !== 0 ){
+      // const filteredObjects =await Object.keys(data).filter(obj => obj.UserId === otp);
+      // if(filteredObjects!=null){
     const changePosition = (newPosition) => {
         dispatch(setUserPosition(newPosition)); // שינוי סוג המשתמש
       };
@@ -230,9 +238,12 @@ export default function OTPInput() {
           break;
         default:
           console.log("מצב לא ידוע.");
-      }
+      }}
+      // else{
+      //   alert("הכנס את המספר שאתו נרשמתם");
+      // }
     }
-  }
+  // }
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       <OTP separator={<span>-</span>} value={otp} onChange={setOtp} length={10} />
