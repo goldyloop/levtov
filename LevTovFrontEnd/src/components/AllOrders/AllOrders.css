@@ -1,52 +1,113 @@
-#all-orders-body{
-    /* background-color: #b23636; */
-    display: grid;
-    grid-template-rows: auto;
+#all-orders-body {
+  /* background-color: #b23636; */
+  display: grid;
+  grid-template-rows: auto;
+  width: 100%;
+  overflow: hidden;
 }
-#allTable{
-    width: 90%; 
-    margin: auto;
+
+#allTable {
+  width: 50%;
+  margin: auto;
 
 }
-#h1{
-    text-align: center;
-    margin-top: 121px;
-}
-/* #logoLev{
-    width: 200px;
-    height: 140px;
-} */
 
-  #all-orders-body {
-    padding: 20px;
-  }
+#h1 {
+  text-align: center;
+  margin-top: 121px;
+}
+
+#icon {
+  width: 1.5px;
+  height: 0.5px;
+}
+
+
+
+.input-container input {
+  margin: 10px 0;
+ 
+}
+.input-container{
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: auto;
+}
+.css-1yij63n-MuiTableRow-root {
+  border: rgb(0, 0, 0) solid 2px;
+}
+
+label {
+  font-size: 90%;
+  margin: 6px;
+}
+
+.sort {
+  margin: 5px;
+  height: 22px;
+  width: 115px;
+  border: solid 2px black;
+  border-radius: 5px;
+
+}
+
+#fff {
+  height: 27px;
+  margin: 10px;
+
+}
+
+#inp2{
+  display: flex;
+  flex-direction: row;
+}
+
 @media only screen and (max-width: 900px) {
-    #h1{
+
+  #h1 {
     text-align: center;
     margin-top: 12px;
-}
-}
-@media (max-width: 600px) {
-    #allTable {
-      display: block; /* הפוך את הטבלה לחסרה */
-      overflow-x: auto; /* אפשר גלילה רוחבית */
-    }
-    table {
-      width: 100%; /* ודא שהטבלה תופסת 100% מהאורך */
-      display: block; /* הפוך את הטבלה לחסרה */
-    }
-    th, td {
-      display: block; /* הפוך את התאים לחסרים */
-      width: 100%; /* כל תא יתפוס את כל רוחב ההורה */
-    
-    }
-    /* הוסף סגנון להפרדת התוכן */
-    th {
-      background-color: #F1F1F1; /* רקע שונה להדגשה */
-      padding: 8px;
-    }
-    td {
-      border: 1px solid #ddd; /* גבולות לתאים */
-      padding: 8px;
-    }
   }
+
+  #inp1, #inp2 {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .input-container {
+   
+    margin-right: auto;
+    margin-left: auto;
+   
+  }
+
+}
+
+@media (max-width: 600px) {
+  #allTable {
+    width: 90%;
+
+  }
+
+  #inp1
+   {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .input-container {
+    display: flex;
+    flex-direction: column;
+   
+  }
+  #inp2{
+    display: flex;
+    flex-direction: column;
+  }
+  #date{
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+}
