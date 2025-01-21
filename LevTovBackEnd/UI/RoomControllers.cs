@@ -55,5 +55,11 @@ namespace UI
             // קריאה לשכבת ה-BLL כדי לקבל את המחרוזת
             return _roomService.UpdateRoom(id, item);
         }
+
+        [HttpGet("getEmptyRoomTo/{date}")]
+        public Task<IEnumerable<Room>> GetEmptyRoomToDate(DateTime date) 
+        {
+            return _roomService.GetEmptyRoomsToDate(date);
+        }
     }
 }

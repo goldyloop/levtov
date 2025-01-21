@@ -4,12 +4,35 @@ const initValue = {
     userPosition: "מנהל"
 };
 
+// פונקציה לשמירה ב-localStorage
+const saveStateToLocalStorage = (state) => {
+    try {
+        const serializedState = JSON.stringify(state);
+        localStorage.setItem('userState', serializedState);
+    } catch (e) {
+        console.error("Could not save state", e);
+    }
+};
+
+// פונקציה לטעינת ה-state מ-localStorage
+const loadStateFromLocalStorage = () => {
+    try {
+        const serializedState = localStorage.getItem('userState');
+        return serializedState ? JSON.parse(serializedState) : undefined;
+    } catch (e) {
+        return undefined;
+    }
+};
+
+
+
 const userSlice = createSlice({
     name: "currentUser",
-    initialState: initValue,
+    initialState: loadStateFromLocalStorage()||initValue,
     reducers: {
         setUserPosition(state, action) {
             state.userPosition = action.payload;
+            saveStateToLocalStorage(state);
         },
     },
 });

@@ -26,11 +26,19 @@ namespace UI
             // קריאה לשכבת ה-BLL כדי לקבל את המחרוזת
             return _orderService.GetOrder(id);
         }
-        [HttpGet("getAll")]
+        [HttpGet("getAll")] 
+      
         public Task<IEnumerable<Order>> GetAll()
         {
             return _orderService.GetAllOrders();
+        } 
+        [HttpGet("GetRoomIdByUserId/{userId}")]
+        public Task<IEnumerable<Order>> GetRoomIdByUserId(string userId)
+        {
+            return _orderService.GetRoomIdByUserId( userId);
         }
+
+
         [HttpPost("create")]
         public Task<Order> Create(Order item)
         {
@@ -46,6 +54,7 @@ namespace UI
         {
             return _orderService.UpdateOrder(id, item);
         }
+       
     }
 
 }

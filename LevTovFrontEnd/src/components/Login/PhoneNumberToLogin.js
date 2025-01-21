@@ -4,6 +4,8 @@ import { Input as BaseInput } from '@mui/base/Input';
 import { Box, styled } from '@mui/system';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserPosition } from '../../features/userSlice.js';
+import {setPhonePosition} from '../../features/phoneSlice.js'
+
 function OTP({ separator, length, value, onChange }) {
   const inputRefs = React.useRef(new Array(length).fill(null));
 
@@ -174,45 +176,74 @@ export default function OTPInput() {
 }
   const dispatch = useDispatch();
   const userPosition = useSelector((state) => state.currentUser.userPosition);
-  console.log(userPosition);
+  const phonePosition = useSelector((state)=> state.currentPhone.phonePosition);
+  // console.log(userPosition);
+  // console.log(phonePosition);
+  useEffect(() => {
+    console.log('User Position:', userPosition);
+  }, [userPosition]);
+  useEffect(() => {
+    console.log('phone Position:', phonePosition);
+  }, [phonePosition]);
   let data;
   async function handleLogin(otp) {
+    let response;
+    let r;
     try {
-      const response = await fetch(`https://localhost:7279/api/User/get/${otp}`);
+      response = await fetch(`https://localhost:7279/api/User/get/${otp}`);
+      r =response.status;
+      if(response.status===204){
+      alert("הכנס את המספר שאתו נרשמתם");}
+      else{
       data = await response.json();
       console.log(data);
-    console.log(data.position);  
-    } catch (error) {
+    console.log(data.position);  }
+    } 
+    catch (error) {
       // console.error(error);
       // console.log("error");
-      alert("הכנס את המספר שאיתו נרשמתם ")
+      alert("בעיה בהתחברות לשרת");
     } 
-    if (data && Object.keys(data).length !== 0){
+    if (data && Object.keys(data).length !== 0 ){
+      // const filteredObjects =await Object.keys(data).filter(obj => obj.UserId === otp);
+      // if(filteredObjects!=null){
     const changePosition = (newPosition) => {
-        dispatch(setUserPosition(newPosition)); // שינוי המיקום
+        dispatch(setUserPosition(newPosition)); // שינוי סוג המשתמש
+      };
+      const changePhonePosition =(newPhonePosition)=>{
+        dispatch(setPhonePosition(newPhonePosition));
       };
       console.log(data.position);
       switch (data.position) {
         case 1:
-          alert("מנהל");
+          
           changePosition("manager");
+          changePhonePosition(otp);
           navigateToPage('http://localhost:3000/manager');
+          alert(userPosition);
           break;
         case 2:
           alert("אורח");
           changePosition("guest");
+          changePhonePosition(otp);
           navigateToPage('http://localhost:3000/guest');
           break;
         case 3:
-          alert("איש תחזוקה");
+         
           changePosition("worker");
+          changePhonePosition(otp);
+          console.log(phonePosition);
+          console.log(userPosition);
           navigateToPage('http://localhost:3000/roomsMap');
           break;
         default:
           console.log("מצב לא ידוע.");
-      }
+      }}
+      // else{
+      //   alert("הכנס את המספר שאתו נרשמתם");
+      // }
     }
-  }
+  // }
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       <OTP separator={<span>-</span>} value={otp} onChange={setOtp} length={10} />

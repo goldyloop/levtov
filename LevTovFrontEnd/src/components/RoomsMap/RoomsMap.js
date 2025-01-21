@@ -5,18 +5,33 @@ import HomeIcon from '@mui/icons-material/Home';
 import IconButton from '@mui/material/IconButton';
 import { Link } from "react-router-dom";
 import Logo from "../Logo/Logo";
-import "../All.css"
-import "./RoomsMap.css"
+import "../All.css";
+import "./RoomsMap.css";
+
+import { useSelector } from 'react-redux';//redux
 
 const RoomsMap = () => {
+    
+  
+    const phonePosition = useSelector((state) => state.currentPhone.phonePosition);//redux
+    const userPosition = useSelector((state) => state.currentUser.userPosition);//redux
+    // console.log(phonePosition);
+    // console.log(userPosition); 
 
+   
+    //redux
+    useEffect(() => {
+        console.log('User Position:', userPosition);
+      }, [userPosition]);
+      useEffect(() => {
+        console.log('phone Position:', phonePosition);
+      }, [phonePosition]);
     const [rooms, setRooms] = useState([]);
-
     const getAllRooms = async () => {
         try {
             let response = await fetch('https://localhost:7279/api/Room/getAll')
             let arr = await response.json();
-            setRooms(arr)
+            setRooms(arr);
             console.log(rooms);
         } catch (err) {
             console.error(err)

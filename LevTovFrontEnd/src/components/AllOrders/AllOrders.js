@@ -58,7 +58,9 @@ export default function AllOrders() {
         });
     };
 
+
     async function getAllData() {
+
         try {
             let response = await fetch('https://localhost:7279/api/Order/getAll');
             if (!response.ok) {
