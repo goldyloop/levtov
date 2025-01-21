@@ -8,25 +8,25 @@ import Logo from "../Logo/Logo";
 import "../All.css";
 import "./RoomsMap.css";
 
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';//redux
 
 const RoomsMap = () => {
     
   
-    const phonePosition = useSelector((state) => state.currentPhone.phonePosition);
-    const userPosition = useSelector((state) => state.currentUser.userPosition);
+    const phonePosition = useSelector((state) => state.currentPhone.phonePosition);//redux
+    const userPosition = useSelector((state) => state.currentUser.userPosition);//redux
     // console.log(phonePosition);
     // console.log(userPosition); 
 
-    const [rooms, setRooms] = useState([]);
-
+   
+    //redux
     useEffect(() => {
         console.log('User Position:', userPosition);
       }, [userPosition]);
       useEffect(() => {
         console.log('phone Position:', phonePosition);
       }, [phonePosition]);
-
+    const [rooms, setRooms] = useState([]);
     const getAllRooms = async () => {
         try {
             let response = await fetch('https://localhost:7279/api/Room/getAll')
