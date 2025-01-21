@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore;
 
 namespace BL
 {
@@ -24,9 +26,24 @@ namespace BL
             // קריאה לשכבת ה-DAL לקבלת הנתונים
             return orderRepository.ReadAllAsync();
         }
+
+        public Task<IEnumerable<Order>> GetAllOrdersByUserName(string userName)
+        {
+
+            return orderRepository.ReadAllAsync();
+        }
+
         public Task<Order> GetOrder(int id)
         {
             return orderRepository.ReadAsync(id);
+        }
+        public async Task<IEnumerable<Order>> GetRoomIdByUserId(string userId)
+        {
+
+            IEnumerable<Order> AllOrdersArr =await orderRepository.ReadAllAsync();
+            IEnumerable<Order> orderArr = AllOrdersArr.Where(order => order.OrderDate == DateTime.Today && userId == order.UserId);
+            return orderArr;
+
         }
         public Task<Order> CreateOrder(Order item)
         {
@@ -40,6 +57,8 @@ namespace BL
         {
             return orderRepository.DeleteAsync(id);
         }
+
+  
 
     }
 }
