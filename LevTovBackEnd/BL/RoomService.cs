@@ -12,10 +12,12 @@ namespace BL
     public class RoomService
     {
         private readonly RoomRepository roomRepository;
+        private readonly OrderRepository orderRepository;
 
-        public RoomService(RoomRepository roomRepository_)
+        public RoomService(RoomRepository roomRepository_ ,OrderRepository orderRepository_)
         {
             roomRepository = roomRepository_;
+            orderRepository = orderRepository_;
         }
 
         public Task<IEnumerable<Room>> GetAllRooms()
@@ -44,6 +46,24 @@ namespace BL
         {
             return roomRepository.UpdateAsync(id, item);
         }
+
+
+        public async Task<IEnumerable<Room>> GetEmptyRoomsToDate(DateTime date)
+        {
+            // כל החדרים
+            IEnumerable<Room> rooms = await roomRepository.ReadAllAsync();
+            // כל ההזמנות
+            IEnumerable<Order> orders = await orderRepository.ReadAllAsync();
+            // סינון רק של ההזמנות שבתאריך שהתקבל
+            IEnumerable<Order> ordersOnDate = orders.Where(order => order.OrderDate == date);
+            // קח את כל ROOMID מההזמנות בתאריך הנתון
+            var occupiedRoomIds = ordersOnDate.Select(order => order.RoomId).ToHashSet();
+            // מצא את כל החדרים שלא מופיעים בהזמנות בתאריך הנתון
+            IEnumerable<Room> emptyRooms = rooms.Where(room => !occupiedRoomIds.Contains(room.RoomId));
+
+            return emptyRooms;
+        }
+
     }
 }
 

@@ -12,6 +12,7 @@ namespace BL
     public class OrderService
     {
         private readonly OrderRepository orderRepository;
+        private readonly RoomRepository roomRepository;
 
         public OrderService(OrderRepository orderRepository_)
         {
@@ -40,6 +41,8 @@ namespace BL
         {
             return orderRepository.DeleteAsync(id);
         }
+
+     
 
     }
 }

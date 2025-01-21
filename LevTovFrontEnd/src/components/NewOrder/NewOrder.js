@@ -17,6 +17,7 @@ import Button from '@mui/material/Button';
 import Logo from '../Logo/Logo';
 import "../All.css"
 import "./NewOrder.css"
+import { DateTimeField } from '@mui/x-date-pickers';
 
 const schema = yup.object({
     guestName: yup.string().required('*שם המזמין הוא שדה חובה'),
@@ -76,8 +77,12 @@ const NewOrder = (props) => {
         switch (step) {
             case 1:
                 return ["guestPhone"]; // בשלב 1 נבדוק רק את טלפון
-            case 2:
+            case 2: {
+                if (userName) {
+                    return []
+                }
                 return ["guestName"]; // בשלב 2 נבדוק רק את שם המזמין
+            }
             case 3:
                 return ["checkInDate"]; // בשלב 3 נבדוק רק את תאריך ההגעה
             case 4:
@@ -93,32 +98,34 @@ const NewOrder = (props) => {
     };
 
     //חדרים זמניים
-    let rooms = [{ id: 103, status: 1 }, { id: 105, status: 2 }, { id: 108, status: 2 }, { id: 115, status: 3 }, { id: 116, status: 1 }, { id: 117, status: 2 }, { id: 118, status: 4 }, { id: 119, status: 4 }]
+    // let rooms = [{ id: 103, status: 1 }, { id: 105, status: 2 }, { id: 108, status: 2 }, { id: 115, status: 3 }, { id: 116, status: 1 }, { id: 117, status: 2 }, { id: 118, status: 4 }, { id: 119, status: 4 }]
 
-    
-    let [userName,setUserName]=React.useState('');
+    let [rooms, setRooms] = React.useState([]);
+
+
+    let [userId, setUserId] = React.useState('');
+    let [userName, setUserName] = React.useState('');
+    let [date, setDate] = React.useState(Date())
+
+
     const searchUser = async () => {
         let phone = document.getElementById("guest-phone").value;
+        // let phone = userId;
+        console.log(phone);
         let user;
         try {
             const response = await fetch(`https://localhost:7279/api/User/get/${phone}`);
-            // console.log("jjjjjjjjjjjj");
-
             if (response.status === 200) {
                 user = await response.json()
                 setUserName(user.userName)
-                console.log(userName);
-                alert({userName})
             }
-            else if (response.status === 204){
-                console.log("dddddddddddddddd");
+            else if (response.status === 204) {
                 setUserName('')
             }
         }
         catch (err) {
             console.log("לא התחבר");
         }
-        console.log(phone);
     }
 
     const step1 = (
@@ -126,24 +133,43 @@ const NewOrder = (props) => {
             <div className='div-inputs'>
                 {/* <TextField className='text-filds' id="guest-phone" type="phone" label="טלפון" variant="outlined" {...register("guestPhone")} /> */}
                 <label>טלפון:</label><br />
-                <input type='phone' className='text-filds' id="guest-phone"{...register("guestPhone")}></input><br />
+                <input
+                    type='phone'
+                    className='text-filds'
+                    id="guest-phone"
+                    // onChange={(e) => { setUserId(e.target.value);}}
+                    {...register("guestPhone")}>
+                </input>
+                <br />
                 {errors.guestPhone && <p>{errors.guestPhone.message}</p>}
             </div>
 
             <div id='buttons'>
-                <Button onClick={async() => {await searchUser(); nextStep(); }} variant="outlined" id='next'>הבא</Button>
+                <Button onClick={async () => { await searchUser(); nextStep(); }} variant="outlined" id='next'>הבא</Button>
             </div>
         </div>
     )
 
     const step2 = (
         <div className='steps'>
-            <div className='div-inputs'>
-                {/* <TextField className='text-filds' id="guest-name" label="שם המזמין" variant="outlined" {...register("guestName")} /> */}
-                <label>שם המזמין:</label><br />
-                <input type='phone' className='text-filds' defaultValue={userName} {...register("guestName")}></input><br />
-                {errors.guestName && <p>{errors.guestName.message}</p>}
+            {!userName ? (
+                <div className='div-inputs'>
+                    {/* <TextField className='text-filds' id="guest-name" label="שם המזמין" variant="outlined" {...register("guestName")} /> */}
+                    <label>שם המזמין:</label><br />
+                    <input
+                        type='text'
+                        className='text-filds'
+                        id="guest-name"
+                        // defaultValue={userName}
+                        {...register("guestName")}></input><br />
+                    {errors.guestName && <p>{errors.guestName.message}</p>}
+                </div>
+            ) : (<div id='existing-user'>
+                <label>המזמין נמצא במערכת</label>
+                <label>שם המזמין: {userName}</label>
+                <span>המשך למלא את שאר פרטי ההזמנה</span>
             </div>
+            )}
             <div id='buttons'>
                 <Button onClick={prevStep} variant="outlined" id='prev'>הקודם</Button>
                 <Button onClick={nextStep} variant="outlined" id='next'>הבא</Button>
@@ -169,12 +195,18 @@ const NewOrder = (props) => {
                     />
                 </LocalizationProvider> */}
                 <label>תאריך:</label><br />
-                <input type='date' className='text-filds' {...register("checkInDate")}></input><br />
+                <input
+                    type='date'
+                    id="order-date"
+                    className='text-filds'
+                    // onChange={(e) => { setDate(e.target) }}
+                    {...register("checkInDate")}></input><br
+                />
                 {errors.checkInDate && <p>{errors.checkInDate.message}</p>}
             </div>
             <div id='buttons'>
                 <Button onClick={prevStep} variant="outlined" id='prev'>הקודם</Button>
-                <Button onClick={nextStep} variant="outlined" id='next'>הבא</Button>
+                <Button onClick={async () => { await getEmptyRoomsToDate(); nextStep(); }} variant="outlined" id='next'>הבא</Button>
             </div>
         </div>
     )
@@ -204,17 +236,42 @@ const NewOrder = (props) => {
                 <label>חדר:</label><br />
                 <select className='text-filds' {...register("room")}>
                     {rooms && rooms.length > 0 ? rooms.map((item) => (
-                        <option key={item.id} value={item.id}>{item.id}</option>
+                        <option key={item.roomId} value={item.roomId}>{item.roomId}</option>
                     )) : <option value="">אין חדרים פנויים ביום זה...</option>}
                 </select>
                 {errors.room && <p>{errors.room.message}</p>}
             </div>
             <div id='buttons'>
                 <Button onClick={prevStep} variant="outlined" id='prev'>הקודם</Button>
-                <Button type='submit' variant="outlined" id='next'>שמירה</Button>
+                <Button onClick={() => { alert("שמירה") }} type='submit' variant="outlined" id='next'>שמירה</Button>
             </div>
         </div>
     )
+
+    const getEmptyRoomsToDate = async () => {
+        alert("נכנס!!!!!!!!")
+        let d = document.getElementById("order-date").value
+        console.log("d",d);
+        // setDate(d)
+        // console.log("date", date);
+        console.log(`${d}T00:00:00Z`);
+        
+        try {
+            let response = await fetch(`https://localhost:7279/api/Room/getEmptyRoomTo/${d}T00:00:00Z`)
+            if (!response) {
+                console.error("לא הצליח להביא את הנתונים מהשרת");
+                return;
+            }
+            response = await response.json()
+            console.log(response);
+            setRooms(response);
+            console.log(rooms);
+            
+        }
+        catch (err) {
+            console.error("שגיאה בהתחברות לשרת", err);
+        }
+    }
 
     return (
         <div id='new-order-body'>
