@@ -44,6 +44,7 @@ export default function AllOrders() {
     const [rooms, setRooms] = React.useState([]);
     const [endDate, setEndDate] = React.useState('');
     const [startDate, setStartDate] = React.useState('');
+    const [visibleCount, setVisibleCount] = React.useState(3);
 
 
 
@@ -77,6 +78,10 @@ export default function AllOrders() {
     useEffect(() => {
         getAllData()
     }, []);
+
+    const handleShowMore = () => {
+        setVisibleCount(prevCount => prevCount + 50);
+    };
 
     async function getUserById(id) {
         try {
@@ -211,7 +216,7 @@ export default function AllOrders() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {filteredRows.map((row, index) => {
+                            {filteredRows.slice(0, visibleCount).map((row, index) => {
                                 const isRowExpanded = expandedRows.includes(index);
 
 
@@ -249,6 +254,9 @@ export default function AllOrders() {
                     </Table>
                 </TableContainer>
             </div>
+            {visibleCount < rows.length && (
+                <button id="more" onClick={handleShowMore}>הצג עוד הזמנות</button>
+            )}
         </div>
     );
 }
