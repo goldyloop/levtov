@@ -26,14 +26,16 @@
 
 .input-container input {
   margin: 10px 0;
- 
+
 }
-.input-container{
+
+.input-container {
   display: flex;
   flex-direction: row;
   margin-left: auto;
   margin-right: auto;
 }
+
 .css-1yij63n-MuiTableRow-root {
   border: rgb(0, 0, 0) solid 2px;
 }
@@ -58,10 +60,18 @@ label {
 
 }
 
-#inp2{
+#inp2 {
   display: flex;
   flex-direction: row;
 }
+
+#more {
+  width: 155px;
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 
 @media only screen and (max-width: 900px) {
 
@@ -70,16 +80,17 @@ label {
     margin-top: 12px;
   }
 
-  #inp1, #inp2 {
+  #inp1,
+  #inp2 {
     margin-right: auto;
     margin-left: auto;
   }
 
   .input-container {
-   
+
     margin-right: auto;
     margin-left: auto;
-   
+
   }
 
 }
@@ -90,8 +101,7 @@ label {
 
   }
 
-  #inp1
-   {
+  #inp1 {
     display: flex;
     flex-direction: row;
   }
@@ -99,13 +109,15 @@ label {
   .input-container {
     display: flex;
     flex-direction: column;
-   
+
   }
-  #inp2{
+
+  #inp2 {
     display: flex;
     flex-direction: column;
   }
-  #date{
+
+  #date {
     margin-left: auto;
     margin-right: auto;
   }

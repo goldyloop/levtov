@@ -21,11 +21,12 @@ namespace BL
             orderRepository = orderRepository_;
         }
 
-        public Task<IEnumerable<Order>> GetAllOrders()
+        public async Task<IEnumerable<Order>> GetAllOrders()
         {
-            // כאן ניתן להוסיף לוגיקה נוספת לפי הצורך
-            // קריאה לשכבת ה-DAL לקבלת הנתונים
-            return orderRepository.ReadAllAsync();
+            var orders = await orderRepository.ReadAllAsync();
+
+            // מיין את ההזמנות לפי תאריך
+            return orders.OrderByDescending(o => o.OrderDate);
         }
 
         public Task<IEnumerable<Order>> GetAllOrdersByUserName(string userName)
