@@ -21,8 +21,10 @@ const OneRoom = (props) => {
 
     const changeStatus = async (newStatus) => {
         // alert(newStatus)
+        
         const updatedData = { ...room, roomStatus: newStatus };
         try {
+           
             let response = await fetch(`https://localhost:7279/api/Room/update/${room.roomId}`, {
                 method: "PUT",
                 headers: {

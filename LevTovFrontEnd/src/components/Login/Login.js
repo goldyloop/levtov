@@ -33,7 +33,7 @@
 import PhoneNumberToLogin from './PhoneNumberToLogin';
 
 import Logo from '../Logo/Logo';
-// import '../All.css';
+ import '../All.css';
 import './Login.css';
 
 const Login = () => {

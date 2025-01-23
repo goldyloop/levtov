@@ -39,10 +39,12 @@ namespace BL
         {
             return userRepository.DeleteAsync(id);
         }
-        public Task<User> UpdateUser(int id, User item)
+        public Task<User> UpdateUser(string id, User item)
         {
             return userRepository.UpdateAsync(id, item);
         }
+
+      
     }
 }
 

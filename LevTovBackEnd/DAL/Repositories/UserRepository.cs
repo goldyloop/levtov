@@ -49,9 +49,23 @@ namespace DAL.Repositories;
 
     public async Task<User> UpdateAsync(object id, User item)
         {
-            if (id != item.UserId) return null;
-            _context.Entry(item).State = EntityState.Modified;
+            if ((string)id != item.UserId) return null;
+
+        var user = await _context.Users.FindAsync(id);
+        if (user == null)
+            return null;
+        if (item.Email != null)
+        {
+            user.Email = item.Email;
+        }
+            
             await _context.SaveChangesAsync();
             return item;
         }
+
+
+    
+
+        
+    
 }
