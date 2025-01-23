@@ -15,7 +15,7 @@ body {
     /*  */
 }
 
-h2 {
+#hello-title {
     position: absolute;
     top: 25%;
     left: 50%;

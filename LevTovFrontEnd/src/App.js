@@ -44,7 +44,7 @@ function App() {
           <Route path='newOrder' element={<NewOrder arr={[1, 2, 3, 4, 5]}></NewOrder> } />
           <Route path='allOrders' element={<CustomizedTables/> } />
         </Routes>
-    </Provider>
+    // </Provider>
   )
 }
 export default App;

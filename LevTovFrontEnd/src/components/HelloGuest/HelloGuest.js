@@ -89,7 +89,7 @@ const HelloGuest = (props) => {
             </Link>
 
 
-            <h2 >
+            <h2 id='hello-title'>
                 <div id='name'>  שלום {dataName.userName},
                 
                 </div> {dataRoomNumber.length > 0 ?`הנך רשום בחדר מס ${dataRoomNumber[0].roomId}`  :'אין חדר זמין ליום זה נא לפנות למנהל'}
