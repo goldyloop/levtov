@@ -24,7 +24,7 @@ const HelloGuest = (props) => {
     useEffect(() => {
         console.log('phone Position:', phonePosition);
     }, [phonePosition]);
- 
+
 
 
     useEffect(() => {
@@ -32,14 +32,86 @@ const HelloGuest = (props) => {
     }, []);
     let [dataName, setDataName] = useState(123);
     let [dataRoomNumber, setDataRoomNumber] = useState([]);
+    let [eemail, setEmail] = useState('');
+    let [errorMesage, setErrorMesage] = useState('');
+    let [iinput, setIinput] = useState(true);
+
     useEffect(() => {
         console.log('dataName:', dataName);
     }, [dataName]);
-    
+
     useEffect(() => {
         console.log('dataRoomNumber:', dataRoomNumber);
     }, [dataRoomNumber]);
-    
+
+    const handleChange = (event) => {
+        setEmail(event.target.value);
+        setErrorMesage(checkEmail(eemail));
+        // console.log("הערך של ה-input הוא:", email);
+    };
+
+    async function handleClick() {
+        // כאן את יכולה לגשת לערך של inputValue
+
+        if (errorMesage == true) {
+
+            const updatedData = { ...dataName, email: eemail };
+            try {
+
+                console.log(eemail);
+                console.log('נתוני העדכון:', updatedData);
+
+                let response = await fetch(`https://localhost:7279/api/User/update/${phonePosition}`, {
+                    method: "PUT",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updatedData)
+
+                })
+                console.log(response);
+                if (response.ok) {
+                    const result = await response.json();
+                    // props.updateRoomStatus(result)
+                    console.log('המייל עודכן בהצלחה', result);
+                    setIinput(false);
+                }
+                else {
+                    console.error('שגיאה בעדכון המייל');
+                }
+            }
+            catch (error) {
+                console.error("שגיאה בשרת" + error)
+            }
+
+
+        }
+
+
+    };
+    function checkEmail(email) {
+        // בדיקת פורמט בסיסי
+        const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!regex.test(email)) {
+            return "פורמט אימייל לא תקין";
+        }
+
+        // בדיקת אורך
+        if (email.length < 5 || email.length > 254) {
+            return "אורך אימייל לא תקין";
+        }
+
+        // בדיקת דומיין (כדאי להוסיף בדיקה כזו)
+        const domain = email.split('@')[1];
+        if (!isDomainValid(domain)) {
+            return "דומיין לא תקין";
+        }
+        return true;
+        function isDomainValid(domain) {
+            // כאן אפשר להוסיף בדיקות לדומיין (למשל, בדיקת קיום)
+            return true; // דוגמה - החזר true
+        }
+    }
 
     async function handleGuestRoomAndGuestUserName() {
         try {
@@ -63,16 +135,16 @@ const HelloGuest = (props) => {
             alert(error);
         }
 
-         console.log(dataName.userId);
-         console.log(dataName.userName);
-         console.log(dataRoomNumber);
-         let stringData="000";
-         if(dataRoomNumber.length==0){
-            stringData = "אין חדר נא לפנות למנהל";
-         }
-         else if(dataRoomNumber.length==1){
-            stringData = `הנך נמצא בחדר${dataRoomNumber[0].room}`
-         }
+        console.log(dataName.userId);
+        console.log(dataName.userName);
+        console.log(dataRoomNumber);
+        let stringData = "000";
+        // if (dataRoomNumber.length == 0) {
+        //     stringData = "אין חדר נא לפנות למנהל";
+        // }
+        // else if (dataRoomNumber.length == 1) {
+        //     stringData = `הנך נמצא בחדר${dataRoomNumber[0].room}`
+        // }
     }
 
     return (
@@ -91,13 +163,27 @@ const HelloGuest = (props) => {
 
             <h2 id='hello-title'>
                 <div id='name'>  שלום {dataName.userName},
-                
-                </div> {dataRoomNumber.length > 0 ?`הנך רשום בחדר מס ${dataRoomNumber[0].roomId}`  :'אין חדר זמין ליום זה נא לפנות למנהל'}
+
+                </div> {dataRoomNumber.length > 0 ? `הנך רשום בחדר מס ${dataRoomNumber[0].roomId}` : 'אין חדר זמין ליום זה נא לפנות למנהל'}
             </h2>
             <h3 id='greetingTxt'>אנו מאחלים לך שהות נעימה ומועילה,
-                <br /> בתקווה לבשורות טובות.</h3>
+                <br /> בתקווה לבשורות טובות.
+            {iinput && (
+              <>  <h3>נשמח אם תשאירו לנו את המייל שלכם       <input
+                    type="email"
+                    value={eemail}
+                    onChange={handleChange}
+                    placeholder="הכנס ערך"
+                /></h3>
+                <span>{errorMesage}</span>
+                <input type="Button" value="הוסף למערכת" onClick={handleClick}  />
+
+           </> )}</h3>
+
             <h3 id='exitTxt'>בעזיבתך את דירת הארוח - נא הקש על יציאה</h3>
             <Button id='exit' variant="contained">יציאה</Button>
+
+
         </div>
     );
 }

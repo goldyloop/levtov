@@ -39,8 +39,14 @@ namespace UI
         {
             return _userService.DeleteUser(id);
         }
-        [HttpPut("update")]
-        public Task<User> Update(int id, User item)
+      
+
+
+
+
+
+        [HttpPut("update/{id}")]
+        public Task<User> Update(string id, [FromBody] User item)
         {
             return _userService.UpdateUser(id, item);
         }
