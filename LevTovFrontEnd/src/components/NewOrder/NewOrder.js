@@ -33,7 +33,9 @@ const schema = yup.object({
     checkInDate: yup.date()
         .typeError("הכנס תאריך תקין")
         .required('יש לבחור תאריך')
-        .min(new Date(), 'התאריך שבחרת כבר עבר'), // תאריך לא יכול להיות בעבר,
+        .test('min-today', 'התאריך שבחרת כבר עבר', value => {
+            return value >= new Date().setHours(0, 0, 0, 0); // מוודא שהתאריך הוא היום או עתידי
+        }),
     numOfNights: yup
         .number().typeError("הכנס מספר לילות")
         .min(1, 'מספר הלילות חייב להיות לפחות 1')
@@ -44,13 +46,10 @@ const schema = yup.object({
 
 const NewOrder = (props) => {
 
-    let { register, handleSubmit, control, formState: { errors }, trigger } = useForm({
-        mode: "onBlur", resolver: yupResolver(schema)
-    })
-
-    const send = () => {
-        alert("הפרטים נשמרו");
-    }
+    const { register, handleSubmit, control, setValue, formState: { errors }, trigger, getValues } = useForm({
+        mode: 'onBlur',
+        resolver: yupResolver(schema)
+    });
 
     // שלב הנוכחי של הטופס
     const [step, setStep] = React.useState(1);
@@ -62,7 +61,7 @@ const NewOrder = (props) => {
         guestEmail: '',
         checkInDate: '',
         numOfNights: '',
-        room: '',
+        room: null,
     });
 
     // מעבר לשלבים
@@ -103,10 +102,61 @@ const NewOrder = (props) => {
     let [rooms, setRooms] = React.useState([]);
 
 
-    let [userId, setUserId] = React.useState('');
+    // let [userId, setUserId] = React.useState('');
     let [userName, setUserName] = React.useState('');
-    let [date, setDate] = React.useState(Date())
+    // let [date, setDate] = React.useState(Date())
 
+
+    const send = () => {
+        alert("הפרטים נשמרו");
+
+        // קבלת הערכים ישירות מהטופס
+        const formValues = getValues();
+        // עדכון ה-formData עם הערכים החדשים
+        setFormData((prevData) => ({
+            ...prevData,
+            guestName: userName == '' ? formValues.guestName : userName,
+            guestPhone: formValues.guestPhone,
+            // guestEmail: formValues.guestEmail,
+            checkInDate: formValues.checkInDate,
+            // numOfNights: formValues.numOfNights,
+            room: formValues.room,
+        }));
+
+        if (userName=='') {
+            createNewUser()
+        }
+
+    }
+    // !!!!!!!!!!!!!!!!!!!למחוק!!!!!!!!!!
+    React.useEffect(() => { console.log("formData", formData); }, [formData])
+    // !!!!!!!!!!!!!!!!!!!למחוק!!!!!!!!!!
+
+    const createNewUser = async () => {
+        const newUser = {
+            "userId": formData.guestPhone,
+            "userName": formData.guestName,
+            "position": 3
+        }
+        try {
+            const response = await fetch('https://localhost:7279/api/User/create', {
+                method: 'POST', // סוג הקריאה
+                headers: {
+                    'Content-Type': 'application/json', // מגדירים שהנתונים שנשלחים הם בפורמט JSON
+                },
+                body: JSON.stringify(newUser), // המרת הנתונים לפורמט JSON לפני השליחה
+            });
+            if(!response.ok){
+                alert("תקלה בשמירת ההזמנה")
+                return;
+            }
+            const result= await response.json()
+            alert(result.userName)
+        }
+        catch (err) {
+            console.error(err);
+        }
+    }
 
     const searchUser = async () => {
         let phone = document.getElementById("guest-phone").value;
@@ -135,9 +185,11 @@ const NewOrder = (props) => {
                 <label>טלפון:</label><br />
                 <input
                     type='phone'
+                    // value={formData.guestPhone}
                     className='text-filds'
                     id="guest-phone"
-                    // onChange={(e) => { setUserId(e.target.value);}}
+                    // onChange={(e) => { setFormData((prevData) => ({ ...prevData, ["guestPhone"]: e.target.value })) }}
+                    onChange={(e) => setValue("guestPhone", e.target.value)}  // עדכון הסטייט של react-hook-form
                     {...register("guestPhone")}>
                 </input>
                 <br />
@@ -158,9 +210,11 @@ const NewOrder = (props) => {
                     <label>שם המזמין:</label><br />
                     <input
                         type='text'
+                        // value={formData.guestName}
                         className='text-filds'
                         id="guest-name"
-                        // defaultValue={userName}
+                        // onChange={(e) => { setFormData((prevData) => ({ ...prevData, ["guestName"]: e.target.value })) }}
+                        onChange={(e) => setValue("guestName", e.target.value)}
                         {...register("guestName")}></input><br />
                     {errors.guestName && <p>{errors.guestName.message}</p>}
                 </div>
@@ -199,6 +253,8 @@ const NewOrder = (props) => {
                     type='date'
                     id="order-date"
                     className='text-filds'
+                    // value={formData.checkInDate}
+                    // onChange={(e) => { setFormData((prevData) => ({ ...prevData, ["checkInDate"]: e.target.value })) }}
                     // onChange={(e) => { setDate(e.target) }}
                     {...register("checkInDate")}></input><br
                 />
@@ -234,7 +290,12 @@ const NewOrder = (props) => {
                     />
                 </FormControl> */}
                 <label>חדר:</label><br />
-                <select className='text-filds' {...register("room")}>
+                <select
+                    id='room'
+                    className='text-filds'
+                    {...register("room")}
+                // onChange={(e) => { setFormData((prevData) => ({ ...prevData, ["room"]: e.target.value })) }}
+                >
                     {rooms && rooms.length > 0 ? rooms.map((item) => (
                         <option key={item.roomId} value={item.roomId}>{item.roomId}</option>
                     )) : <option value="">אין חדרים פנויים ביום זה...</option>}
@@ -243,7 +304,7 @@ const NewOrder = (props) => {
             </div>
             <div id='buttons'>
                 <Button onClick={prevStep} variant="outlined" id='prev'>הקודם</Button>
-                <Button onClick={() => { alert("שמירה") }} type='submit' variant="outlined" id='next'>שמירה</Button>
+                <Button onClick={send} type='submit' variant="outlined" id='next'>שמירה</Button>
             </div>
         </div>
     )
@@ -251,11 +312,11 @@ const NewOrder = (props) => {
     const getEmptyRoomsToDate = async () => {
         alert("נכנס!!!!!!!!")
         let d = document.getElementById("order-date").value
-        console.log("d",d);
+        console.log("d", d);
         // setDate(d)
         // console.log("date", date);
         console.log(`${d}T00:00:00Z`);
-        
+
         try {
             let response = await fetch(`https://localhost:7279/api/Room/getEmptyRoomTo/${d}T00:00:00Z`)
             if (!response) {
@@ -266,7 +327,7 @@ const NewOrder = (props) => {
             console.log(response);
             setRooms(response);
             console.log(rooms);
-            
+
         }
         catch (err) {
             console.error("שגיאה בהתחברות לשרת", err);
