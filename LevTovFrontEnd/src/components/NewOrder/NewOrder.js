@@ -41,7 +41,7 @@ const schema = yup.object({
         .min(1, 'מספר הלילות חייב להיות לפחות 1')
         .required('*מספר הלילות הוא שדה חובה')
     ,
-    room: yup.string().required('יש לבחור חדר'),
+    room: yup.number().required('יש לבחור חדר'),
 });
 
 const NewOrder = (props) => {
@@ -123,14 +123,42 @@ const NewOrder = (props) => {
             room: formValues.room,
         }));
 
-        if (userName=='') {
+        if (userName == '') {
             createNewUser()
         }
+        createNewOrder();
 
     }
     // !!!!!!!!!!!!!!!!!!!למחוק!!!!!!!!!!
     React.useEffect(() => { console.log("formData", formData); }, [formData])
     // !!!!!!!!!!!!!!!!!!!למחוק!!!!!!!!!!
+
+    const createNewOrder = async () => {
+        const newOrder = {
+            "userId": formData.guestPhone,
+            "userName": formData.guestName,
+            "orderDate": formData.checkInDate,
+            "roomId": formData.room
+        }
+        try {
+            let response = await fetch('https://localhost:7279/api/Order/create', {
+                method: 'POST', // סוג הקריאה
+                headers: {
+                    'Content-Type': 'application/json', // מגדירים שהנתונים שנשלחים הם בפורמט JSON
+                },
+                body: JSON.stringify(newOrder),
+                // המרת הנתונים לפורמט JSON לפני השליחה
+            }
+            );
+            if (!response.ok) {
+                alert("תקלה בשמירת ההזמנה")
+                return;
+            }
+        }
+        catch (err) {
+            console.error(err);
+        }
+    }
 
     const createNewUser = async () => {
         const newUser = {
@@ -146,11 +174,11 @@ const NewOrder = (props) => {
                 },
                 body: JSON.stringify(newUser), // המרת הנתונים לפורמט JSON לפני השליחה
             });
-            if(!response.ok){
-                alert("תקלה בשמירת ההזמנה")
+            if (!response.ok) {
+                alert("תקלה בשמירת המשתמש")
                 return;
             }
-            const result= await response.json()
+            const result = await response.json()
             alert(result.userName)
         }
         catch (err) {
@@ -161,7 +189,6 @@ const NewOrder = (props) => {
     const searchUser = async () => {
         let phone = document.getElementById("guest-phone").value;
         // let phone = userId;
-        console.log(phone);
         let user;
         try {
             const response = await fetch(`https://localhost:7279/api/User/get/${phone}`);
@@ -294,7 +321,8 @@ const NewOrder = (props) => {
                     id='room'
                     className='text-filds'
                     {...register("room")}
-                // onChange={(e) => { setFormData((prevData) => ({ ...prevData, ["room"]: e.target.value })) }}
+                    // onChange={(e) => { console.log("e.target.value",e.target.value);setFormData((prevData) => ({ ...prevData, ["room"]: e.target.value })) }}
+                    onChange={(e) => {console.log("e.target.value",e.target.value);setValue("room", e.target.value)}}
                 >
                     {rooms && rooms.length > 0 ? rooms.map((item) => (
                         <option key={item.roomId} value={item.roomId}>{item.roomId}</option>
@@ -312,10 +340,8 @@ const NewOrder = (props) => {
     const getEmptyRoomsToDate = async () => {
         alert("נכנס!!!!!!!!")
         let d = document.getElementById("order-date").value
-        console.log("d", d);
         // setDate(d)
         // console.log("date", date);
-        console.log(`${d}T00:00:00Z`);
 
         try {
             let response = await fetch(`https://localhost:7279/api/Room/getEmptyRoomTo/${d}T00:00:00Z`)
@@ -324,7 +350,6 @@ const NewOrder = (props) => {
                 return;
             }
             response = await response.json()
-            console.log(response);
             setRooms(response);
             console.log(rooms);
 

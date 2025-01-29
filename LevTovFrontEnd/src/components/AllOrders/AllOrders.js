@@ -88,30 +88,37 @@ export default function AllOrders() {
             let response = await fetch(`https://localhost:7279/api/User/get/${id}`);
             if (!response.ok) {
                 console.log('לא הצליח להביא את הנתונים מהשרת');
-                return;
+                return ; // מחזיר null במקרה של שגיאה
             }
             response = await response.json();
             return response;
         }
         catch (error) {
             console.error(error);
+             // מחזיר null במקרה של שגיאה
         }
     }
     useEffect(() => {
         const fetchUserNames = async () => {
             const names = {};
             const emails = {};
-
             for (const row of rows) {
                 const user = await getUserById(row.userId);
-                const name = user.userName;
-                const email = user.email;
-                names[row.userId] = name;
-                emails[row.userId] = email;
+                console.log("user",user);
+                if (user) { // רק אם user אינו null
+                    const name = user.userName;
+                    const email = user.email;
+                    names[row.userId] = name;
+                    emails[row.userId] = email;
+                } else {
+                    names[row.userId] = 'לא נמצא'; // או כל ערך ברירת מחדל אחר
+                    emails[row.userId] = 'לא נמצא'; // או כל ערך ברירת מחדל אחר
+                }
             }
             setUserNames(names);
             setUserEmail(emails);
         };
+
 
         if (rows.length > 0) {
             fetchUserNames();
@@ -218,6 +225,7 @@ export default function AllOrders() {
                         <TableBody>
                             {filteredRows.slice(0, visibleCount).map((row, index) => {
                                 const isRowExpanded = expandedRows.includes(index);
+                                console.log("row.roomId",row.roomId);
 
 
                                 return (
@@ -233,9 +241,11 @@ export default function AllOrders() {
                                                     <StyledTableCell align="center">{userNames[row.userId] || 'טוען...'}</StyledTableCell>
                                                     <StyledTableCell align="center">{format(new Date(row.orderDate), 'dd/MM/yyyy')}</StyledTableCell>
                                                     <StyledTableCell align="center">{row.roomId}</StyledTableCell>
+                                                    
+                                                   
                                                 </>
                                             )}
-
+                                            
                                             {isRowExpanded && (
                                                 <StyledTableCell colSpan={4} align="right">
                                                     <div>שם: {userNames[row.userId]}</div>
