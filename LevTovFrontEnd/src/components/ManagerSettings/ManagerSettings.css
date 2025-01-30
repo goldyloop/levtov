@@ -1,6 +1,7 @@
 #manager-settings-body {
     display: grid;
     grid-template-rows: auto;
+    /* overflow: hidden; */
 }
 
 #options-and-option {
@@ -8,26 +9,59 @@
     flex-direction: column;
 }
 
-#all-options {
-    /* display: grid;
-    grid-template-rows: repeat(6, 1fr); */
-    /* grid-template-columns: repeat(6, 1fr); */
-    gap: 1px;
-    /* grid-auto-columns: minmax(auto, 70px); */
-}
+
 
 .options {
-    /* width: 12%; */
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    padding: 0px;
     height: 30px;
-    box-shadow: gray 0px 0px 3px 3px;
-    border-bottom: none;
+    /* border: 1px solid #f89619; */
+    border: none;
+    background-color: #fffefd;
+    /* box-shadow: #d0d0d0 -1px -5px 3px 0px; */
+    transition: 0.5s;
+    font-size: 15px;
+
 }
-#option-body {
+
+/* .options :hover{ */
+/* box-shadow: #d0d0d0 -1px -5px 3px 0px; */
+/* background-color: #870c0c; */
+
+/* } */
+#selected-option {
+    /* width: 51%; */
+    height: 33px;
+    background-color: #fffefd;
+    /* box-shadow: #d0d0d0 1px -1px 3px 2px; */
+    /* border: 2px solid #f89619; */
+    border-bottom: none;
+    /* color: #f89619; */
+}
+#selected-option-body{
+    box-shadow: #d0d0d0 2px -2px 12px 0px;
+
+}
+.option-body {
+    /* padding-top: 10px; */
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 7px;
+    width: 51%;
+    width: 51%;
     display: grid;
     grid-template-columns: auto;
-    background-color: #f9f1ecdf;
     text-align: center;
-    padding: 10px;
+    /* padding-bottom: 10px; */
+    border: 0.5px solid #f89619;
+    /* border-top: none; */
+    background-color: #fffefd;
+    transition: 0.5s;
+    box-shadow: #d0d0d0 2px -2px 3px 0px;
+    overflow: hidden;
 }
 
 #settings-title {
@@ -35,21 +69,142 @@
     margin-right: auto;
 }
 
+.password-inputs {
+    display: block;
+    width: 235px;
+    height: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 7px;
+    margin-bottom: 3px;
+
+}
+
+.password-errors{
+    display: block;
+    font-size: 13px;
+    color: red;
+}
+#password-good-errors{
+    font-size: 15px;
+    color: #f89619;
+}
+
+.OK-button{
+    display: block;
+    width: 150px;
+    height: 32px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /* box-shadow: #f0eadb -1px 4px 20px 2px; */
+    /* border: #f89619 solid 1px; */
+    /* color: #f89619; */
+}
+#users-table {
+    width: 97%;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse; /* מאחד את הגבולות בין התאים */
+    margin-bottom: 15px;
+    table-layout: fixed; /* מונע מהתאים לגדול מעבר לגבולות */
+}
+
+#users-table th{
+    border: 1px solid black;
+    padding-left: 0px; 
+    padding-right: 0px; 
+    padding-top: 5px; 
+    padding-bottom: 5px; 
+    text-align: center; 
+    font-size: 13px;
+    background-color: #343434;
+    color: #fff;
+    
+    overflow: auto; /* אפשר גלילה אם התוכן חורג */
+    white-space: nowrap; /* מונע שבירת שורות */
+}
+#users-table td {
+    border: 1px solid black;
+    padding-left: 0px; 
+    padding-right: 0px; 
+    padding-top: 5px; 
+    padding-bottom: 5px; 
+    text-align: center; 
+    font-size: 13px;
+    
+    overflow: auto; /* אפשר גלילה אם התוכן חורג */
+    white-space: nowrap; /* מונע שבירת שורות */
+}
+
+.table-titel {
+    margin-top: 7px; 
+    margin-bottom: 3px; 
+    font-size: 15px;
+}
+#name-column{
+    width: 25%;
+}
+#phone-column{
+    width: 25%;
+}
+
+
 #action-titel {
     font-size: 18px;
 }
 
 
-/* @media only screen and (max-width: 780px) {
-    #all-options {
+@media only screen and (max-width: 700px) {
+    .options {
+        width: 70%;
+    }
 
-        grid-template-columns: repeat(3, 1fr);
+    #selected-option {
+        width: 70%;
+    }
+
+    .option-body {
+        width: 70%;
+    }
+    #users-table td {
+        padding-top: 2px; 
+        padding-bottom: 2px; 
+        font-size: 12px;
+    }
+    #users-table th {
+        padding-top: 2px; 
+        padding-bottom: 2px; 
+        font-size: 12px;
     }
 }
-@media only screen and (max-width: 550px) {
-    #all-options {
 
-        grid-template-columns: repeat(1, 1fr);
-    grid-auto-columns: minmax(auto, 38px);
+@media only screen and (max-width: 450px) {
+
+    .options {
+        width: 90%;
     }
-} */
+
+    #selected-option {
+        width: 90%;
+    }
+    .option-body {
+        width: 96%;
+
+    }
+    /* #users-table th, td {
+        padding: 3px; 
+        font-size: 12px;
+    } */
+    #users-table td {
+        padding-top: 2px; 
+        padding-bottom: 2px; 
+        font-size: 11px;
+    }
+    #users-table th {
+        padding-top: 2px; 
+        padding-bottom: 2px; 
+        font-size: 11px;
+    }
+}

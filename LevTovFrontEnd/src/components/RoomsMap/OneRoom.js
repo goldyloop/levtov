@@ -5,7 +5,7 @@ import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import "./OneRoom.css"
 import { json } from 'react-router';
-
+import Swal from 'sweetalert2'
 
 
 const OneRoom = (props) => {
@@ -21,10 +21,10 @@ const OneRoom = (props) => {
 
     const changeStatus = async (newStatus) => {
         // alert(newStatus)
-        
+
         const updatedData = { ...room, roomStatus: newStatus };
         try {
-           
+
             let response = await fetch(`https://localhost:7279/api/Room/update/${room.roomId}`, {
                 method: "PUT",
                 headers: {
@@ -35,6 +35,12 @@ const OneRoom = (props) => {
             if (response.ok) {
                 const result = await response.json();
                 props.updateRoomStatus(result)
+                Swal.fire({
+                    icon: "success",
+                    title: "מצב החדר עודכן!",
+                    timer: 1500,
+                    showConfirmButton: false,
+                });
                 console.log('החדר עודכן בהצלחה', result);
             }
             else {
@@ -86,7 +92,7 @@ const OneRoom = (props) => {
                     <MenuItem onClick={() => changeStatus(4)} className='situations' id='if-ready' value={4}>החדר מוכן</MenuItem>
                 </Select>
             </FormControl>
-            
+
 
             {/* </div> */}
         </div>

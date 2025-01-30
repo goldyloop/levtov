@@ -14,7 +14,7 @@ namespace BL
         private readonly RoomRepository roomRepository;
         private readonly OrderRepository orderRepository;
 
-        public RoomService(RoomRepository roomRepository_ ,OrderRepository orderRepository_)
+        public RoomService(RoomRepository roomRepository_, OrderRepository orderRepository_)
         {
             roomRepository = roomRepository_;
             orderRepository = orderRepository_;
@@ -62,6 +62,33 @@ namespace BL
             IEnumerable<Room> emptyRooms = rooms.Where(room => !occupiedRoomIds.Contains(room.RoomId));
 
             return emptyRooms;
+        }
+
+        public async Task<string> DailyTask()
+        {
+            // מקבלים את היום בשבוע
+            DayOfWeek dayOfWeek = DateTime.Now.DayOfWeek;
+
+            // לפי היום בשבוע מחזירים את המחרוזת המתאימה
+            switch (dayOfWeek)
+            {
+                case DayOfWeek.Sunday:
+                    return "יום ראשון - תחילת שבוע!";
+                case DayOfWeek.Monday:
+                    return "יום שני - זמן להתחיל לעבוד!";
+                case DayOfWeek.Tuesday:
+                    return "יום שלישי - עוד יום להתקדם!";
+                case DayOfWeek.Wednesday:
+                    return "יום רביעי - חצי שבוע עבר!";
+                case DayOfWeek.Thursday:
+                    return "יום חמישי - כמעט סוף שבוע!";
+                case DayOfWeek.Friday:
+                    return "יום שישי - יום טוב!";
+                case DayOfWeek.Saturday:
+                    return "יום שבת - זמן למנוחה!";
+                default:
+                    return "היום לא תקין!";
+            }
         }
 
     }

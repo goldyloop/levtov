@@ -25,7 +25,7 @@ namespace DAL.Repositories;
             return item;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(object id)
         {
             var product = await _context.Users.FindAsync(id);
             if(product == null)

@@ -34,21 +34,27 @@ namespace UI
         {
             return _userService.CreateUser(item);
         }
-        [HttpDelete("delete")]
-        public Task<bool> delete(int id)
+        [HttpDelete("delete/{id}")]
+        public Task<bool> DeleteUser(string id)
         {
             return _userService.DeleteUser(id);
         }
-      
-
-
-
-
 
         [HttpPut("update/{id}")]
         public Task<User> Update(string id, [FromBody] User item)
         {
             return _userService.UpdateUser(id, item);
+        }
+        [HttpGet("getAllManagers")]
+        public Task<IEnumerable<User>> GetAllManagers()
+        {
+            return _userService.GetAllManagers();
+        }
+        [HttpGet("getManagersAndWorkers")]
+
+        public Task<IEnumerable<User>> GetManagersAndWorkers()
+        {
+            return _userService.GetManagersAndWorkers();
         }
     }
 }

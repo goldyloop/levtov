@@ -10,6 +10,7 @@ import "../All.css";
 import "./RoomsMap.css";
 
 import { useSelector } from 'react-redux';//redux
+import { Task } from '@mui/icons-material';
 
 const RoomsMap = () => {
 
@@ -19,6 +20,29 @@ const RoomsMap = () => {
     // console.log(phonePosition);
     // console.log(userPosition); 
 
+    const [rooms, setRooms] = useState([]);
+    const [task, setTask] = useState("");
+
+    useEffect(() => {
+        const getTask = async () => {
+            try {
+                let response = await fetch("https://localhost:7279/api/Room/DailyTask");
+                if (response.ok) {
+                    response = await response.text();
+                    setTask(response)
+                    console.log("response", response);
+                }
+                else {
+                    console.log("ddddddddddd");
+
+                }
+            }
+            catch (err) {
+                console.error(err);
+            }
+        }
+        getTask()
+    }, [])
 
     //redux
     useEffect(() => {
@@ -27,7 +51,6 @@ const RoomsMap = () => {
     useEffect(() => {
         console.log('phone Position:', phonePosition);
     }, [phonePosition]);
-    const [rooms, setRooms] = useState([]);
     const getAllRooms = async () => {
         try {
             let response = await fetch('https://localhost:7279/api/Room/getAll')
@@ -75,22 +98,13 @@ const RoomsMap = () => {
             </div>
 
             <div id="daily-task">
-                כאן יהיה כתוב מה צריך לעשות היום
+                {task}
             </div>
 
             <div id="allRooms">
                 {rooms.map((item) => {
                     return <OneRoom room={item} updateRoomStatus={updateRoomStatus}></OneRoom>
                 })}
-            </div>
-
-            <div>
-                <h1>Room List</h1>
-                <ol>
-                    {rooms.map((room) => (
-                        <li key={room.roomId}>{room.roomStatus}</li> // עדכני את השדות בהתאם
-                    ))}
-                </ol>
             </div>
         </div>
     );
