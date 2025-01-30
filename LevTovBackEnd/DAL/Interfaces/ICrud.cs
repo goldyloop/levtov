@@ -20,5 +20,5 @@ public interface ICRUD<T>
     Task<T> ReadAsync(int id);
     Task<IEnumerable<T>> ReadAllAsync();
     Task<T> UpdateAsync(object id, T item);
-    Task<bool> DeleteAsync(int id);
+    Task<bool> DeleteAsync(object id);
 }

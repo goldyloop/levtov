@@ -35,7 +35,7 @@ namespace BL
             return userRepository.CreateAsync(item);
         }
 
-        public Task<bool> DeleteUser(int id)
+        public Task<bool> DeleteUser(string id)
         {
             return userRepository.DeleteAsync(id);
         }
@@ -43,8 +43,20 @@ namespace BL
         {
             return userRepository.UpdateAsync(id, item);
         }
+        public async Task<IEnumerable<User>> GetAllManagers()
+        {
+            IEnumerable < User > users = await userRepository.ReadAllAsync();
+            IEnumerable<User> managers = users.Where(user=>user.Position==1);
+            return managers;
+        }
+        public async Task<IEnumerable<User>> GetManagersAndWorkers()
+        {
+            IEnumerable < User > users = await userRepository.ReadAllAsync();
+            IEnumerable<User> managersAndWorkers = users.Where(user=>user.Position==1||user.Position==2);
+            return managersAndWorkers;
+        }
 
-      
+
     }
 }
 

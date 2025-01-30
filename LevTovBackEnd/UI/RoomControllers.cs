@@ -61,5 +61,11 @@ namespace UI
         {
             return _roomService.GetEmptyRoomsToDate(date);
         }
+
+        [HttpGet("DailyTask")]
+        public Task<string> DailyTask() 
+        {
+            return _roomService.DailyTask();
+        }
     }
 }
