@@ -14,11 +14,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Swal from 'sweetalert2';
 import { format } from 'date-fns';
 import Logo from '../Logo/Logo';
 import '../All.css';
 import './AllOrders.css'
-import { NoEncryption } from '@mui/icons-material';
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -88,14 +90,14 @@ export default function AllOrders() {
             let response = await fetch(`https://localhost:7279/api/User/get/${id}`);
             if (!response.ok) {
                 console.log('לא הצליח להביא את הנתונים מהשרת');
-                return ; // מחזיר null במקרה של שגיאה
+                return; // מחזיר null במקרה של שגיאה
             }
             response = await response.json();
             return response;
         }
         catch (error) {
             console.error(error);
-             // מחזיר null במקרה של שגיאה
+            // מחזיר null במקרה של שגיאה
         }
     }
     useEffect(() => {
@@ -104,7 +106,7 @@ export default function AllOrders() {
             const emails = {};
             for (const row of rows) {
                 const user = await getUserById(row.userId);
-                console.log("user",user);
+                console.log("user", user);
                 if (user) { // רק אם user אינו null
                     const name = user.userName;
                     const email = user.email;
@@ -215,39 +217,96 @@ export default function AllOrders() {
                 <TableContainer component={Paper}>
                     <Table>
                         <TableHead>
-                            <TableRow >
+                            <TableRow>
                                 <StyledTableCell align="right"></StyledTableCell>
                                 <StyledTableCell align="center">שם המזמין</StyledTableCell>
                                 <StyledTableCell align="center">תאריך</StyledTableCell>
                                 <StyledTableCell align="center">חדר</StyledTableCell>
+                                <StyledTableCell align="center">מחיקת הזמנה</StyledTableCell> {/* הוסף עמודה לפעולה */}
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {filteredRows.slice(0, visibleCount).map((row, index) => {
                                 const isRowExpanded = expandedRows.includes(index);
-                                console.log("row.roomId",row.roomId);
+
+                                const handleDelete = async (orderId) => {
+                                    const swalWithBootstrapButtons = Swal.mixin({
+                                        customClass: {
+                                            confirmButton: "btn btn-success",
+                                            cancelButton: "btn btn-danger"
+                                        },
+
+                                    });
+
+                                    swalWithBootstrapButtons.fire({
+                                        title: "האם אתה בטוח שברצונך למחוק את ההזמנה?",
+                                        text: "שים לב, לא יהיה אפשרות לשחזר את ההזמנה!",
+                                        icon: "question",
+                                        showCancelButton: true,
+                                        cancelButtonText: "לא, ביטול!",
+                                        cancelButtonColor: "#d33",
+                                        confirmButtonText: "כן, מחק!",
+                                        confirmButtonColor: "#3a9633",
+                                        reverseButtons: true
+                                    }).then(async (result) => {
+                                        if (result.isConfirmed) {
+                                            try {
+                                                let response = await fetch(`https://localhost:7279/api/Order/delete?id=${orderId}`, {
+                                                    method: 'DELETE',
+                                                });
+                                                if (response.ok) {
+                                                    // עדכון הסטייט כדי להסיר את השורה מהטבלה
+                                                    setRows(prevRows => prevRows.filter(r => r.orderId !== orderId));
+                                                    Swal.fire({
+                                                        title: "ההזמנה נמחקה בהצלחה!",
+                                                        text: "",
+                                                        icon: "success",
+                                                        showConfirmButton: false,
+                                                        timer: 1500,
+
+                                                    });
+                                                } else {
+                                                    swalWithBootstrapButtons.fire("שגיאה", "אירעה שגיאה במחיקת ההזמנה.", "error");
+                                                }
+                                            } catch (error) {
+                                                console.error("שגיאה במחיקת ההזמנה", error);
+                                                swalWithBootstrapButtons.fire("שגיאה", "אירעה שגיאה במחיקת ההזמנה.", "error");
+                                            }
+                                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                            swalWithBootstrapButtons.fire({
+                                                title: "המחיקה בוטלה!",
+                                                text: "",
+                                                icon: "error",
+                                                confirmButtonColor: "#d33",
+                                               
+                                            });
+                                        }
+                                    });
+                                };
 
 
                                 return (
                                     <React.Fragment key={index}>
-                                        <StyledTableRow >
+                                        <StyledTableRow>
                                             <div id="icon">
                                                 <IconButton onClick={() => handleExpandRow(index)}>
                                                     {isRowExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                                                 </IconButton>
                                             </div>
                                             {!isRowExpanded && (
-                                                < >
+                                                <>
                                                     <StyledTableCell align="center">{userNames[row.userId] || 'טוען...'}</StyledTableCell>
                                                     <StyledTableCell align="center">{format(new Date(row.orderDate), 'dd/MM/yyyy')}</StyledTableCell>
                                                     <StyledTableCell align="center">{row.roomId}</StyledTableCell>
-                                                    
-                                                   
+                                                    <StyledTableCell align="center">
+                                                        <IconButton onClick={() => handleDelete(row.orderId)}>
+                                                            <DeleteIcon />
+                                                        </IconButton>
+                                                    </StyledTableCell>
                                                 </>
                                             )}
-                                            
                                             {isRowExpanded && (
-                                                <StyledTableCell colSpan={4} align="right">
+                                                <StyledTableCell colSpan={5} align="right">
                                                     <div>שם: {userNames[row.userId]}</div>
                                                     <div>תאריך: {format(new Date(row.orderDate), 'dd/MM/yyyy')}</div>
                                                     <div>חדר: {row.roomId}</div>
@@ -257,7 +316,6 @@ export default function AllOrders() {
                                             )}
                                         </StyledTableRow>
                                     </React.Fragment>
-
                                 );
                             })}
                         </TableBody>
@@ -268,5 +326,5 @@ export default function AllOrders() {
                 <button id="more" onClick={handleShowMore}>הצג עוד הזמנות</button>
             )}
         </div>
-    );
-}
+    )
+};
