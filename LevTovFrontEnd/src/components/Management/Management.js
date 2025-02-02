@@ -33,7 +33,9 @@ const Management = () => {
                 <Link id='links' to="/roomsMap" style={{ textDecoration: 'none' }}>
                     <Button id='bu' className='button' variant="contained">למפת איכלוס חדרים</Button>
                 </Link>
-
+                <Link id='links' to="/managerSettings" style={{ textDecoration: 'none' }}>
+                    <Button id='bu' className='button' variant="contained">הגדרות נוספות</Button>
+                </Link>
 
             </div>
         </div>);

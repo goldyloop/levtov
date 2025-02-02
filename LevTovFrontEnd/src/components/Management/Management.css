@@ -1,22 +1,24 @@
 #managment-body {
-    direction: rtl;
+    /* direction: rtl; */
     display: grid;
     grid-template-rows: auto;
 }
 
 .button {
-    width: 100%;
+    width: 95%;
     height: 35vh;
-    top: 35vh;
+    
 }
 
 #allButtons {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: center;
+    justify-content: space-around;
+   /* justify-content: center; */
     font-size: 200%;
-
+    margin-top: 35vh;
+    width: 100%;
 }
 
 #bu {
@@ -25,15 +27,26 @@
     font-size: 110%;
     color: black;
     border: 2px #f89619 solid;
+    margin-left: auto;
+    margin-right: auto;
+ 
 }
 
-#links {
-    /* border: blue 2px solid; */
-    width: 25%;
-    height: 35vh;
-    top: 35vh;
-}
+ #links {
+     /* border: blue 2px solid;  */
+     width: 25%;
+     display: flex;
 
+  
+    
+} 
+@media only screen and (max-width: 900px) {
+    #allButtons{
+        margin-top: 120px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
 @media only screen and (max-width: 800px) {
     .button {
         height: auto;
@@ -41,27 +54,31 @@
         font-size: 1em;
         /* הקטן את גודל הכתב */
         top: 0px;
+       
     }
 
     #allButtons {
         flex-direction: column;
         /* שינוי לכיוון עמודה */
         align-items: center;
-        margin-top: 120px;
+        margin-top: 70px;
+       
     }
 
     #bu {
-        font-size: 0.9em;
+        font-size: 0.6em;
         /* הקטן את גודל הכתב בכפתור */
         padding: 5px 10px;
         /* הקטן את הריפוד */
     }
 
     #links {
-        width: 80%; /* הגדל את רוחב הלינקים */
+        width: 100vw; /* הגדל את רוחב הלינקים */
         height: 10vh;
-        margin: 20px;
+        /* margin: 5px; */
         top: 0vh;
+        margin-bottom: 8px;
+     
     }
 
 }
