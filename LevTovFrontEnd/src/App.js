@@ -14,6 +14,7 @@ import userSlice from './features/userSlice';
 import userReducer from './features/userSlice';
 import phoneReducer from './features/phoneSlice';
 import ManagerSettings from './components/ManagerSettings/ManagerSettings';
+import IdleTimer from './IdleTimer';
 
 // const store=configureStore({
 //    reducer:{userSlice}
@@ -30,12 +31,12 @@ const store = configureStore({
 
 function App() {
   let rooms = [{ id: 103, status: 1 }, { id: 105, status: 2 }, { id: 108, status: 2 }, { id: 115, status: 3 }, { id: 116, status: 1 }, { id: 117, status: 2 }, { id: 118, status: 4 }, { id: 119, status: 4 }]
-  return (
-    // <Management/>
-    //  <Login/>
-    // <HelloGuest/>
-    // <NewOrder/>
-
+  return (<>
+    {/* // <Management />
+    //  <Login />
+    // <HelloGuest />
+    // <NewOrder /> */}
+<IdleTimer></IdleTimer>
     <Provider store={store}>
       <Routes>
         <Route path='' element={<Login></Login>} />
@@ -47,6 +48,7 @@ function App() {
         <Route path='managerSettings' element={<ManagerSettings></ManagerSettings>} />
       </Routes>
     </Provider>
+  </>
   )
 }
 export default App;

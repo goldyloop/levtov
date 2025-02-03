@@ -141,6 +141,12 @@ h4{
     color: #ffffff;
 }
 
+#error-user-position{
+    color: red;
+    width: 99%;
+    text-align: center;
+}
+
 /* #filds{
     color: aqua;
     border-color: aqua;
