@@ -214,15 +214,15 @@ export default function AllOrders() {
                 </div>
             </div>
             <div id='allTable'>
-                <TableContainer component={Paper}>
-                    <Table>
+                <TableContainer component={Paper} >
+                    <Table id="table">
                         <TableHead>
                             <TableRow>
-                                <StyledTableCell align="right"></StyledTableCell>
-                                <StyledTableCell align="center">שם המזמין</StyledTableCell>
-                                <StyledTableCell align="center">תאריך</StyledTableCell>
-                                <StyledTableCell align="center">חדר</StyledTableCell>
-                                <StyledTableCell align="center">מחיקת הזמנה</StyledTableCell> {/* הוסף עמודה לפעולה */}
+                                <StyledTableCell className='chez' id="thc" align="right"></StyledTableCell>
+                                <StyledTableCell className='tarich' id="th" align="center">תאריך</StyledTableCell>
+                                <StyledTableCell className='shem' id="th" align="center">שם המזמין</StyledTableCell>
+                                <StyledTableCell className='cheder' id="th" align="center">חדר</StyledTableCell>
+                                <StyledTableCell className='pach' id="th" align="center"></StyledTableCell> {/* הוסף עמודה לפעולה */}
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -278,7 +278,7 @@ export default function AllOrders() {
                                                 text: "",
                                                 icon: "error",
                                                 confirmButtonColor: "#d33",
-                                               
+
                                             });
                                         }
                                     });
@@ -289,30 +289,39 @@ export default function AllOrders() {
                                     <React.Fragment key={index}>
                                         <StyledTableRow>
                                             <div id="icon">
-                                                <IconButton onClick={() => handleExpandRow(index)}>
+                                                <IconButton id="arrow" onClick={() => handleExpandRow(index)}>
                                                     {isRowExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                                                 </IconButton>
                                             </div>
                                             {!isRowExpanded && (
                                                 <>
-                                                    <StyledTableCell align="center">{userNames[row.userId] || 'טוען...'}</StyledTableCell>
-                                                    <StyledTableCell align="center">{format(new Date(row.orderDate), 'dd/MM/yyyy')}</StyledTableCell>
-                                                    <StyledTableCell align="center">{row.roomId}</StyledTableCell>
-                                                    <StyledTableCell align="center">
-                                                        <IconButton onClick={() => handleDelete(row.orderId)}>
+                                                    <StyledTableCell align="center" id="td">{format(new Date(row.orderDate), 'dd/MM/yyyy')}</StyledTableCell>
+                                                    <StyledTableCell align="center" id="td">{userNames[row.userId] || ''}</StyledTableCell>
+                                                    <StyledTableCell align="center" id="td">{row.roomId}</StyledTableCell>
+                                                    <StyledTableCell align="center" id="del">
+                                                        <IconButton onClick={() => handleDelete(row.orderId)} id="delete">
                                                             <DeleteIcon />
                                                         </IconButton>
                                                     </StyledTableCell>
                                                 </>
                                             )}
                                             {isRowExpanded && (
-                                                <StyledTableCell colSpan={5} align="right">
-                                                    <div>שם: {userNames[row.userId]}</div>
-                                                    <div>תאריך: {format(new Date(row.orderDate), 'dd/MM/yyyy')}</div>
-                                                    <div>חדר: {row.roomId}</div>
-                                                    <div>טלפון: {row.userId}</div>
-                                                    <div>אימייל: {userEmail[row.userId] || 'טוען...'}</div>
-                                                </StyledTableCell>
+                                                <div align="right" id='od'>
+                                                    <b id="b"> שם:</b>
+                                                    {userNames[row.userId]}
+                                                    <br></br>
+                                                    <b id="b"> תאריך:</b>
+                                                    {format(new Date(row.orderDate), 'dd/MM/yyyy')}
+                                                    <br></br>
+                                                    <b id="b">חדר:</b>
+                                                    {row.roomId}
+                                                    <br></br>
+                                                    <b id="b">טלפון:</b>
+                                                    {row.userId}
+                                                    <br />
+                                                    <b id="b">אימייל:</b>
+                                                    {userEmail[row.userId] || 'טוען...'}
+                                                </div>
                                             )}
                                         </StyledTableRow>
                                     </React.Fragment>
