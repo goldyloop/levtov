@@ -63,7 +63,7 @@ namespace UI
         }
 
         [HttpGet("DailyTask")]
-        public Task<string> DailyTask() 
+        public Task<string> DailyTask()
         {
             return _roomService.DailyTask();
         }

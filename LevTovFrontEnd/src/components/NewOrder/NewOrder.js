@@ -14,6 +14,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 // import FormControl from '@mui/material/FormControl';
 // import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
+import { format } from 'date-fns';
+import Swal from 'sweetalert2'
 import Logo from '../Logo/Logo';
 import "../All.css"
 import "./NewOrder.css"
@@ -53,6 +55,16 @@ const NewOrder = (props) => {
 
     // שלב הנוכחי של הטופס
     const [step, setStep] = React.useState(1);
+    // let rooms = [{ id: 103, status: 1 }, { id: 105, status: 2 }, { id: 108, status: 2 }, { id: 115, status: 3 }, { id: 116, status: 1 }, { id: 117, status: 2 }, { id: 118, status: 4 }, { id: 119, status: 4 }]
+
+    let [rooms, setRooms] = React.useState([]);
+    let [userName, setUserName] = React.useState('');
+    let [userPosition, setUserPosition] = React.useState(3);
+
+    // React.useEffect(()=>{
+    //     // console.log("userPosition,,,,,,,,,,,,", userPosition);
+    //     nextStep()
+    // },userPosition)
 
     // המידע שנשמר בטופס
     const [formData, setFormData] = React.useState({
@@ -67,7 +79,13 @@ const NewOrder = (props) => {
     // מעבר לשלבים
     const nextStep = async () => {
         const isValid = await trigger(getStepFields(step)); // בודק רק את השדות של השלב הנוכחי
-        if (isValid) {
+        console.log("possssssssss", userPosition);
+        if (step === 2) {
+            if (isValid && userPosition === 3) {
+                setStep(step + 1)
+            }
+        }
+        else if (isValid) {
             setStep(step + 1);
         }
     };
@@ -97,18 +115,11 @@ const NewOrder = (props) => {
     };
 
     //חדרים זמניים
-    // let rooms = [{ id: 103, status: 1 }, { id: 105, status: 2 }, { id: 108, status: 2 }, { id: 115, status: 3 }, { id: 116, status: 1 }, { id: 117, status: 2 }, { id: 118, status: 4 }, { id: 119, status: 4 }]
-
-    let [rooms, setRooms] = React.useState([]);
 
 
-    // let [userId, setUserId] = React.useState('');
-    let [userName, setUserName] = React.useState('');
-    // let [date, setDate] = React.useState(Date())
 
-
-    const send = () => {
-        alert("הפרטים נשמרו");
+    const send = async () => {
+        // alert("הפרטים נשמרו");
 
         // קבלת הערכים ישירות מהטופס
         const formValues = getValues();
@@ -122,16 +133,43 @@ const NewOrder = (props) => {
             // numOfNights: formValues.numOfNights,
             room: formValues.room,
         }));
-
-        if (userName == '') {
-            createNewUser()
-        }
-        createNewOrder();
-
     }
-    // !!!!!!!!!!!!!!!!!!!למחוק!!!!!!!!!!
-    React.useEffect(() => { console.log("formData", formData); }, [formData])
-    // !!!!!!!!!!!!!!!!!!!למחוק!!!!!!!!!!
+    // שימוש ב-useEffect שיתבצע לאחר ש- formData יתעדכן
+    React.useEffect(() => {
+        if (formData.guestName && formData.guestPhone && formData.checkInDate && formData.room) {
+            // אם כל הנתונים בטופס זמינים, נבצע את הפונקציות האסינכרוניות
+            const performAsyncTasks = async () => {
+                // קודם נבדוק אם המשתמש חדש או קיים
+                if (userName === '') {
+                    await createNewUser(); // אם המשתמש חדש, ניצור אותו
+                    await createNewOrder();
+                }
+                else {
+                    await createNewOrder(); // בשני המקרים, ניצור את ההזמנה
+                }
+            };
+
+            Swal.fire({
+                title: "פרטי ההזמנה נכונים?",
+                // text: "You won't be able to revert this!",
+                html: `<b>שם המזמין:</b> ${formData.guestName}</br>
+                <b>מספר טלפון:</b> ${formData.guestPhone}</br>
+                <b>תאריך:</b> ${format(new Date(formData.checkInDate), 'dd/MM/yyyy')}</br>
+                <b>מספר חדר:</b> ${formData.room}`,
+                // icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: "#3a9633",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "כן, שמור הזמנה",
+                cancelButtonText: "ביטול"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    performAsyncTasks();
+                }
+            });
+            // קריאה לפונקציה האסינכרונית
+        }
+    }, [formData]); // effect יתבצע כאשר formData יתעדכן
 
     const createNewOrder = async () => {
         const newOrder = {
@@ -151,9 +189,23 @@ const NewOrder = (props) => {
             }
             );
             if (!response.ok) {
-                alert("תקלה בשמירת ההזמנה")
-                return;
+                Swal.fire({
+                    title: "תקלה בשמירת ההזמנה...",
+                    text: "נסה שוב מאוחר יותר",
+                    icon: "error"
+                }).then(() => {
+                    return;
+                });
             }
+            Swal.fire({
+                title: "ההזמנה נוצרה",
+                // text: "Your file has been deleted.",
+                icon: "success",
+                timer: 1700,
+                showConfirmButton: false
+            }).then(() => {
+                window.location.href = 'http://localhost:3000/manager';
+            });
         }
         catch (err) {
             console.error(err);
@@ -174,12 +226,12 @@ const NewOrder = (props) => {
                 },
                 body: JSON.stringify(newUser), // המרת הנתונים לפורמט JSON לפני השליחה
             });
-            if (!response.ok) {
-                alert("תקלה בשמירת המשתמש")
+            if (!(response.ok)) {
+                // alert("תקלה בשמירת המשתמש")
                 return;
             }
             const result = await response.json()
-            alert(result.userName)
+            // alert("result.userName", result.userName)
         }
         catch (err) {
             console.error(err);
@@ -187,22 +239,27 @@ const NewOrder = (props) => {
     }
 
     const searchUser = async () => {
+        console.log("נכנס לפונקציה חיפוש משתמש");
         let phone = document.getElementById("guest-phone").value;
         // let phone = userId;
         let user;
         try {
-            const response = await fetch(`https://localhost:7279/api/User/get/${phone}`);
+            const response = await fetch(`https://localhost:7279/api/User/get/${phone}`)
             if (response.status === 200) {
                 user = await response.json()
-                setUserName(user.userName)
+                setUserPosition(user.position)
+                setUserName(user.userName);
+                console.log("jjjjjj", user.position);
             }
             else if (response.status === 204) {
-                setUserName('')
+                setUserPosition(3);
+                setUserName('');
             }
         }
         catch (err) {
             console.log("לא התחבר");
         }
+
     }
 
     const step1 = (
@@ -221,10 +278,22 @@ const NewOrder = (props) => {
                 </input>
                 <br />
                 {errors.guestPhone && <p>{errors.guestPhone.message}</p>}
+                {/* {(userPosition === 1 || userPosition === 2) && <p>אי אפשר להזמין על שם מנהל או עובד</p>} */}
             </div>
 
             <div id='buttons'>
-                <Button onClick={async () => { await searchUser(); nextStep(); }} variant="outlined" id='next'>הבא</Button>
+                <Button
+                    // onClick={searchUser}
+                    onClick={async () => {
+                        await searchUser();
+                        console.log("99999");
+                        nextStep();
+                    }}
+                    variant="outlined"
+                    id='next'
+                >
+                    הבא
+                </Button>
             </div>
         </div>
     )
@@ -245,12 +314,15 @@ const NewOrder = (props) => {
                         {...register("guestName")}></input><br />
                     {errors.guestName && <p>{errors.guestName.message}</p>}
                 </div>
-            ) : (<div id='existing-user'>
+            ) : (userPosition === 3 ? (<div id='existing-user'>
                 <label>המזמין נמצא במערכת</label>
                 <label>שם המזמין: {userName}</label>
                 <span>המשך למלא את שאר פרטי ההזמנה</span>
             </div>
-            )}
+            ) : (
+                <h2 id='error-user-position'>אי אפשר ליצור הזמנה על שם מנהל או עובד</h2>
+            ))
+            }
             <div id='buttons'>
                 <Button onClick={prevStep} variant="outlined" id='prev'>הקודם</Button>
                 <Button onClick={nextStep} variant="outlined" id='next'>הבא</Button>
@@ -322,7 +394,7 @@ const NewOrder = (props) => {
                     className='text-filds'
                     {...register("room")}
                     // onChange={(e) => { console.log("e.target.value",e.target.value);setFormData((prevData) => ({ ...prevData, ["room"]: e.target.value })) }}
-                    onChange={(e) => {console.log("e.target.value",e.target.value);setValue("room", e.target.value)}}
+                    onChange={(e) => { console.log("e.target.value", e.target.value); setValue("room", e.target.value) }}
                 >
                     {rooms && rooms.length > 0 ? rooms.map((item) => (
                         <option key={item.roomId} value={item.roomId}>{item.roomId}</option>
@@ -338,7 +410,7 @@ const NewOrder = (props) => {
     )
 
     const getEmptyRoomsToDate = async () => {
-        alert("נכנס!!!!!!!!")
+        // alert("נכנס!!!!!!!!")
         let d = document.getElementById("order-date").value
         // setDate(d)
         // console.log("date", date);
