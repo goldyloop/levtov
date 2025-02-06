@@ -10,6 +10,7 @@ import Logo from '../Logo/Logo';
 import '../All.css';
 import './HelloGuest.css';
 import { useSelector } from 'react-redux';//redux
+import Swal from 'sweetalert2';
 
 
 const HelloGuest = (props) => {
@@ -26,23 +27,33 @@ const HelloGuest = (props) => {
     }, [phonePosition]);
 
 
-
     useEffect(() => {
         handleGuestRoomAndGuestUserName()
     }, []);
-    let [dataName, setDataName] = useState(123);
-    let [dataRoomNumber, setDataRoomNumber] = useState([]);
+
+    let [userData, setUserData] = useState({});
+    let [orderByPhonPosition, setOrderByPhonPosition] = useState([]);
     let [eemail, setEmail] = useState('');
     let [errorMesage, setErrorMesage] = useState('');
     let [iinput, setIinput] = useState(true);
+    let [room, setRoom] = useState([{}]);
 
     useEffect(() => {
-        console.log('dataName:', dataName);
-    }, [dataName]);
+        console.log('userData:', userData);
+    }, [userData]);
 
     useEffect(() => {
-        console.log('dataRoomNumber:', dataRoomNumber);
-    }, [dataRoomNumber]);
+        console.log('orderByPhonPosition:', orderByPhonPosition);
+    }, [orderByPhonPosition]);
+    useEffect(() => {
+        console.log('room:', room);
+    }, [room]);
+    useEffect(() => {
+        if (orderByPhonPosition.length > 0) {
+            getRoom(orderByPhonPosition);
+        }
+    }, [orderByPhonPosition]);
+
 
     const handleChange = (event) => {
         setEmail(event.target.value);
@@ -55,7 +66,7 @@ const HelloGuest = (props) => {
 
         if (errorMesage == true) {
 
-            const updatedData = { ...dataName, email: eemail };
+            const updatedData = { ...userData, email: eemail };
             try {
 
                 console.log(eemail);
@@ -117,8 +128,8 @@ const HelloGuest = (props) => {
         try {
             let response = await fetch(`https://localhost:7279/api/User/get/${phonePosition}`);
             response = await response.json()
-            setDataName(response);
-            console.log(dataName);
+            setUserData(response);
+            console.log(userData);
         }
 
         catch (error) {
@@ -128,27 +139,119 @@ const HelloGuest = (props) => {
         try {
             let response = await fetch(`https://localhost:7279/api/Order/GetRoomIdByUserId/${phonePosition}`)
             response = await response.json()
-            setDataRoomNumber(response);
-            console.log(dataRoomNumber);
+            setOrderByPhonPosition(response);
+            console.log(orderByPhonPosition);
         }
         catch (error) {
             alert(error);
         }
 
-        console.log(dataName.userId);
-        console.log(dataName.userName);
-        console.log(dataRoomNumber);
-        let stringData = "000";
-        // if (dataRoomNumber.length == 0) {
-        //     stringData = "אין חדר נא לפנות למנהל";
-        // }
-        // else if (dataRoomNumber.length == 1) {
-        //     stringData = `הנך נמצא בחדר${dataRoomNumber[0].room}`
-        // }
+        console.log(userData.userId);
+        console.log(userData.userName);
+        console.log(orderByPhonPosition);
     }
 
+    const getRoom = async () => {
+        // alert("מחפש חדר");
+        try {
+            const roomPromises = orderByPhonPosition.map(async (roomData) => {
+
+                console.log("orderByPhonPosition", orderByPhonPosition);
+                let response = await fetch(`https://localhost:7279/api/Room/get/${roomData.roomId}`);
+                if (!response.ok) {
+                    // let response = await fetch(`https://localhost:7279/api/Room/get/${orderByPhonPosition[0].roomId}`)
+                    // if (!response.ok) {
+                    //     console.log("שגיאה בקבלת החדר");
+                    // }
+                    console.log("שגיאה בקבלת החדר");
+                    // return null; // או טיפול בשגיאה אחר
+                }
+                // else {
+                //     response = await response.json()
+                //     setRoom(response);
+                //     console.log(response);
+                // } 
+                console.log("RESPONE", response);
+                return await response.json();
+            });
+            // }
+            // catch (error) {
+            //     alert(error);
+            // }
+            // console.log('room', room);
+            // }
+            const rooms = await Promise.all(roomPromises);
+
+            // מסנן ערכים null (שגיאות)
+            const validRooms = rooms.filter(room => room !== null);
+
+            // מעדכן את ה-state עם האובייקטים שהתקבלו
+            // alert("validRooms")
+            setRoom(validRooms);
+            console.log("validRooms", validRooms);
+
+        } catch (error) {
+            alert("לא מצליח", error);
+        }
+        console.log('room', room);
+    };
+
+
+
+
+
+    const changeStatus = async (r) => {
+
+        console.log("roommmmm", r);
+
+        
+        const updatedData = { ...r, roomStatus: 2 };
+        console.log(updatedData);
+        try {
+            let response = await fetch(`https://localhost:7279/api/Room/update/${r.roomId}`, {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedData)
+            })
+            // console.log('response', response);
+            if (response.ok) {
+                const result = await response.json();
+                //  updateRoomStatus(result)
+                console.log('החדר עודכן בהצלחה', result);
+            }
+            else {
+                console.error('שגיאה בעדכון החדר');
+            }
+
+        } catch (err) {
+            console.error("שגיאה בשרת" + err)
+        }
+    };
+    const handelExit = async (r) => {
+        Swal.fire({
+            title: "האם אתם בטוחים שברצונכם לצאת?",
+            text: "שימו לב לא תוכלו להכנס שנית",
+            icon: "warning",
+            showCancelButton: true,
+            cancelButtonText: "ביטול",
+            confirmButtonColor: "#09e914",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "כן, ברצוני לצאת"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "יציאה",
+                    text: "צאתכם לשלום",
+                    icon: "success"
+                });
+changeStatus(r);
+            } 
+        });
+    }
     return (
-        <div id='ello-gust-body'>
+        <div id='hello-gust-body'>
 
             {/* <img id='logoLev' src={LogoLev} alt="Description of the image" /> */}
 
@@ -162,26 +265,41 @@ const HelloGuest = (props) => {
 
 
             <h2 id='hello-title'>
-                <div id='name'>  שלום {dataName.userName},
+                <div id='name'>  שלום {userData.userName},
 
-                </div> {dataRoomNumber.length > 0 ? `הנך רשום בחדר מס ${dataRoomNumber[0].roomId}` : 'אין חדר זמין ליום זה נא לפנות למנהל'}
+                </div>
             </h2>
+           
+
+            {room.length > 0 ?<h3 id='exitTxt'>בעזיבתך את דירת הארוח - נא הקש על יציאה</h3>&&
+                room.map((r) => (
+                    r.roomStatus === 1 ? <>
+
+                        <div key={r.roomId}>הנך רשום בחדר מס {r.roomId} </div>
+                        
+                        <Button  variant="contained" onClick={() => { handelExit(r) }}>יציאה לחדר מס {r.roomId}</Button></>
+                        : `הנכם רשומים בחדר מס ${r.roomId} וכבר עשיתם יציאה לחדר זה`
+                ))
+                : 'אין לכם חדר זמין'}
+
+            
             <h3 id='greetingTxt'>אנו מאחלים לך שהות נעימה ומועילה,
-                <br /> בתקווה לבשורות טובות.
+                <br /> בתקווה לבשורות טובות.</h3>
             {iinput && (
-              <>  <h3>נשמח אם תשאירו לנו את המייל שלכם       <input
+                <>  <h3>נשמח אם תשאירו לנו את המייל שלכם       <input
                     type="email"
                     value={eemail}
                     onChange={handleChange}
                     placeholder="הכנס ערך"
                 /></h3>
-                <span>{errorMesage}</span>
-                <input type="Button" value="הוסף למערכת" onClick={handleClick}  />
+                    <span>{errorMesage}</span>
+                    <input type="Button" value="הוסף למערכת" onClick={handleClick} />
 
-           </> )}</h3>
+                </>)}
 
-            <h3 id='exitTxt'>בעזיבתך את דירת הארוח - נא הקש על יציאה</h3>
-            <Button id='exit' variant="contained">יציאה</Button>
+
+            {/* <h3 id='exitTxt'>בעזיבתך את דירת הארוח - נא הקש על יציאה</h3>
+            <Button id='exit' variant="contained" onClick={handelExit}>יציאה</Button> */}
 
 
         </div>

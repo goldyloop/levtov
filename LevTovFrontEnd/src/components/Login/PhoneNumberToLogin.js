@@ -222,13 +222,13 @@ export default function OTPInput() {
           navigateToPage('http://localhost:3000/manager');
           alert(userPosition);
           break;
-        case 2:
+        case 3:
           alert("אורח");
           changePosition("guest");
           changePhonePosition(otp);
           navigateToPage('http://localhost:3000/guest');
           break;
-        case 3:
+        case 2:
          
           changePosition("worker");
           changePhonePosition(otp);
