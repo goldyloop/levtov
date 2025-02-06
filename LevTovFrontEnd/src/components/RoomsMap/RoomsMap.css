@@ -78,9 +78,6 @@
 }
 
 @media only screen and (max-width: 800px) {
-    #rooms-maps-body {
-        /* grid-template-rows: 2fr 1fr 4fr; */
-    }
 
     .rooms {
         text-align: center;
@@ -112,7 +109,7 @@
 
     #room-title {
         font-size: 20px;
-        margin-top: 17%;
+        margin-top: 19%;
     }
 
 

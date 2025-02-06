@@ -10,7 +10,6 @@ public partial class Order
 
     public DateTime? OrderDate { get; set; }
 
-
     public int? RoomId { get; set; }
 
     public DateTime? CreatedAt { get; set; }

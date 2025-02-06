@@ -57,6 +57,9 @@ const OneRoom = (props) => {
         <div className="rooms" id={id}>
             <h3 id="room-title">{`חדר ${room.roomId}`}</h3>
             <h4 id="room-remark">{remark}</h4>
+            {room.forToday&&(
+            <div id='for-today'>החדר מוזמן להיום</div>
+            )}
 
             {/* <div id='room-condition'> */}
             <FormControl sx={{

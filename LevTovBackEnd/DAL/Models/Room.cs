@@ -11,6 +11,8 @@ public partial class Room
 
     public int? RoomStatus { get; set; }
 
+    public bool? ForToday { get; set; }
+
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
     public virtual RoomStatus? RoomStatusNavigation { get; set; }

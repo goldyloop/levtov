@@ -26,7 +26,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LevTovConnection")));
+//builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LevTovConnection")));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("LevTovConnection")),
+    ServiceLifetime.Singleton); // שינוי ל-Singleton
+
 
 builder.Services.AddScoped<RoomService>();
 builder.Services.AddScoped<RoomRepository>();
@@ -40,6 +44,8 @@ builder.Services.AddScoped<UserRepository>();
 
 builder.Services.AddScoped<HelloWorldService>();
 builder.Services.AddScoped<HelloWorldRepository>();
+builder.Services.AddHostedService<RoomBackgroundService>(); // זה יריץ את השירות ברקע
+
 
 //var app = builder.Build();
 var app = builder.Build();
