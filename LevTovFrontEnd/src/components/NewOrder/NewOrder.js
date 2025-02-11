@@ -581,8 +581,6 @@ const NewOrder = (props) => {
 
     //חדרים זמניים
 
-
-
     const send = async () => {
         // alert("הפרטים נשמרו");
 

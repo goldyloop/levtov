@@ -375,8 +375,11 @@ const DeleteExistingManager = () => {
     let [isEnoughManagers, setIsEnoughManagers] = useState(false);
 
     useEffect(() => {
-        handlePhoneChange()
+        const func= async()=>{
+        await handlePhoneChange()
         chackIsEnoughManagers();
+        }
+        func()
     }, [currentPassword])
     const handlePhoneChange = async () => {
         // const currentPassword = value;
@@ -441,20 +444,20 @@ const DeleteExistingManager = () => {
                 type="text"
                 className="password-inputs"
                 onChange={(e) => { setCurrentPassword(e.target.value) }}
-                placeholder="הכנס את סיסמת המנהל שברצונך לשנות">
+                placeholder="הכנס את סיסמת המנהל/עובד שברצונך למחוק">
             </input>
             {((currentPassword.length >= 1) && (currentPassword.length < 10)) && !user &&
                 <span className="password-errors">מספר לא תקין</span>
             }
-            {(currentPassword.length == 10 && (!user || user.position == 3)) &&
+            {(currentPassword.length == 10 && (!user || user.position === 3)) &&
                 <span className="password-errors"> לא קיים מנהל או עובד עם המספר שהקשת</span>
             }
-            {user && user.position == 1 &&
+            {user && user.position === 1 &&
                 (<>
                     <span id="password-good-errors"> נמצא המנהל : {user.userName}</span>
                 </>)
             }
-            {user && user.position == 2 &&
+            {user && user.position === 2 &&
                 (<>
                     <span id="password-good-errors"> נמצא העובד : {user.userName}</span>
                 </>)
