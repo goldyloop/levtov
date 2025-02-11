@@ -137,7 +137,7 @@ const HelloGuest = (props) => {
         }
 
         try {
-            let response = await fetch(`https://localhost:7279/api/Order/GetRoomIdByUserId/${phonePosition}`)
+            let response = await fetch(`https://localhost:7279/api/Order/GetRoomIdByUserIdAndForToday/${phonePosition}`)
             response = await response.json()
             setOrderByPhonPosition(response);
             console.log(orderByPhonPosition);

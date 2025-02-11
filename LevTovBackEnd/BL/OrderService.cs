@@ -39,11 +39,11 @@ namespace BL
         {
             return orderRepository.ReadAsync(id);
         }
-        public async Task<IEnumerable<Order>> GetRoomIdByUserId(string userId)
+        public async Task<Order> GetRoomIdByUserIdAndForToday(string userId)
         {
 
             IEnumerable<Order> AllOrdersArr =await orderRepository.ReadAllAsync();
-            IEnumerable<Order> orderArr = AllOrdersArr.Where(order => order.OrderDate == DateTime.Today && userId == order.UserId);
+            Order orderArr = AllOrdersArr.First(order => order.OrderDate == DateTime.Today && userId == order.UserId);
             return orderArr;
 
         }
