@@ -269,9 +269,12 @@ changeStatus(r);
 
                 </div>
             </h2>
+            {
+
+            }
            
 
-            {room.length > 0 ?<h3 id='exitTxt'>בעזיבתך את דירת הארוח - נא הקש על יציאה</h3>&&
+            {/* {room.length > 0 ?<h3 id='exitTxt'>בעזיבתך את דירת הארוח - נא הקש על יציאה</h3>&&
                 room.map((r) => (
                     r.roomStatus === 1 ? <>
 
@@ -280,7 +283,7 @@ changeStatus(r);
                         <Button  variant="contained" onClick={() => { handelExit(r) }}>יציאה לחדר מס {r.roomId}</Button></>
                         : `הנכם רשומים בחדר מס ${r.roomId} וכבר עשיתם יציאה לחדר זה`
                 ))
-                : 'אין לכם חדר זמין'}
+                : <h3>'אין לכם חדר זמין'</h3>} */}
 
             
             <h3 id='greetingTxt'>אנו מאחלים לך שהות נעימה ומועילה,
