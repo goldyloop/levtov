@@ -32,10 +32,10 @@ namespace UI
         {
             return _orderService.GetAllOrders();
         } 
-        [HttpGet("GetRoomIdByUserId/{userId}")]
-        public Task<IEnumerable<Order>> GetRoomIdByUserId(string userId)
+        [HttpGet("GetRoomIdByUserIdAndForToday/{userId}")]
+        public Task<Order> GetRoomIdByUserIdAndForToday(string userId)
         {
-            return _orderService.GetRoomIdByUserId( userId);
+            return _orderService.GetRoomIdByUserIdAndForToday( userId);
         }
 
 
