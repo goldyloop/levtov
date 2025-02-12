@@ -32,10 +32,19 @@ namespace UI
         {
             return _orderService.GetAllOrders();
         } 
+
+
         [HttpGet("GetRoomIdByUserIdAndForToday/{userId}")]
         public Task<Order> GetRoomIdByUserIdAndForToday(string userId)
         {
             return _orderService.GetRoomIdByUserIdAndForToday( userId);
+        }
+
+
+        [HttpGet("GetOrderByUserIdAndDate/{userId}/{date}")]
+        public Task<Order> GetOrderByUserIdAndDate(string userId, DateTime date)
+        {
+            return _orderService.GetOrderByUserIdAndDate(userId, date);
         }
 
 

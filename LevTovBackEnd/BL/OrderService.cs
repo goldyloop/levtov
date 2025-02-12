@@ -47,6 +47,14 @@ namespace BL
             return orderArr;
 
         }
+        public async Task<Order> GetOrderByUserIdAndDate(string userId, DateTime date)
+        {
+
+            IEnumerable<Order> AllOrdersArr =await orderRepository.ReadAllAsync();
+            Order order = AllOrdersArr.FirstOrDefault(order => order.OrderDate == date && userId == order.UserId);
+            return order;
+
+        }
         public Task<Order> CreateOrder(Order item)
         {
             return orderRepository.CreateAsync(item);
