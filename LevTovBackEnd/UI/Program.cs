@@ -44,7 +44,7 @@ builder.Services.AddScoped<UserRepository>();
 
 builder.Services.AddScoped<HelloWorldService>();
 builder.Services.AddScoped<HelloWorldRepository>();
-builder.Services.AddHostedService<RoomBackgroundService>(); // זה יריץ את השירות ברקע
+//builder.Services.AddHostedService<RoomBackgroundService>(); // זה יריץ את השירות ברקע
 
 
 //var app = builder.Build();

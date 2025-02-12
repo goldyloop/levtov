@@ -92,36 +92,36 @@ namespace BL
                     return "היום לא תקין!";
             }
         }
-        public async Task UpdateRoomsForToday()
-        {
-            Console.WriteLine("enterd to UpdateRoomsForToday function!!!!!!!!!!!");
-            // שליפת כל החדרים
-            IEnumerable<Room> rooms = await roomRepository.ReadAllAsync();
+        //public async Task UpdateRoomsForToday()
+        //{
+        //    Console.WriteLine("enterd to UpdateRoomsForToday function!!!!!!!!!!!");
+        //    // שליפת כל החדרים
+        //    IEnumerable<Room> rooms = await roomRepository.ReadAllAsync();
 
-            // שליפת כל ההזמנות
-            IEnumerable<Order> orders = await orderRepository.ReadAllAsync();
+        //    // שליפת כל ההזמנות
+        //    IEnumerable<Order> orders = await orderRepository.ReadAllAsync();
 
-            // סינון ההזמנות שרלוונטיות להיום
-            DateTime today = DateTime.Today;
-            var occupiedRoomIds = orders
-                .Where(order => order.OrderDate.HasValue && order.OrderDate.Value.Date == today)
-                     .Select(order => order.RoomId)
-                .ToHashSet();
+        //    // סינון ההזמנות שרלוונטיות להיום
+        //    DateTime today = DateTime.Today;
+        //    var occupiedRoomIds = orders
+        //        .Where(order => order.OrderDate.HasValue && order.OrderDate.Value.Date == today)
+        //             .Select(order => order.RoomId)
+        //        .ToHashSet();
 
-            // עדכון החדרים בהתאם לרשימת ההזמנות להיום
-            foreach (var room in rooms)
-            {
-                bool shouldBeForToday = occupiedRoomIds.Contains(room.RoomId);
-                Console.WriteLine(  "room: "+room.RoomId+" is: "+shouldBeForToday);
+        //    // עדכון החדרים בהתאם לרשימת ההזמנות להיום
+        //    foreach (var room in rooms)
+        //    {
+        //        bool shouldBeForToday = occupiedRoomIds.Contains(room.RoomId);
+        //        Console.WriteLine(  "room: "+room.RoomId+" is: "+shouldBeForToday);
 
-                // רק אם הערך השתנה, נבצע עדכון
-                if (room.ForToday != shouldBeForToday)
-                {
-                    room.ForToday = shouldBeForToday;
-                    await roomRepository.UpdateAsync(room.RoomId, room); // עדכון במסד הנתונים
-                }
-            }
-        }
+        //        // רק אם הערך השתנה, נבצע עדכון
+        //        if (room.ForToday != shouldBeForToday)
+        //        {
+        //            room.ForToday = shouldBeForToday;
+        //            await roomRepository.UpdateAsync(room.RoomId, room); // עדכון במסד הנתונים
+        //        }
+        //    }
+        //}
 
     }
 }
