@@ -199,8 +199,11 @@ const HelloGuest = (props) => {
 
 
 
+
             <Logo></Logo>
+
             {/* <logoLev /> */}
+
             <Link to="/" style={{ textDecoration: 'none' }}>
                 <IconButton id='hIcon' >
                     <HomeIcon sx={{ fontSize: 60 }} />

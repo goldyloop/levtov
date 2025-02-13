@@ -524,6 +524,8 @@ const NewOrder = (props) => {
 
     let [rooms, setRooms] = React.useState([]);
     let [userName, setUserName] = React.useState('');
+    let [userPhone, setUserPhone] = React.useState('');
+    let [isSameOrder, setIsSameOrder] = React.useState(false);
     let [userPosition, setUserPosition] = React.useState(3);
 
     // React.useEffect(()=>{
@@ -547,6 +549,11 @@ const NewOrder = (props) => {
         console.log("possssssssss", userPosition);
         if (step === 2) {
             if (isValid && userPosition === 3) {
+                setStep(step + 1)
+            }
+        }
+        else if (step === 4) {
+            if (isValid && !isSameOrder) {
                 setStep(step + 1)
             }
         }
@@ -704,6 +711,7 @@ const NewOrder = (props) => {
     const searchUser = async () => {
         console.log("נכנס לפונקציה חיפוש משתמש");
         let phone = document.getElementById("guest-phone").value;
+        setUserPhone(phone)
         // let phone = userId;
         let user;
         try {
@@ -824,7 +832,7 @@ const NewOrder = (props) => {
             </div>
             <div id='buttons'>
                 <Button onClick={prevStep} variant="outlined" id='prev'>הקודם</Button>
-                <Button onClick={async () => { await getEmptyRoomsToDate(); nextStep(); }} variant="outlined" id='next'>הבא</Button>
+                <Button onClick={async () => { await getSameOrder(); await getEmptyRoomsToDate(); nextStep(); }} variant="outlined" id='next'>הבא</Button>
             </div>
         </div>
     )
@@ -851,19 +859,23 @@ const NewOrder = (props) => {
                         )}
                     />
                 </FormControl> */}
-                <label>חדר:</label><br />
-                <select
-                    id='room'
-                    className='text-filds'
-                    {...register("room")}
-                    // onChange={(e) => { console.log("e.target.value",e.target.value);setFormData((prevData) => ({ ...prevData, ["room"]: e.target.value })) }}
-                    onChange={(e) => { console.log("e.target.value", e.target.value); setValue("room", e.target.value) }}
-                >
-                    {rooms && rooms.length > 0 ? rooms.map((item) => (
-                        <option key={item.roomId} value={item.roomId}>{item.roomId}</option>
-                    )) : <option value="">אין חדרים פנויים ביום זה...</option>}
-                </select>
-                {errors.room && <p>{errors.room.message}</p>}
+                {isSameOrder ? <h4>כבר קיימת הזמנה לתאריך שבחרת על שם מהמספר שהכנסת.</h4> :
+                    <>
+                        <label>חדר:</label><br />
+                        <select
+                            id='room'
+                            className='text-filds'
+                            {...register("room")}
+                            // onChange={(e) => { console.log("e.target.value",e.target.value);setFormData((prevData) => ({ ...prevData, ["room"]: e.target.value })) }}
+                            onChange={(e) => { console.log("e.target.value", e.target.value); setValue("room", e.target.value) }}
+                        >
+                            {rooms && rooms.length > 0 ? rooms.map((item) => (
+                                <option key={item.roomId} value={item.roomId}>{item.roomId}</option>
+                            )) : <option value="">אין חדרים פנויים ביום זה...</option>}
+                        </select>
+                        {errors.room && <p>{errors.room.message}</p>}
+                    </>
+                }
             </div>
             <div id='buttons'>
                 <Button onClick={prevStep} variant="outlined" id='prev'>הקודם</Button>
@@ -876,7 +888,7 @@ const NewOrder = (props) => {
         // alert("נכנס!!!!!!!!")
         let d = document.getElementById("order-date").value
         // setDate(d)
-        // console.log("date", date);
+        console.log("date", d);
 
         try {
             let response = await fetch(`https://localhost:7279/api/Room/getEmptyRoomTo/${d}T00:00:00Z`)
@@ -887,10 +899,27 @@ const NewOrder = (props) => {
             response = await response.json()
             setRooms(response);
             console.log(rooms);
-
         }
         catch (err) {
             console.error("שגיאה בהתחברות לשרת", err);
+        }
+    }
+
+    const getSameOrder = async () => {
+        let d = document.getElementById("order-date").value;
+        let phone = userPhone;
+        console.log("i", phone);
+        try {
+            let response = await fetch(`https://localhost:7279/api/Order/GetOrderByUserIdAndDate/${phone}/${d}T00:00:00Z`)
+            if (response.status === 204) {
+                setIsSameOrder(false)
+                return
+            }
+            setIsSameOrder(true)
+            return;
+
+        } catch (error) {
+            console.error(error);
         }
     }
 

@@ -113,8 +113,8 @@ export default function AllOrders() {
                     names[row.userId] = name;
                     emails[row.userId] = email;
                 } else {
-                    names[row.userId] = 'לא נמצא'; // או כל ערך ברירת מחדל אחר
-                    emails[row.userId] = 'לא נמצא'; // או כל ערך ברירת מחדל אחר
+                    names[row.userId] = 'לא נמצא'; 
+                    emails[row.userId] = 'לא נמצא'; 
                 }
             }
             setUserNames(names);
@@ -320,7 +320,7 @@ export default function AllOrders() {
                                                     {row.userId}
                                                     <br />
                                                     <b id="b">אימייל:</b>
-                                                    {userEmail[row.userId] || 'טוען...'}
+                                                    {userEmail[row.userId] || ''}
                                                 </div>
                                             )}
                                         </StyledTableRow>
