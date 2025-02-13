@@ -67,6 +67,23 @@ function OTP({ separator, length, value, onChange }) {
         break;
     }
   };
+//   const getRoom = async () => {
+//     if(orderByPhonPosition!=null){
+//     console.log("נכנס לקבלת חדר");
+//     try {
+//         let response = await fetch(`https://localhost:7279/api/Room/get/${orderByPhonPosition.roomId}`);
+//         if (response.ok) {
+//             response = await response.json();
+//             setRoom(response);
+//         }
+//     }
+//     catch (error) {
+//         console.log(error);
+//     }
+//   }
+  
+   
+// };
 
   const handleChange = (event, currentIndex) => {
     const currentValue = event.target.value;
@@ -177,8 +194,7 @@ export default function OTPInput() {
   const dispatch = useDispatch();
   const userPosition = useSelector((state) => state.currentUser.userPosition);
   const phonePosition = useSelector((state)=> state.currentPhone.phonePosition);
-  // console.log(userPosition);
-  // console.log(phonePosition);
+ 
   useEffect(() => {
     console.log('User Position:', userPosition);
   }, [userPosition]);
@@ -200,13 +216,11 @@ export default function OTPInput() {
     console.log(data.position);  }
     } 
     catch (error) {
-      // console.error(error);
-      // console.log("error");
+     
       alert("בעיה בהתחברות לשרת");
     } 
     if (data && Object.keys(data).length !== 0 ){
-      // const filteredObjects =await Object.keys(data).filter(obj => obj.UserId === otp);
-      // if(filteredObjects!=null){
+    
     const changePosition = (newPosition) => {
         dispatch(setUserPosition(newPosition)); // שינוי סוג המשתמש
       };
@@ -220,10 +234,10 @@ export default function OTPInput() {
           changePosition("manager");
           changePhonePosition(otp);
           navigateToPage('http://localhost:3000/manager');
-          alert(userPosition);
+          
           break;
         case 3:
-          alert("אורח");
+          
           changePosition("guest");
           changePhonePosition(otp);
           navigateToPage('http://localhost:3000/guest');
@@ -239,11 +253,9 @@ export default function OTPInput() {
         default:
           console.log("מצב לא ידוע.");
       }}
-      // else{
-      //   alert("הכנס את המספר שאתו נרשמתם");
-      // }
+      
     }
-  // }
+  
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       <OTP separator={<span>-</span>} value={otp} onChange={setOtp} length={10} />
