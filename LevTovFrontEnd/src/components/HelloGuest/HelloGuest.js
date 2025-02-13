@@ -27,33 +27,30 @@ const HelloGuest = (props) => {
     }, [phonePosition]);
 
 
+
     useEffect(() => {
         handleGuestRoomAndGuestUserName()
     }, []);
 
     let [userData, setUserData] = useState({});
-    let [orderByPhonPosition, setOrderByPhonPosition] = useState([]);
+    let [orderByPhonPosition, setOrderByPhonPosition] = useState();
     let [eemail, setEmail] = useState('');
     let [errorMesage, setErrorMesage] = useState('');
     let [iinput, setIinput] = useState(true);
-    let [room, setRoom] = useState([{}]);
+    let [orderIsForToday, setOrderIsForToday] = useState(false);
+    // let [room, setRoom] = useState([{}]);
 
     useEffect(() => {
         console.log('userData:', userData);
     }, [userData]);
 
+    // useEffect(() => {
+    //     changeStatus(1);
+    // }, [orderByPhonPosition]);
     useEffect(() => {
-        console.log('orderByPhonPosition:', orderByPhonPosition);
-    }, [orderByPhonPosition]);
-    useEffect(() => {
-        console.log('room:', room);
-    }, [room]);
-    useEffect(() => {
-        if (orderByPhonPosition.length > 0) {
-            getRoom(orderByPhonPosition);
-        }
-    }, [orderByPhonPosition]);
-
+        if(orderIsForToday)
+            changeStatus(1);
+    }, [orderIsForToday]);
 
     const handleChange = (event) => {
         setEmail(event.target.value);
@@ -63,22 +60,17 @@ const HelloGuest = (props) => {
 
     async function handleClick() {
         // כאן את יכולה לגשת לערך של inputValue
-
         if (errorMesage == true) {
-
             const updatedData = { ...userData, email: eemail };
             try {
-
                 console.log(eemail);
                 console.log('נתוני העדכון:', updatedData);
-
                 let response = await fetch(`https://localhost:7279/api/User/update/${phonePosition}`, {
                     method: "PUT",
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(updatedData)
-
                 })
                 console.log(response);
                 if (response.ok) {
@@ -94,11 +86,7 @@ const HelloGuest = (props) => {
             catch (error) {
                 console.error("שגיאה בשרת" + error)
             }
-
-
         }
-
-
     };
     function checkEmail(email) {
         // בדיקת פורמט בסיסי
@@ -138,95 +126,51 @@ const HelloGuest = (props) => {
 
         try {
             let response = await fetch(`https://localhost:7279/api/Order/GetRoomIdByUserIdAndForToday/${phonePosition}`)
-            response = await response.json()
-            setOrderByPhonPosition(response);
-            console.log(orderByPhonPosition);
+            if (response.ok) {
+                response = await response.json()
+                setOrderByPhonPosition(response);
+                console.log(orderByPhonPosition);
+                setOrderIsForToday(true);
+            }
         }
         catch (error) {
             alert(error);
         }
-
         console.log(userData.userId);
         console.log(userData.userName);
         console.log(orderByPhonPosition);
+
+        changeStatus(1);
     }
 
-    const getRoom = async () => {
-        // alert("מחפש חדר");
-        try {
-            const roomPromises = orderByPhonPosition.map(async (roomData) => {
-
-                console.log("orderByPhonPosition", orderByPhonPosition);
-                let response = await fetch(`https://localhost:7279/api/Room/get/${roomData.roomId}`);
-                if (!response.ok) {
-                    // let response = await fetch(`https://localhost:7279/api/Room/get/${orderByPhonPosition[0].roomId}`)
-                    // if (!response.ok) {
-                    //     console.log("שגיאה בקבלת החדר");
-                    // }
-                    console.log("שגיאה בקבלת החדר");
-                    // return null; // או טיפול בשגיאה אחר
+    const changeStatus = async (statusNumber) => {
+        if (orderIsForToday == true) {
+            const newRoom = {
+                roomId: orderByPhonPosition.roomId,
+                roomStatus: statusNumber
+            }
+            // console.log("roommmmm", room);
+            try {
+                let response = await fetch(`https://localhost:7279/api/Room/update/${orderByPhonPosition.roomId}`, {
+                    method: "PUT",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(newRoom)
+                })
+                // console.log('response', response);
+                if (response.ok) {
+                    const result = await response.json();
+                    //  updateRoomStatus(result)
+                    console.log('החדר עודכן בהצלחה', result);
                 }
-                // else {
-                //     response = await response.json()
-                //     setRoom(response);
-                //     console.log(response);
-                // } 
-                console.log("RESPONE", response);
-                return await response.json();
-            });
-            // }
-            // catch (error) {
-            //     alert(error);
-            // }
-            // console.log('room', room);
-            // }
-            const rooms = await Promise.all(roomPromises);
+                else {
+                    console.error('שגיאה בעדכון החדר');
+                }
 
-            // מסנן ערכים null (שגיאות)
-            const validRooms = rooms.filter(room => room !== null);
-
-            // מעדכן את ה-state עם האובייקטים שהתקבלו
-            // alert("validRooms")
-            setRoom(validRooms);
-            console.log("validRooms", validRooms);
-
-        } catch (error) {
-            alert("לא מצליח", error);
-        }
-        console.log('room', room);
-    };
-
-
-
-
-
-    const changeStatus = async (r) => {
-
-        console.log("roommmmm", r);
-
-        
-        const updatedData = { ...r, roomStatus: 2 };
-        console.log(updatedData);
-        try {
-            let response = await fetch(`https://localhost:7279/api/Room/update/${r.roomId}`, {
-                method: "PUT",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(updatedData)
-            })
-            // console.log('response', response);
-            if (response.ok) {
-                const result = await response.json();
-                //  updateRoomStatus(result)
-                console.log('החדר עודכן בהצלחה', result);
+            } catch (err) {
+                console.error("שגיאה בשרת" + err)
             }
-            else {
-                console.error('שגיאה בעדכון החדר');
-            }
-
-        } catch (err) {
-            console.error("שגיאה בשרת" + err)
         }
     };
     const handelExit = async (r) => {
@@ -246,15 +190,18 @@ const HelloGuest = (props) => {
                     text: "צאתכם לשלום",
                     icon: "success"
                 });
-changeStatus(r);
-            } 
+                changeStatus(2);
+            }
         });
     }
     return (
         <div id='hello-gust-body'>
-            {/* <img id='logoLev' src={LogoLev} alt="Description of the image" /> */}
-            
-            <Logo/>
+
+
+
+
+            <Logo></Logo>
+
             {/* <logoLev /> */}
 
             <Link to="/" style={{ textDecoration: 'none' }}>
@@ -272,39 +219,25 @@ changeStatus(r);
             {
 
             }
-           
+            {orderByPhonPosition ? <> <h2>הנך בחדר מס {orderByPhonPosition.roomId}</h2>
+                <h3 id='greetingTxt'>אנו מאחלים לך שהות נעימה ומועילה,
+                    <br /> בתקווה לבשורות טובות.</h3>
+                {iinput && (
+                    <>  <h3>נשמח אם תשאירו לנו את המייל שלכם       <input
+                        type="email"
+                        value={eemail}
+                        onChange={handleChange}
+                        placeholder="הכנס ערך"
+                    /></h3>
+                        <span>{errorMesage}</span>
+                        <input type="Button" value="הוסף למערכת" onClick={handleClick} />
 
-            {/* {room.length > 0 ?<h3 id='exitTxt'>בעזיבתך את דירת הארוח - נא הקש על יציאה</h3>&&
-                room.map((r) => (
-                    r.roomStatus === 1 ? <>
+                    </>)}
 
-                        <div key={r.roomId}>הנך רשום בחדר מס {r.roomId} </div>
-                        
-                        <Button  variant="contained" onClick={() => { handelExit(r) }}>יציאה לחדר מס {r.roomId}</Button></>
-                        : `הנכם רשומים בחדר מס ${r.roomId} וכבר עשיתם יציאה לחדר זה`
-                ))
-                : <h3>'אין לכם חדר זמין'</h3>} */}
-
-            
-            <h3 id='greetingTxt'>אנו מאחלים לך שהות נעימה ומועילה,
-                <br /> בתקווה לבשורות טובות.</h3>
-            {iinput && (
-                <>  <h3>נשמח אם תשאירו לנו את המייל שלכם       <input
-                    type="email"
-                    value={eemail}
-                    onChange={handleChange}
-                    placeholder="הכנס ערך"
-                /></h3>
-                    <span>{errorMesage}</span>
-                    <input type="Button" value="הוסף למערכת" onClick={handleClick} />
-
-                </>)}
-
-
-            {/* <h3 id='exitTxt'>בעזיבתך את דירת הארוח - נא הקש על יציאה</h3>
-            <Button id='exit' variant="contained" onClick={handelExit}>יציאה</Button> */}
-
-
+                <h3 id='exitTxt'>בעזיבתך את דירת הארוח - נא הקש על יציאה</h3>
+                <Button id='exit' variant="contained" onClick={() => { handelExit(orderByPhonPosition.roomId) }}>יציאה</Button>
+            </>
+                : <h2>אין לכם חדר מוזמן להיום</h2>}
         </div>
     );
 }
